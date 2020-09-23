@@ -1,4 +1,4 @@
-# Alumni-Connect Project Proposal
+# Alumni-Connect
 ## Introduction
 Most of students decide to attend the class remotely due to COVID-19, which also makes it diffcult for classmates to communicate with each other. 
 In this case, our team decide to deveolpe a web application which is a social media platform where all NYU alumni can share their daily life and other information.
