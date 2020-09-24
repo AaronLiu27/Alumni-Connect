@@ -14,7 +14,7 @@ Like twitter, the basic way to get in touch with others is that you “follow pe
 When you make a post, your followers see it, and you can also browse the posts of people who you’re following.
 If you want to communicate with people without it being public, you can send short private messages.
 ## Tools.
-Python\
+Pyhthon\
 Flask\
 React
 
@@ -38,6 +38,7 @@ Chen Chen
 Jingxian Du
 
 Weilu Wang
+NetID: wlw273
 
-Zongshun Liu (zl3005)
+Zongshun Liu
 
