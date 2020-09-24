@@ -17,3 +17,27 @@ If you want to communicate with people without it being public, you can send sho
 Pyhthon\
 Flask\
 React
+
+## Modules
+
+1. ### Authentication and Authorization
+- Register
+- Login
+
+2. ### Profile system
+- Fetch
+- Create & Edit
+
+3. ### Post system
+- Post & Edit
+- Comment
+
+## Contributors
+Chen Chen
+
+Jingxian Du
+
+Weilu Wang
+
+Zongshun Liu
+
