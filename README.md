@@ -37,8 +37,7 @@ Chen Chen
 
 Jingxian Du(jd4472)
 
-Weilu Wang
-NetID: wlw273
+Weilu Wang(wlw273)
 
 Zongshun Liu
 
