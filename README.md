@@ -35,7 +35,7 @@ React
 ## Contributors
 Chen Chen
 
-Jingxian Du
+Jingxian Du(jd4472)
 
 Weilu Wang
 NetID: wlw273
