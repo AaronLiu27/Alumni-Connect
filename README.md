@@ -33,7 +33,7 @@ React
 - Comment
 
 ## Contributors
-Chen Chen
+Chen Chen(cc6475)
 
 Jingxian Du(jd4472)
 
