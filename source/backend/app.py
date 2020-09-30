@@ -9,10 +9,10 @@ api = Api(app)
 
 users = {'admin': '000'}
 
-@api.route("/hello")
+@api.route("/global-data")
 class Hello(Resource):
     def get(self):
-        return {"hello": "world"}
+        return {"num_of_users": len(users)}
 
 @api.route("/auth")
 class Auth(Resource):
@@ -27,16 +27,59 @@ class Auth(Resource):
         else:
             return {"result": "login successfully"}
 
-@api.route("/register_to_db")
+@api.route("/register-to-db")
 class Register(Resource):
     def post(self):
         user_input = request.form.get("username")
         pwd_input = request.form.get("password")
+        
+        #add new user to db
         users[user_input] = pwd_input
         return {"username":user_input, "password":users[user_input]}
 
+@api.route("/comment")
+class Comment(Resource):
+    def post(self):
+        return
+    def get(self):
+        return
+    def put(self):
+        return
+@api.route("/profile")
+class Profile(Resource):
+    def post(self):
+        return
+    def get(self):
+        return
+    def put(self):
+        return
+@api.route("/posts")
+class Posts(Resource):
+    def post(self):
+        return
+    def get(self):
+        return
+    def put(self):
+        return
+@api.route("/diary")
+class Diary(Resource):
+    def post(self):
+        return
+    def get(self):
+        return
+    def put(self):
+        return
+@api.route("/messages")
+class Messages(Resource):
+    def post(self):
+        return
+    def get(self):
+        return
+    def put(self):
+        return
 
-##############
+
+###########
 @app.route("/login", methods=['GET'])
 def loginPage():
     return render_template("login.html")
