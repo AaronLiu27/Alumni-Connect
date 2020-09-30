@@ -1,4 +1,5 @@
 from flask import Flask
+
 from flask import render_template, request
 from flask_restx import Resource, Api
 
@@ -6,6 +7,7 @@ app = Flask(__name__)
 app.config["DEBUG"] = True
 
 api = Api(app)
+
 
 users = {'admin': '000'}
 
@@ -89,6 +91,7 @@ def registerPage():
     return render_template("register.html")
 
     
+
 
 
 if __name__ == "__main__":
