@@ -3,3 +3,5 @@ flask-restx
 Flask-PyMongo
 dnspython
 python-dotenv
+Flask-Gravatar
+passlib

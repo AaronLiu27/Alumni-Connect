@@ -1,23 +1,32 @@
 from flask import Flask
-from flask import render_template, request
+from flask import render_template, request, jsonify
 from flask_restx import Resource, Api
 
 from flask_pymongo import PyMongo
+from db import JSONEncoder, mongo
 
 import logging
+
+# namespaces
+from users import api as ns_users
+from profiles import api as ns_profiles
+
+# mongo = PyMongo()
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
 app.config.from_object("db")
 app.config.from_object("settings")
+app.json_encoder = JSONEncoder
+
+mongo.init_app(app)
 
 logging.basicConfig(level=logging.DEBUG, format=app.config["LOGGING_FORMAT"])
 logger = logging.getLogger(__name__)
 
-mongo = PyMongo(app)
-
 api = Api(app)
-
+api.add_namespace(ns_users)
+api.add_namespace(ns_profiles)
 
 users = {"admin": "000"}
 
@@ -65,16 +74,16 @@ class Comment(Resource):
         return
 
 
-@api.route("/profile")
-class Profile(Resource):
-    def post(self):
-        return
+# @api.route("/profile")
+# class Profile(Resource):
+#     def post(self):
+#         return
 
-    def get(self):
-        return
+#     def get(self):
+#         return
 
-    def put(self):
-        return
+#     def put(self):
+#         return
 
 
 @api.route("/posts")
@@ -127,15 +136,16 @@ def registerPage():
 # ==================================#
 # =============Testing==============#
 
+
 # Mongodb test
-@api.route("/dbtest")
+@api.route("/dbtest/<userid>", endpoint="dbtest")
 class DBTest(Resource):
-    def get(self):
+    def get(self, userid):
         logger.debug(app.config["MONGO_URI"])
-        user_col = mongo.db.users
-        logger.debug(user_col.find({"name": "John"})[0])
-        # user_col.insert({"name": "Tom"})
-        return {"msg": "Connected to the database."}
+        # user_col = mongo.db.users
+        # firstname = request.args.get("firstname")
+        logger.debug(request.args)
+        return []
 
 
 # =============Testing==============#

@@ -1,19 +1,29 @@
-# from flask import Flask
-# from flask_pymongo import PyMongo
+from flask_pymongo import PyMongo
+
+# from flask_mongoengine import MongoEngine
+
 from dotenv import load_dotenv
 import os
 
-# import logging
-
-# logging.basicConfig(
-# level=logging.DEBUG, format="%(asctime)s : %(name)s : %(levelname)s - %(message)s"
-# )
+import json
+from bson.objectid import ObjectId
+import datetime
 
 # Load private environment configuration
 # You need your own .env file
 load_dotenv()
-uname = os.getenv("DB_USER")
-passwd = os.getenv("DB_PASSWD")
-dbname = "db"
+MONGO_URI = os.getenv("MONGO_URI")
 
-MONGO_URI = f"mongodb+srv://{uname}:{passwd}@alumniconnect.usbk3.mongodb.net/{dbname}?retryWrites=true&w=majority"
+
+class JSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, ObjectId):
+            return str(obj)
+        if isinstance(obj, set):
+            return list(obj)
+        if isinstance(obj, datetime.datetime):
+            return str(obj)
+        return json.JSONEncoder.default(self, obj)
+
+
+mongo = PyMongo()
