@@ -7,7 +7,8 @@ FORCE:
 prod: tests github
 
 github: FORCE
-		- git commit -a
+		git add .
+		git commit
 		git push
 
 tests: lint unit
