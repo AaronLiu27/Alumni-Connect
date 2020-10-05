@@ -12,7 +12,7 @@ from passlib.context import CryptContext
 logger = logging.getLogger(__name__)
 mongo = db.mongo
 
-api = Namespace("users", description="User related routes")
+api = Namespace("users", description="User related routes", path="/api/users")
 
 user = api.model(
     "User",

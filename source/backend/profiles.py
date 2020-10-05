@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 logger = logging.getLogger(__name__)
 mongo = db.mongo
 
-api = Namespace("profiles", description="Profile related routes")
+api = Namespace("profiles", description="Profile related routes", path="/api/profiles")
 
 profile = api.model(
     "Profile",
