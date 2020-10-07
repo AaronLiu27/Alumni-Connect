@@ -7,17 +7,16 @@ FORCE:
 prod: tests github
 
 github: FORCE
-		git add .
-		git commit
-		git push
+	- git commit -a
+	git push
 
 tests: lint unit
 
 unit: FORCE
-		echo "We have to write some tests!"
+	echo "We have to write some tests!"
 
 lint: FORCE
-		$(LINTER) $(SRC_DIR)/*.py
+	$(LINTER) $(SRC_DIR)/*.py
 
 dev_env: FORCE
-		pip install -r $(REQ_DIR)/requirements-dev.txt
+	pip install -r $(REQ_DIR)/requirements-dev.txt
