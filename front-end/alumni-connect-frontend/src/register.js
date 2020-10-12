@@ -3,109 +3,93 @@ import InputField from './inputField';
 import SubmitButton from './submitButton';
 import UserStore from './stores/UserStore';
 import axios from 'axios';
+import { useState } from "react";
 
-class RegisterForm extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            password: '',
-            buttonDisabled: false
-        }
+function RegisterForm() {
+
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+
+
+    const resetForm = () => {
+        setUsername('');
+        setPassword('');
+        setEmail('');
+        setButtonDisabled(false);
     }
 
-    setInputValue(property, val) {
-        val = val.trim();
-        if (val.length > 12) {
+    const doRegister = async () => {
+
+        if (!username) {
             return;
         }
-        this.setState({
-            [property]: val
-        })
-    }
-
-    resetForm() {
-        this.setState({
-            username: '',
-            password: '',
-            email:    '',
-            buttonDisabled: false
-        })
-    }
-
-    async doRegister() {
-
-        if (!this.state.username) {
-            return;
-        }
-        if(!this.state.password) {
+        if(!password) {
             return;
         }
 
-        this.setState({
-            buttonDisabled: true
-        })
+        setButtonDisabled(true);
 
         try {
             
             const apiUrl = '/api/users/';
             let res = await axios.post(apiUrl, {
-                username: this.state.username,
-                passwd  : this.state.password,
+                username: username,
+                passwd  : password,
                 _id     : 'New ID',
-                email   : this.state.email,
+                email   : email,
                 avatar  : ''
             });
 
             if (res.success) {
                 UserStore.isLoggedIn = true;
                 UserStore.username = res.data.username;
-            } {
-                this.resetForm();
+            } else {
+                resetForm();
                 alert('Register Failed');
             }
         } catch(e) {
-            this.resetForm();
+            resetForm();
             console.log(e);
         }
 
     }
 
-    render() {
-        return (
-            <div className="loginForm">
-                Resigter
-                <InputField
-                    type='text'
-                    plcaeholder='Username'
-                    value={this.state.username ? this.state.username : ''}
-                    onChange={(val) => this.setInputValue('username', val)}
-                />
+    return (
+        <div className="loginForm">
+            Resigter
+            <InputField
+                type='text'
+                plcaeholder='Username'
+                value={username ? username : ''}
+                onChange={(val) => setUsername(val)}
+            />
 
-                <InputField
-                    type='password'
-                    plcaeholder='Password'
-                    value={this.state.password ? this.state.password : ''}
-                    onChange={(val) => this.setInputValue('password', val)}
-                />
+            <InputField
+                type='password'
+                plcaeholder='Password'
+                value={password ? password : ''}
+                onChange={(val) => setPassword(val)}
+            />
 
-                <InputField
-                    type='text'
-                    plcaeholder='Email'
-                    value={this.state.email ? this.state.email : ''}
-                    onChange={(val) => this.setInputValue('email', val)}
-                />
+            <InputField
+                type='text'
+                plcaeholder='Email'
+                value={email ? email : ''}
+                onChange={(val) => setEmail(val)}
+            />
 
-                <SubmitButton
-                    text='Register'
-                    disabled={this.state.buttonDisabled}
-                    onClick={ () => this.doRegister() }
-                />
+            <SubmitButton
+                text='Register'
+                disabled={buttonDisabled}
+                onClick={ () => doRegister() }
+            />
 
-            </div>
-        );
-    }
+        </div>
+    );
 
 }
 

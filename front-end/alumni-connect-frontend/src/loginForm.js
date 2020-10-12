@@ -3,103 +3,83 @@ import InputField from './inputField';
 import SubmitButton from './submitButton';
 import UserStore from './stores/UserStore';
 import axios from 'axios';
+import { useState } from "react";
 
-class LoginForm extends React.Component {
+function LoginForm() {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            password: '',
-            buttonDisabled: false
-        }
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+
+    const resetForm = () => {
+        setUsername('');
+        setPassword('');
+        setButtonDisabled(false);
     }
 
-    setInputValue(property, val) {
-        val = val.trim();
-        if (val.length > 12) {
+    const doLogin = async () => {
+
+        if (!username) {
             return;
         }
-        this.setState({
-            [property]: val
-        })
-    }
-
-    resetForm() {
-        this.setState({
-            username: '',
-            password: '',
-            buttonDisabled: false
-        })
-    }
-
-    async doLogin() {
-
-        if (!this.state.username) {
-            return;
-        }
-        if(!this.state.password) {
+        if(!password) {
             return;
         }
 
-        this.setState({
-            buttonDisabled: true
-        })
+        setButtonDisabled(true);
 
-        if(this.state.username === 'user' && this.state.password === 'password') {
+        if(username === 'user' && password === 'password') {
             UserStore.isLoggedIn = true;
-            UserStore.username = this.state.username;
+            UserStore.username = username;
             return;
         }
 
         try {
             const apiUrl = '/auth';
             let res = await axios.post(apiUrl, {
-                "username": this.state.username,
-                "passwd": this.state.password,
+                "username": username,
+                "passwd": password,
             });
 
             if (res.status === 200) {
                 UserStore.isLoggedIn = true;
-                UserStore.username = this.state.username;
+                UserStore.username = username;
             } else {
-                this.resetForm();
+                resetForm();
                 alert(res.statusText);
             }
         } catch(e) {
-            this.resetForm();
+            resetForm();
             console.log(e);
         }
 
     }
 
-    render() {
-        return (
-            <div className="loginForm">
-                Log In
-                <InputField
-                    type='text'
-                    plcaeholder='Username'
-                    value={this.state.username ? this.state.username : ''}
-                    onChange={(val) => this.setInputValue('username', val)}
-                />
+    return (
+        <div className="loginForm">
+            Log In
+            <InputField
+                type='text'
+                plcaeholder='Username'
+                value={username ? username : ''}
+                onChange={(val) => setUsername(val)}
+            />
 
-                <InputField
-                    type='password'
-                    plcaeholder='Password'
-                    value={this.state.password ? this.state.password : ''}
-                    onChange={(val) => this.setInputValue('password', val)}
-                />
+            <InputField
+                type='password'
+                plcaeholder='Password'
+                value={password ? password : ''}
+                onChange={(val) => setPassword(val)}
+            />
 
-                <SubmitButton
-                    text='Login'
-                    disabled={this.state.buttonDisabled}
-                    onClick={ () => this.doLogin() }
-                />
+            <SubmitButton
+                text='Login'
+                disabled={buttonDisabled}
+                onClick={ () => doLogin() }
+            />
 
-            </div>
-        );
-    }
+        </div>
+    );
 
 }
 
