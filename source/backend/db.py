@@ -26,4 +26,4 @@ class JSONEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 
-mongo = PyMongo()
+mongo = PyMongo(connect=False)
