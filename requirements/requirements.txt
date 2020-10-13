@@ -5,3 +5,4 @@ dnspython
 python-dotenv
 Flask-Gravatar
 passlib
+flask_jwt_extended
