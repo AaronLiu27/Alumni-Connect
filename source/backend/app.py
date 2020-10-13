@@ -10,6 +10,7 @@ import logging
 # namespaces
 from users import api as ns_users
 from profiles import api as ns_profiles
+from auth import api as ns_auth
 
 # mongo = PyMongo()
 
@@ -27,8 +28,16 @@ logger = logging.getLogger(__name__)
 api = Api(app)
 api.add_namespace(ns_users)
 api.add_namespace(ns_profiles)
+api.add_namespace(ns_auth)
 
 users = {"admin": "000"}
+
+# auth
+from flask_jwt_extended import (
+    JWTManager, jwt_required, create_access_token, get_jwt_identity
+)
+app.config['JWT_SECRET_KEY'] = 'iwjnDcjwei1374jfnu@#hfhq384' 
+jwt = JWTManager(app)
 
 
 @api.route("/global-data")
@@ -36,7 +45,7 @@ class Hello(Resource):
     def get(self):
         return {"num_of_users": len(users)}
 
-
+'''
 @api.route("/auth")
 class Auth(Resource):
     def post(self):
@@ -49,7 +58,7 @@ class Auth(Resource):
             return {"result": "wrong password"}
         else:
             return {"result": "login successfully"}
-
+'''
 
 @api.route("/register-to-db")
 class Register(Resource):
