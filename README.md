@@ -32,6 +32,12 @@ React
 - Post & Edit
 - Comment
 
+## Deploy Instruction
+1. Clone the repository
+2. Copy .env.example to .env and insert a VALID `MONGO_URI`
+3. Make sure `docker` is installed on your machine
+3. Run `docker-compose up` in the project root directory
+
 ## Contributors
 Chen Chen(cc6475)
 
