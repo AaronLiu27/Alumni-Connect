@@ -20,7 +20,7 @@ user = api.model(
         "_id": fields.String(required=True, description="User ID"),
         "username": fields.String(required=True, description="Username"),
         "email": fields.String(),
-        "passwd": fields.String(),
+        "passwd": fields.String(required=True, description="Password"),
         "avatar": fields.String(),
     },
 )
@@ -50,21 +50,21 @@ class UserUtil:
         pbkdf2_sha256__default_rounds=30000,
     )
 
-    def gravatar(self, email, size=100, default="identicon", rating="g"):
+    @staticmethod
+    def gravatar(email, size=100, default="identicon", rating="g"):
         url = "http://www.gravatar.com/avatar"
         hashed_email = hashlib.md5(email.encode("utf-8")).hexdigest()
         return "{url}/{hash}?s={size}&d={default}&r={rating}".format(
             url=url, hash=hashed_email, size=size, default=default, rating=rating
         )
 
-    def encrypt_password(self, password):
+    @staticmethod
+    def encrypt_password(password):
         return UserUtil.pwd_context.hash(password)
 
-    def check_encrypted_password(self, password, hashed):
+    @staticmethod
+    def check_encrypted_password(password, hashed):
         return UserUtil.pwd_context.verify(password, hashed)
-
-
-userUtil = UserUtil()
 
 
 @api.route("/")
@@ -96,7 +96,7 @@ class Users(Resource):
         user_new["email"] = request.form.get("email")
         user_new["uname"] = request.form.get("username")
         user_new["passwd"] = request.form.get("password")
-        user_new["avatar"] = userUtil.gravatar(user_new["email"])
+        user_new["avatar"] = UserUtil.gravatar(user_new["email"])
 
         user_col = mongo.db.users
         user_added = user_col.insert_one(user_new)
@@ -125,6 +125,6 @@ class User(Resource):
 
 
 if __name__ == "__main__":
-    print(userUtil.gravatar("john@gmail.com"))
-    print(userUtil.encrypt_password("abc"))
-    print(userUtil.encrypt_password("abc"))
+    print(UserUtil.gravatar("john@gmail.com"))
+    print(UserUtil.encrypt_password("abc"))
+    print(UserUtil.encrypt_password("abc"))

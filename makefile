@@ -20,3 +20,6 @@ lint: FORCE
 
 dev_env: FORCE
 	pip install -r $(REQ_DIR)/requirements-dev.txt
+
+run: dev_env
+	python3 $(SRC_DIR)/backend/app.py

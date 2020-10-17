@@ -34,9 +34,13 @@ users = {"admin": "000"}
 
 # auth
 from flask_jwt_extended import (
-    JWTManager, jwt_required, create_access_token, get_jwt_identity
+    JWTManager,
+    jwt_required,
+    create_access_token,
+    get_jwt_identity,
 )
-app.config['JWT_SECRET_KEY'] = 'iwjnDcjwei1374jfnu@#hfhq384' 
+
+app.config["JWT_SECRET_KEY"] = "iwjnDcjwei1374jfnu@#hfhq384"
 jwt = JWTManager(app)
 
 
@@ -45,7 +49,8 @@ class Hello(Resource):
     def get(self):
         return {"num_of_users": len(users)}
 
-'''
+
+"""
 @api.route("/auth")
 class Auth(Resource):
     def post(self):
@@ -58,7 +63,8 @@ class Auth(Resource):
             return {"result": "wrong password"}
         else:
             return {"result": "login successfully"}
-'''
+"""
+
 
 @api.route("/register-to-db")
 class Register(Resource):
@@ -81,18 +87,6 @@ class Comment(Resource):
 
     def put(self):
         return
-
-
-# @api.route("/profile")
-# class Profile(Resource):
-#     def post(self):
-#         return
-
-#     def get(self):
-#         return
-
-#     def put(self):
-#         return
 
 
 @api.route("/posts")
@@ -161,4 +155,4 @@ class DBTest(Resource):
 # ==================================#
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host="0.0.0.0")
