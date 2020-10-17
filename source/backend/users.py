@@ -1,10 +1,8 @@
 from flask import request, abort
 from flask_restx import Namespace, Resource, fields
-import json
 import db
 import logging
 from bson.objectid import ObjectId
-from flask_gravatar import Gravatar
 
 import hashlib
 from passlib.context import CryptContext

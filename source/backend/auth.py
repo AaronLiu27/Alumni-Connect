@@ -1,7 +1,6 @@
 from flask import request, abort, jsonify
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import (
-    JWTManager,
     jwt_required,
     create_access_token,
     get_jwt_identity,
@@ -66,4 +65,3 @@ class Protected(Resource):
     def get(self):
         current_user = get_jwt_identity()
         return {"success": current_user}
-

@@ -1,8 +1,8 @@
 from flask import Flask
-from flask import render_template, request, jsonify
+from flask import render_template, request
 from flask_restx import Resource, Api
+from flask_jwt_extended import JWTManager
 
-from flask_pymongo import PyMongo
 from db import JSONEncoder, mongo
 
 import logging
@@ -32,13 +32,13 @@ api.add_namespace(ns_auth)
 
 users = {"admin": "000"}
 
-# auth
-from flask_jwt_extended import (
-    JWTManager,
-    jwt_required,
-    create_access_token,
-    get_jwt_identity,
-)
+# # auth
+# from flask_jwt_extended import (
+#     JWTManager,
+#     jwt_required,
+#     create_access_token,
+#     get_jwt_identity,
+# )
 
 app.config["JWT_SECRET_KEY"] = "iwjnDcjwei1374jfnu@#hfhq384"
 jwt = JWTManager(app)

@@ -1,6 +1,5 @@
 from flask import request, abort
 from flask_restx import Namespace, Resource, fields
-import json
 import db
 import logging
 from bson.objectid import ObjectId
