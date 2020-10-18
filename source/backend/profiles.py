@@ -1,18 +1,24 @@
 from flask import request, abort
 from flask_restx import Namespace, Resource, fields
+
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from auth import auth_parser
+
 import db
-import logging
 from bson.objectid import ObjectId
+
+import logging
 
 logger = logging.getLogger(__name__)
 mongo = db.mongo
+
 
 api = Namespace("profiles", description="Profile related routes", path="/api/profiles")
 
 profile = api.model(
     "Profile",
     {
-        "_id": fields.String(required=True, description="Profile ID"),
+        "_id": fields.String(description="Profile ID"),
         "user": fields.String(required=True, description="Belong to user"),
         "firstname": fields.String(),
         "lastname": fields.String(),
@@ -32,11 +38,14 @@ PROFILES = [
 ]
 
 
-@api.route("/profile/user/<userid>")
+@api.route("/profile/user/<userid>", endpoint="profile")
 class Profile(Resource):
-    @api.doc("Get profile by userid")
+    @jwt_required
+    @api.doc(parser=auth_parser)
     @api.marshal_with(profile)
     def get(self, userid):
+        """Get profile by userid
+        """
         if not userid:
             abort(400, "Bad request.")
 
@@ -48,11 +57,19 @@ class Profile(Resource):
         else:
             return target_profile, 200
 
-    @api.doc("Create profile for userid")
+    @jwt_required
+    @api.doc(parser=auth_parser, body=profile)
     @api.marshal_with(profile)
     def post(self, userid):
+        """Create a new profile for the user identified by userid
+        """
         if not userid:
             abort(400, "Bad request.")
+
+        current_userid = get_jwt_identity()
+        if current_userid != userid:
+            abort(401, "Not authorized.")
+
         user_col = mongo.db.users
         profile_col = mongo.db.profiles
 

@@ -1,8 +1,13 @@
 from flask import request, abort
 from flask_restx import Namespace, Resource, fields
+
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from auth import auth_parser, auth_fields
+
 import db
-import logging
 from bson.objectid import ObjectId
+
+import logging
 
 import hashlib
 from passlib.context import CryptContext
@@ -15,7 +20,7 @@ api = Namespace("users", description="User related routes", path="/api/users")
 user = api.model(
     "User",
     {
-        "_id": fields.String(required=True, description="User ID"),
+        "_id": fields.String(description="User ID"),
         "username": fields.String(required=True, description="Username"),
         "email": fields.String(),
         "passwd": fields.String(required=True, description="Password"),
@@ -69,8 +74,9 @@ class UserUtil:
 # @api.param('id')
 # @api.response(404, 'User not found')
 class Users(Resource):
-    @api.doc("Fetch Users")
-    @api.marshal_list_with(user)
+    @jwt_required
+    @api.doc(parser=auth_parser)
+    @api.marshal_list_with(user, mask="_id,username")
     def get(self):
         """Fetch Users"""
         user_col = mongo.db.users
@@ -83,35 +89,57 @@ class Users(Resource):
         else:
             return abort(404, "No users found.")
 
-    @api.doc("Create a User")
-    @api.marshal_with(user)
+    @api.doc(body=auth_fields)
+    @api.marshal_with(auth_fields)
     def post(self):
-        """Create a user"""
-        if not request.form:
+        """Create a new user
+        Payload:
+        `username`: required
+        `passwd`: required
+        `email`: optional
+
+        Returns:
+            The added user(if success)
+        """
+        payload = request.get_json(force=True)
+        logger.debug(payload)
+        if not payload:
             return abort(400, "Bad Request")
 
-        user_new = {}
-        user_new["email"] = request.form.get("email")
-        user_new["uname"] = request.form.get("username")
-        user_new["passwd"] = request.form.get("password")
-        user_new["avatar"] = UserUtil.gravatar(user_new["email"])
+        username = payload["username"]
+        password = payload["passwd"]
+        email = payload.get("email", "")
 
         user_col = mongo.db.users
+        if user_col.find_one({"username": username}):
+            return abort(400, "Usernmae already exists.")
+        if user_col.find_one({"email": email}):
+            return abort(400, "Email already exists.")
+
+        user_new = {}
+        user_new["username"] = username
+        user_new["passwd"] = password
+        user_new["email"] = email
+        user_new["avatar"] = UserUtil.gravatar(email) if email else ""
+
         user_added = user_col.insert_one(user_new)
         user_new["_id"] = user_added.inserted_id
 
         logger.debug(user_new)
         if user_added:
             return user_new, 200
-        else:
-            return abort(500, "Failed to create user.")
+
+        return abort(500, "Failed to create user.")
 
 
 @api.route("/user/<userid>")
 class User(Resource):
-    @api.doc("Get user by userid")
-    @api.marshal_with(user)
+    @jwt_required
+    @api.doc(parser=auth_parser)
+    @api.marshal_with(user, mask="_id,username,email,avatar")
     def get(self, userid):
+        """Get User by userID"""
+
         if not userid:
             return abort(400, "Bad request.")
         user_col = mongo.db.users
@@ -120,6 +148,15 @@ class User(Resource):
             return target_user, 200
         else:
             return abort(404, "User Not Found.")
+
+
+@api.route("/user/me")
+class Me(Resource):
+    @jwt_required
+    @api.doc(parser=auth_parser)
+    def get(self):
+        current_user = get_jwt_identity()
+        return {"_id": current_user}
 
 
 if __name__ == "__main__":

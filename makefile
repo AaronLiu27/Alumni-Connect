@@ -13,7 +13,7 @@ github: FORCE
 tests: lint unit
 
 unit: FORCE
-	echo "We have to write some tests!"
+	pytest --rootdir=$(SRC_DIR)/backend/test/
 
 lint: FORCE
 	- $(LINTER) $(SRC_DIR)/*.py

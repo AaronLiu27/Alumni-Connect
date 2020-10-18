@@ -1,9 +1,11 @@
 from flask import Flask
-from flask import render_template, request
+from flask import render_template, request, abort
 from flask_restx import Resource, Api
-from flask_jwt_extended import JWTManager
+from flask_jwt_extended import JWTManager, verify_jwt_in_request
+from flask_jwt_extended.exceptions import NoAuthorizationError
 
 from db import JSONEncoder, mongo
+import re
 
 import logging
 
@@ -12,12 +14,11 @@ from users import api as ns_users
 from profiles import api as ns_profiles
 from auth import api as ns_auth
 
-# mongo = PyMongo()
-
 app = Flask(__name__)
 app.config["DEBUG"] = True
 app.config.from_object("db")
 app.config.from_object("settings")
+app.config.from_object("auth")
 app.json_encoder = JSONEncoder
 
 mongo.init_app(app)
