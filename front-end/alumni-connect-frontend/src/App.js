@@ -6,6 +6,7 @@ import SubmitButton from './submitButton';
 import RegisterForm from './register';
 import {Route, Switch, Link, BrowserRouter as Router} from "react-router-dom";
 import './App.css';
+import MainPage from './mainpage';
 
 class App extends React.Component {
 
@@ -101,16 +102,19 @@ class App extends React.Component {
           <div className='container'>
             <Router>
               <Switch>
-                <Route exact path = "/">
+                <Route exact path = "/login">
                   <LoginForm />
                 </Route>
                 <Route exact path = "/register">
                   <RegisterForm />
                 </Route>
+                <Route exact path = "/mainpage">
+                  <MainPage />
+                </Route>
               </Switch>
 
               <div>
-                <Link to="/">Login</Link>
+                <Link to="/login">Login</Link>
                 <Link to="/register">Register</Link>
               </div>
             </Router>
