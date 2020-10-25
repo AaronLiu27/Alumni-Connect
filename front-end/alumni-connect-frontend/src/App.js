@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { observer } from 'mobx-react';
 import UserStore from './stores/UserStore';
 import LoginForm from './loginForm';
@@ -6,13 +6,16 @@ import SubmitButton from './submitButton';
 import RegisterForm from './register';
 import {Route, Switch, Link, BrowserRouter as Router} from "react-router-dom";
 import './App.css';
+import MainPage from './mainpage';
 
-class App extends React.Component {
+function App() {
 
-  async componentDidMount() {
+  useEffect(() => {
+    checkLogin();
+  });
 
+  const checkLogin = async() => {
     try {
-
       let res = await fetch('/isLoggedIn', {
         method: 'post',
         headers: {
@@ -36,11 +39,10 @@ class App extends React.Component {
       UserStore.loading = false;
       UserStore.isLoggedIn = false;
     }
-
-
   }
 
-  async doLogout() {
+
+  const doLogout = async() => {
 
     try {
 
@@ -67,59 +69,59 @@ class App extends React.Component {
 
   }
 
-  render() {
-
-    if (UserStore.loading) {
-      return (
-        <div className="app">
-          <div className='container'>
-            Loading, please wait...
-          </div>
+  if (UserStore.loading) {
+    return (
+      <div className="app">
+        <div className='container'>
+          Loading, please wait...
         </div>
-      );
-    } else {
+      </div>
+    );
+  } else {
 
-      if (UserStore.isLoggedIn) {
-        return (
-          <div className="app">
-            <div className='container'>
-              Welcome {UserStore.username}
-
-              <SubmitButton 
-                text={'Log out'}
-                disabled={false}
-                onClick={() => this.doLogout()}
-              />
-
-            </div>
-          </div>
-        );
-      }
-
+    if (UserStore.isLoggedIn) {
       return (
         <div className="app">
           <div className='container'>
-            <Router>
-              <Switch>
-                <Route exact path = "/">
-                  <LoginForm />
-                </Route>
-                <Route exact path = "/register">
-                  <RegisterForm />
-                </Route>
-              </Switch>
+            Welcome {UserStore.username}
 
-              <div>
-                <Link to="/">Login</Link>
-                <Link to="/register">Register</Link>
-              </div>
-            </Router>
+            <SubmitButton 
+              text={'Log out'}
+              disabled={false}
+              onClick={() => doLogout()}
+            />
 
-          
           </div>
         </div>
       );
     }
+
+    return (
+      <div className="app">
+        <div className='container'>
+          <Router>
+            <Switch>
+              <Route exact path = "/login">
+                <LoginForm />
+              </Route>
+              <Route exact path = "/register">
+                <RegisterForm />
+              </Route>
+              <Route exact path = "/mainpage">
+                <MainPage />
+              </Route>
+            </Switch>
+
+            <div>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
+            </div>
+          </Router>
+
+        
+        </div>
+      </div>
+    );
   }
 
 }

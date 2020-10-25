@@ -4,6 +4,7 @@ import SubmitButton from './submitButton';
 import UserStore from './stores/UserStore';
 import axios from 'axios';
 import { useState } from "react";
+import {useHistory} from "react-router-dom";
 
 function LoginForm() {
 
@@ -16,9 +17,9 @@ function LoginForm() {
         setPassword('');
         setButtonDisabled(false);
     }
-
+    const history = useHistory();
     const doLogin = async () => {
-
+        history.push("/mainpage");
         if (!username) {
             return;
         }
