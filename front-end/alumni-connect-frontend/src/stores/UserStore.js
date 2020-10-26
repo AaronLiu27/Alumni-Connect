@@ -1,7 +1,7 @@
 import {extendObservable} from 'mobx';
 
 
-class UserStor {
+class UserStore {
     constructor() {
         extendObservable(this, {
 
@@ -13,4 +13,4 @@ class UserStor {
     }
 }
 
-export default new UserStor();
+export default new UserStore();
