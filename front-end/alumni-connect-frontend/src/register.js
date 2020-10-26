@@ -61,26 +61,38 @@ function RegisterForm() {
     return (
         <div className="loginForm">
             Resigter
-            <InputField
-                type='text'
-                plcaeholder='Username'
-                value={username ? username : ''}
-                onChange={(val) => setUsername(val)}
-            />
+            <div>
+                <label htmlFor="usernameInput">Username</label>
+                <input 
+                    id="usernameInput" 
+                    type='text'
+                    plcaeholder='Username'
+                    value={username ? username : ''}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+            </div>
 
-            <InputField
-                type='password'
-                plcaeholder='Password'
-                value={password ? password : ''}
-                onChange={(val) => setPassword(val)}
-            />
+            <div>
+                <label htmlFor="passwordInput">Password</label>
+                <input 
+                    id="passwordInput" 
+                    type='password'
+                    plcaeholder='Password'
+                    value={password ? password : ''}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+            </div>
 
-            <InputField
-                type='text'
-                plcaeholder='Email'
-                value={email ? email : ''}
-                onChange={(val) => setEmail(val)}
-            />
+            <div>
+                <label htmlFor="emailInput">Email</label>
+                <input 
+                    id="emailInput" 
+                    type='text'
+                    plcaeholder='Email'
+                    value={email ? email: ''}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+            </div>
 
             <SubmitButton
                 text='Register'
