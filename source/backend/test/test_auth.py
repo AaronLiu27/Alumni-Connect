@@ -46,14 +46,14 @@ def test_login():
     res0 = requests.post(
         url,
         headers=headers,
-        data=json.dumps(payload_user_invalid))
+        data=json.dumps(payload_user_invalid, indent=4))
     assert res0.status_code == 401
 
     # Password not correct
     res1 = requests.post(
         url,
         headers=headers,
-        data=json.dumps(payload_pwd_wrong))
+        data=json.dumps(payload_pwd_wrong, indent=4))
     assert res1.status_code == 401
 
     # Login successfully
