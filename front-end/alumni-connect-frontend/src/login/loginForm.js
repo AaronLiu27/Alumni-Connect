@@ -5,6 +5,7 @@ import UserStore from '../stores/UserStore';
 import axios from 'axios';
 import { useState } from "react";
 import {useHistory} from "react-router-dom";
+import { runInAction } from 'mobx';
 
 function LoginForm() {
 
@@ -17,9 +18,8 @@ function LoginForm() {
         setPassword('');
         setButtonDisabled(false);
     }
-    const history = useHistory();
+    // const history = useHistory();
     const doLogin = async () => {
-        history.push("/mainpage");
         if (!username) {
             return;
         }
@@ -29,11 +29,14 @@ function LoginForm() {
 
         setButtonDisabled(true);
 
-        if(username === 'user' && password === 'password') {
-            UserStore.isLoggedIn = true;
-            UserStore.username = username;
-            return;
-        }
+        runInAction(() => {
+            if(username === 'user' && password === 'password') {
+                UserStore.isLoggedIn = true;
+                UserStore.username = username;
+                console.log('log in true')
+                return;
+            }
+        });
 
         try {
             const apiUrl = '/auth';
@@ -42,13 +45,16 @@ function LoginForm() {
                 "passwd": password,
             });
 
-            if (res.status === 200) {
-                UserStore.isLoggedIn = true;
-                UserStore.username = username;
-            } else {
-                resetForm();
-                alert(res.statusText);
-            }
+            runInAction(() => {
+                if (res.status === 200) {
+                    UserStore.isLoggedIn = true;
+                    UserStore.username = username;
+                } else {
+                    resetForm();
+                    alert(res.statusText);
+                }
+            })
+
         } catch(e) {
             resetForm();
             console.log(e);
