@@ -7,12 +7,9 @@ import RegisterForm from './register';
 import {Route, Switch, Link, BrowserRouter as Router} from "react-router-dom";
 import './App.css';
 import MainPage from './mainpage';
+import { runInAction } from 'mobx';
 
 function App() {
-
-  useEffect(() => {
-    checkLogin();
-  });
 
   const checkLogin = async() => {
     try {
@@ -25,19 +22,22 @@ function App() {
       });
 
       let result = await res.json();
-
-      if (result && result.success) {
-        UserStore.loading = false;
-        UserStore.isLoggedIn = true;
-        UserStore.username = result.username;
-      } else {
-        UserStore.loading = false;
-        UserStore.isLoggedIn = false;
-      }
+      runInAction(() => {
+        if (result && result.success) {
+          UserStore.loading = false;
+          UserStore.isLoggedIn = true;
+          UserStore.username = result.username;
+        } else {
+          UserStore.loading = false;
+          UserStore.isLoggedIn = false;
+        }
+      });
 
     } catch (e) {
-      UserStore.loading = false;
-      UserStore.isLoggedIn = false;
+      runInAction(() => {
+        UserStore.loading = false;
+        UserStore.isLoggedIn = false;
+      })
     }
   }
 
@@ -68,6 +68,8 @@ function App() {
     }
 
   }
+
+  useEffect(() => {checkLogin()}, []);
 
   if (UserStore.loading) {
     return (
