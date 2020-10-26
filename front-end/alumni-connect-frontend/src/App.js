@@ -1,12 +1,12 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import UserStore from './stores/UserStore';
-import LoginForm from './loginForm';
-import SubmitButton from './submitButton';
-import RegisterForm from './register';
+import LoginForm from './login/loginForm';
+import SubmitButton from './component/submitButton';
+import RegisterForm from './register/register';
 import {Route, Switch, Link, BrowserRouter as Router} from "react-router-dom";
 import './App.css';
-import MainPage from './mainpage';
+import MainPage from './mainpage/mainpage';
 
 class App extends React.Component {
 
