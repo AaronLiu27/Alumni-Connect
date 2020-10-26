@@ -1,28 +1,29 @@
 import React from 'react';
-import SubmitButton from './submitButton';
+<<<<<<< HEAD:front-end/alumni-connect-frontend/src/loginForm.js
 import UserStore from './stores/UserStore';
+=======
+import InputField from '../component/inputField';
+import SubmitButton from '../component/submitButton';
+import UserStore from '../stores/UserStore';
+>>>>>>> 8cda2dc22af9baeea22fef1213252917e9734afc:front-end/alumni-connect-frontend/src/login/loginForm.js
 import axios from 'axios';
 import { useState } from "react";
+import {useHistory} from "react-router-dom";
+import { runInAction } from 'mobx';
 
-
-function RegisterForm() {
-
+function LoginForm() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
     const [buttonDisabled, setButtonDisabled] = useState(false);
-
 
     const resetForm = () => {
         setUsername('');
         setPassword('');
-        setEmail('');
         setButtonDisabled(false);
     }
-
-    const doRegister = async () => {
-
+    // const history = useHistory();
+    const doLogin = async () => {
         if (!username) {
             return;
         }
@@ -32,24 +33,32 @@ function RegisterForm() {
 
         setButtonDisabled(true);
 
+        runInAction(() => {
+            if(username === 'user' && password === 'password') {
+                UserStore.isLoggedIn = true;
+                UserStore.username = username;
+                console.log('log in true')
+                return;
+            }
+        });
+
         try {
-            
-            const apiUrl = '/api/users/';
+            const apiUrl = '/auth';
             let res = await axios.post(apiUrl, {
-                username: username,
-                passwd  : password,
-                _id     : 'New ID',
-                email   : email,
-                avatar  : ''
+                "username": username,
+                "passwd": password,
             });
 
-            if (res.success) {
-                UserStore.isLoggedIn = true;
-                UserStore.username = res.data.username;
-            } else {
-                resetForm();
-                alert('Register Failed');
-            }
+            runInAction(() => {
+                if (res.status === 200) {
+                    UserStore.isLoggedIn = true;
+                    UserStore.username = username;
+                } else {
+                    resetForm();
+                    alert(res.statusText);
+                }
+            })
+
         } catch(e) {
             resetForm();
             console.log(e);
@@ -59,7 +68,7 @@ function RegisterForm() {
 
     return (
         <div className="loginForm">
-            Resigter
+            Log In
             <div>
                 <label htmlFor="usernameInput">Username</label>
                 <input 
@@ -83,25 +92,18 @@ function RegisterForm() {
             </div>
 
             <div>
-                <label htmlFor="emailInput">Email</label>
-                <input 
-                    id="emailInput" 
-                    type='text'
-                    plcaeholder='Email'
-                    value={email ? email: ''}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
+                <button
+                    text='Login'
+                    disabled={buttonDisabled}
+                    onClick={ () => doLogin() }
+                >
+                    Login
+                </button>
             </div>
-
-            <SubmitButton
-                text='Register'
-                disabled={buttonDisabled}
-                onClick={ () => doRegister() }
-            />
 
         </div>
     );
 
 }
 
-export default RegisterForm;
+export default LoginForm;
