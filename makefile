@@ -17,7 +17,6 @@ unit: FORCE
 	coverage report -m
 
 lint: FORCE
-	- $(LINTER) $(SRC_DIR)/*.py
 	- $(LINTER) $(SRC_DIR)/backend/*.py
 
 dev_env: FORCE
