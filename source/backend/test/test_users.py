@@ -5,14 +5,17 @@ import random
 
 import logging
 
-from settings import auth_url, username, password
-
 logging.basicConfig(
     level=logging.INFO
 )
 
 logger = logging.getLogger(__name__)
 
+auth_url = "http://localhost:5000/api/auth/login"
+username = "Tom2020"
+password = "$pbkdf2-sha256$30000$kvJ." + \
+    "zzkHwHivtdbae8." + \
+    "5dw$dRyLdzymDkW2FjPHAAiXX27Z7K3YuRvOCKbhBOt6LGY"
 
 
 def get_random_string(length=8, type="ascii_letters"):
