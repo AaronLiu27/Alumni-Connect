@@ -5,6 +5,8 @@ import { useState } from "react";
 import {useHistory} from "react-router-dom";
 import { runInAction } from 'mobx';
 
+import {Button} from 'react-bootstrap'
+
 function LoginForm() {
 
     const [username, setUsername] = useState('');
@@ -86,13 +88,14 @@ function LoginForm() {
             </div>
 
             <div>
-                <button
+                <Button
                     text='Login'
                     disabled={buttonDisabled}
                     onClick={ () => doLogin() }
+                    bsStyle = "primary"
                 >
                     Login
-                </button>
+                </Button>
             </div>
 
         </div>
