@@ -13,7 +13,10 @@ logger = logging.getLogger(__name__)
 mongo = db.mongo
 
 
-api = Namespace("profiles", description="Profile related routes", path="/api/profiles")
+api = Namespace(
+    "profiles", description="Profile related routes",
+    path="/api/profiles"
+)
 
 profile = api.model(
     "Profile",
@@ -83,10 +86,10 @@ class Profile(Resource):
 
         profile_new = {}
         profile_new["user"] = ObjectId(userid)
-        profile_new["firstname"] = request.form.get("firstname")
-        profile_new["lastname"] = request.form.get("lastname")
-        profile_new["age"] = request.form.get("age")
-        profile_new["discipline"] = request.form.get("discipline")
+        profile_new["firstname"] = request.json.get("firstname")
+        profile_new["lastname"] = request.json.get("lastname")
+        profile_new["age"] = request.json.get("age")
+        profile_new["discipline"] = request.json.get("discipline")
 
         profile_col = mongo.db.users
         profile_added = profile_col.insert_one(profile_new)
