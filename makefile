@@ -13,7 +13,8 @@ github: FORCE
 tests: dev_env lint unit
 
 unit: FORCE
-	pytest --rootdir=$(SRC_DIR)/backend/test/
+	coverage run -m pytest $(SRC_DIR)/backend/test/
+	coverage report -m
 
 lint: FORCE
 	- $(LINTER) $(SRC_DIR)/*.py
