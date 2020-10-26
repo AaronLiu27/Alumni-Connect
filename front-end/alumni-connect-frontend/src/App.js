@@ -6,12 +6,8 @@ import SubmitButton from './component/submitButton';
 import RegisterForm from './register/register';
 import {Route, Switch, Link, BrowserRouter as Router} from "react-router-dom";
 import './App.css';
-<<<<<<< HEAD
-import MainPage from './mainpage';
-import { runInAction } from 'mobx';
-=======
 import MainPage from './mainpage/mainpage';
->>>>>>> 8cda2dc22af9baeea22fef1213252917e9734afc
+import { runInAction } from 'mobx';
 
 function App() {
 

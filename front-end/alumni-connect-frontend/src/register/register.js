@@ -1,12 +1,6 @@
 import React from 'react';
-<<<<<<< HEAD:front-end/alumni-connect-frontend/src/register.js
-import SubmitButton from './submitButton';
-import UserStore from './stores/UserStore';
-=======
-import InputField from '../component/inputField';
 import SubmitButton from '../component/submitButton';
 import UserStore from '../stores/UserStore';
->>>>>>> 8cda2dc22af9baeea22fef1213252917e9734afc:front-end/alumni-connect-frontend/src/register/register.js
 import axios from 'axios';
 import { useState } from "react";
 
