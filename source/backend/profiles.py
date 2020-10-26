@@ -99,7 +99,6 @@ class Profile(Resource):
         else:
             abort(500, "Failed to create profile.")
 
-
     @jwt_required
     @api.doc(parser=auth_parser)
     @api.marshal_with(profile)
@@ -130,9 +129,8 @@ class Profile(Resource):
         logger.debug(result)
         if result:
             if result["n"] > 0:
-                return {"success":"Profile deleted."}, 200
+                return {"success": "Profile deleted."}, 200
             elif result["n"] == 0:
                 return {"msg": "No content deleted"}, 204
         else:
             abort(500, "Failed to delete profile.")
-

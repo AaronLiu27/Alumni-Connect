@@ -14,7 +14,6 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-
 def get_random_string(length=8, type="ascii_letters"):
     letters = getattr(string, type, "")
     result_str = "".join(random.choice(letters) for i in range(length))
@@ -62,7 +61,11 @@ def test_users_post():
     assert res0.status_code == 200
     print(res0.json())
 
-    res1 = requests.post(url, headers=headers, data=json.dumps(payload, indent=4))
+    res1 = requests.post(
+        url,
+        headers=headers,
+        data=json.dumps(payload, indent=4)
+    )
 
     # Username already exists
     assert res1.status_code == 400
@@ -119,13 +122,12 @@ def test_user_get():
     assert res.status_code == 401
 
     headers["Authorization"] = "Bearer "+auth_json['access_token']
-    
+
     res = requests.get(url.format(userid), headers=headers)
     assert res.status_code == 200
 
     res = requests.get(url.format(random_userid), headers=headers)
     assert res.status_code == 404
-
 
 
 if __name__ == "__main__":
