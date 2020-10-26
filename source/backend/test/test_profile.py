@@ -1,8 +1,5 @@
 import requests
 import json
-import pytest
-
-from bson.objectid import ObjectId
 
 import logging
 
@@ -18,7 +15,7 @@ logger = logging.getLogger(__name__)
 userid = "5f7a3d5e41462499b1283a52"
 random_userid = "5f7a3d5e41462499b1283a53"
 
-# @pytest.mark.skipif(True)
+
 def test_profile_post():
     firstname = "Tom"
     lastname = "Holland"
@@ -64,7 +61,7 @@ def test_profile_post():
     print(res.json())
 
     headers["Authorization"] = "Bearer "+auth_json['access_token']
-    
+
     res = requests.post(
         url.format(userid),
         headers=headers,
@@ -79,7 +76,6 @@ def test_profile_post():
         data=json.dumps(payload, indent=4)
     )
     assert res.status_code == 401
-
 
 
 def test_profile_get():
@@ -109,12 +105,13 @@ def test_profile_get():
     print(res.json())
 
     headers = {"Authorization": "Bearer "+auth_json['access_token']}
-    
+
     res = requests.get(url.format(userid), headers=headers)
     assert res.status_code == 200
 
     res = requests.get(url.format(random_userid), headers=headers)
     assert res.status_code == 404
+
 
 def test_profile_delete():
     url = "http://localhost:5000/api/profiles/profile/user/{}"
