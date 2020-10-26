@@ -2,13 +2,14 @@ from flask import request, abort, jsonify
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import (
     jwt_required,
-    fresh_jwt_required,
+    # fresh_jwt_required,
     jwt_refresh_token_required,
     create_access_token,
     create_refresh_token,
     get_jwt_identity,
 )
 from db import mongo
+import datetime
 
 RESTX_VALIDATE = True
 
@@ -31,6 +32,9 @@ auth_parser.add_argument(
     required=True,
 )
 
+expires_access = datetime.timedelta(days=1)
+expires_refresh = datetime.timedelta(days=2)
+
 
 @api.route("/login")
 class Login(Resource):
@@ -42,19 +46,33 @@ class Login(Resource):
         username = request.json.get("username", None)
         password = request.json.get("passwd", None)
         if not username:
-            return jsonify({"msg": "Missing username parameter", "status": 400})
+            return jsonify({
+                "msg": "Missing username parameter",
+                "status": 400
+            })
         if not password:
-            return jsonify({"msg": "Missing password parameter", "status": 400})
+            return jsonify({
+                "msg": "Missing password parameter",
+                "status": 400
+            })
 
         # check username and password
         user_col = mongo.db.users
-        target_user = user_col.find_one({"username": username, "passwd": password})
+        target_user = user_col.find_one(
+            {"username": username, "passwd": password})
         if target_user:
-            access_token = create_access_token(identity=str(target_user["_id"]))
-            refresh_token = create_refresh_token(identity=str(target_user["_id"]))
-            return {"access_token": access_token, "refresh_token": refresh_token}, 200
+            access_token = create_access_token(
+                identity=str(target_user["_id"]),
+                expires_delta=expires_access)
+            refresh_token = create_refresh_token(
+                identity=str(target_user["_id"]),
+                expires_delta=expires_refresh)
+            return {
+                "access_token": access_token,
+                "refresh_token": refresh_token
+            }, 200
         else:
-            return abort(404, "Wrong Username Or Password.")
+            return abort(401, "Wrong Username Or Password.")
         """
         if username != 'test' or password != 'test':
             return jsonify({"msg": "Bad username or password","status":401})
@@ -65,7 +83,8 @@ class Login(Resource):
 class TokenRefresh(Resource):
     @jwt_refresh_token_required
     def post(self):
-        # retrive the user's identity from the refresh token using a Flask-JWT-Extended built-in method
+        # retrive the user's identity from the refresh token
+        # using a Flask-JWT-Extended built-in method
         current_user = get_jwt_identity()
         # return a non-fresh token for the user
         new_token = create_access_token(identity=current_user, fresh=False)

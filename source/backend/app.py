@@ -1,11 +1,9 @@
 from flask import Flask
-from flask import render_template, request, abort
+from flask import render_template, request
 from flask_restx import Resource, Api
-from flask_jwt_extended import JWTManager, verify_jwt_in_request
-from flask_jwt_extended.exceptions import NoAuthorizationError
+from flask_jwt_extended import JWTManager
 
 from db import JSONEncoder, mongo
-import re
 
 import logging
 

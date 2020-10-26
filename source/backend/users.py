@@ -29,20 +29,7 @@ user = api.model(
 )
 
 USERS = [
-    {
-        "_id": "5f7968905510ad91c3510870",
-        "username": "john123",
-        "email": "john@gmail.com",
-        "passwd": "$pbkdf2-sha256$30000$c66Vcg5hzLn3nnOOsdaakw$xgqdzQ8K.vrC/BQ8ExhNu13lSR2coEVSpauLhoTrKZk",
-        "avatar": "http://www.gravatar.com/avatar/1f9d9a9efc2f523b2f09629444632b5c?s=100&d=identicon&r=g",
-    },
-    {
-        "_id": "5f7a3d5e41462499b1283a52",
-        "username": "Tom2020",
-        "email": "Tom2020@gmail.com",
-        "passwd": "$pbkdf2-sha256$30000$kvJ.zzkHwHivtdbae8.5dw$dRyLdzymDkW2FjPHAAiXX27Z7K3YuRvOCKbhBOt6LGY",
-        "avatar": "http://www.gravatar.com/avatar/ed52c8b513c402e201ad18a3b41d7a95?s=100&d=identicon&r=g",
-    },
+
 ]
 
 
@@ -58,7 +45,11 @@ class UserUtil:
         url = "http://www.gravatar.com/avatar"
         hashed_email = hashlib.md5(email.encode("utf-8")).hexdigest()
         return "{url}/{hash}?s={size}&d={default}&r={rating}".format(
-            url=url, hash=hashed_email, size=size, default=default, rating=rating
+            url=url,
+            hash=hashed_email,
+            size=size,
+            default=default,
+            rating=rating
         )
 
     @staticmethod
@@ -71,8 +62,6 @@ class UserUtil:
 
 
 @api.route("/")
-# @api.param('id')
-# @api.response(404, 'User not found')
 class Users(Resource):
     @jwt_required
     @api.doc(parser=auth_parser)
