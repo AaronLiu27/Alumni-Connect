@@ -66,7 +66,7 @@ class Login(Resource):
                 "refresh_token": refresh_token
             }, 200
         else:
-            return abort(404, "Wrong Username Or Password.")
+            return abort(401, "Wrong Username Or Password.")
         """
         if username != 'test' or password != 'test':
             return jsonify({"msg": "Bad username or password","status":401})
