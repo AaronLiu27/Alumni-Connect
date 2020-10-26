@@ -1,5 +1,4 @@
 import React from 'react';
-import InputField from '../component/inputField';
 import SubmitButton from '../component/submitButton';
 import UserStore from '../stores/UserStore';
 import axios from 'axios';
