@@ -105,7 +105,7 @@ function App() {
                 <LoginForm />
               </Route>
               <Route exact path = "/register">
-                <RegisterForm />ç
+                <RegisterForm />
               </Route>
               <Route exact path = "/mainpage">
                 <MainPage />
