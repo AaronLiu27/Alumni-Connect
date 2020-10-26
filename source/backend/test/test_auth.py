@@ -1,4 +1,4 @@
-from flask import jsonify
+# from flask import jsonify
 import requests
 import json
 # import string
@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 def test_login():
-    url = "http://localhost:5000/api/auth/login/"
+    url = "http://localhost:5000/api/auth/login"
 
     # Valid User
     username_valid = "testuser"
@@ -35,11 +35,11 @@ def test_login():
     }
     payload_pwd_wrong = {
         "username": username_valid,
-        "passwd": password_valid,
+        "passwd": password_invalid,
     }
     payload_valid = {
-        "username": "testuser",
-        "passwd": "test",
+        "username": username_valid,
+        "passwd": password_valid,
     }
 
     # Username not exist
@@ -60,7 +60,7 @@ def test_login():
     res2 = requests.post(
         url,
         headers=headers,
-        data=json.dumps(payload_valid))
+        data=json.dumps(payload_valid, indent=4))
     assert res2.status_code == 200
 
 
