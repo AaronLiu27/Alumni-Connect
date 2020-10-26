@@ -59,25 +59,37 @@ function LoginForm() {
     return (
         <div className="loginForm">
             Log In
-            <InputField
-                type='text'
-                plcaeholder='Username'
-                value={username ? username : ''}
-                onChange={(val) => setUsername(val)}
-            />
+            <div>
+                <label htmlFor="usernameInput">Username</label>
+                <input 
+                    id="usernameInput" 
+                    type='text'
+                    plcaeholder='Username'
+                    value={username ? username : ''}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+            </div>
 
-            <InputField
-                type='password'
-                plcaeholder='Password'
-                value={password ? password : ''}
-                onChange={(val) => setPassword(val)}
-            />
+            <div>
+                <label htmlFor="passwordInput">Password</label>
+                <input 
+                    id="passwordInput" 
+                    type='password'
+                    plcaeholder='Password'
+                    value={password ? password : ''}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+            </div>
 
-            <SubmitButton
-                text='Login'
-                disabled={buttonDisabled}
-                onClick={ () => doLogin() }
-            />
+            <div>
+                <button
+                    text='Login'
+                    disabled={buttonDisabled}
+                    onClick={ () => doLogin() }
+                >
+                    Login
+                </button>
+            </div>
 
         </div>
     );
