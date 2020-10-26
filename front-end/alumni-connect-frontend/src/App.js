@@ -66,7 +66,6 @@ function App() {
       UserStore.isLoggedIn = false;
       console.log(e);
     }
-
   }
 
   useEffect(() => {checkLogin()}, []);
@@ -85,8 +84,7 @@ function App() {
       return (
         <div className="app">
           <div className='container'>
-            Welcome {UserStore.username}
-
+            <MainPage />
             <SubmitButton 
               text={'Log out'}
               disabled={false}
@@ -107,7 +105,7 @@ function App() {
                 <LoginForm />
               </Route>
               <Route exact path = "/register">
-                <RegisterForm />
+                <RegisterForm />ç
               </Route>
               <Route exact path = "/mainpage">
                 <MainPage />
