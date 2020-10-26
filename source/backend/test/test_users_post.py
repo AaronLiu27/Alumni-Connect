@@ -12,9 +12,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def get_random_username(length=8):
+def get_random_string(length=8, type="ascii_letters"):
     # letters = string.ascii_lowercase
-    letters = string.ascii_letters
+    letters = getattr(string, type, "")
     result_str = "".join(random.choice(letters) for i in range(length))
     while " " in result_str:
         result_str.replace(" ", random.choice(letters))
@@ -22,10 +22,10 @@ def get_random_username(length=8):
     return result_str
 
 
-def test_get_random_username():
+def test_get_random_string():
     for i in range(100):
         length = random.randint(6, 24)
-        username = get_random_username(length)
+        username = get_random_string(length)
         assert " " not in username
         assert len(username) == length
 
@@ -34,18 +34,18 @@ def test_users_post():
     url = "http://localhost:5000/api/users/"
     username_len = random.randint(6, 24)
     passwd_len = random.randint(6, 24)
-    email_len = random.randint(6, 24)
-    domain_len = random.randint(3, 10)
+    domain_len = random.randint(3, 4)
 
     # Additional headers
     headers = {"Content-Type": "application/json"}
 
     # Body
     payload = {
-        "username": get_random_username(username_len),
-        "passwd": get_random_username(passwd_len),
+        "username": get_random_string(username_len),
+        "passwd": get_random_string(passwd_len),
         "email": "{}@{}.com".format(
-            get_random_username(email_len), get_random_username(domain_len)
+            get_random_string(2, "ascii_lowercase") + get_random_string(4, "digits"),
+            get_random_string(domain_len),
         ),
     }
 
@@ -59,5 +59,8 @@ def test_users_post():
 
     # Username already exists
     assert res1.status_code == 400
-    print(res0.text)
+    print(res1.text)
 
+
+if __name__ == "__main__":
+    test_users_post()
