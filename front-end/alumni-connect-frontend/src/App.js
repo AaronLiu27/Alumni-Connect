@@ -99,6 +99,12 @@ function App() {
       <div className="app">
        
           <Router>
+        
+            <div className='account'>
+            <div>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
+            </div>
             <Switch>
               <Route exact path = "/login">
                 <LoginForm />
@@ -110,10 +116,6 @@ function App() {
                 <MainPage />
               </Route>
             </Switch>
-
-            <div>
-              <Link to="/login">Login</Link>
-              <Link to="/register">Register</Link>
             </div>
           </Router>
 

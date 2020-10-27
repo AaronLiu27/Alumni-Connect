@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useState } from "react";
 import {useHistory} from "react-router-dom";
 import { runInAction } from 'mobx';
-
+import './login.css'
 import {Button} from 'react-bootstrap'
 
 function LoginForm() {
@@ -39,7 +39,7 @@ function LoginForm() {
         });
 
         try {
-            const apiUrl = 'http://localhost:5000/api/auth/login';
+            const apiUrl = 'localhost:5000/api/auth/login';
             let res = await axios.post(apiUrl, {
                 "username": username,
                 "passwd": password,
@@ -65,31 +65,40 @@ function LoginForm() {
 
     return (
         <div className="loginForm">
-            Log In
-            <div>
+            <div className='title'>
+                Log In
+            </div>
+            <div className='inputTool'>
                 <label htmlFor="usernameInput">Username</label>
-                <input 
-                    id="usernameInput" 
-                    type='text'
-                    plcaeholder='Username'
-                    value={username ? username : ''}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
+               
+                    <input 
+                        className="input"
+                        id="usernameInput" 
+                        type='text'
+                        plcaeholder='Username'
+                        value={username ? username : ''}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                
             </div>
 
-            <div>
+            <div className='inputTool'>
                 <label htmlFor="passwordInput">Password</label>
-                <input 
-                    id="passwordInput" 
-                    type='password'
-                    plcaeholder='Password'
-                    value={password ? password : ''}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+                
+                    <input 
+                        className="input"
+                        id="passwordInput" 
+                        type='password'
+                        plcaeholder='Password'
+                        value={password ? password : ''}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                
             </div>
 
-            <div>
+            <div className='submitBtn'>
                 <Button
+                className='submitButn'
                     text='Login'
                     disabled={buttonDisabled}
                     onClick={ () => doLogin() }
