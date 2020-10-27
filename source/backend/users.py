@@ -45,7 +45,11 @@ class UserUtil:
         url = "http://www.gravatar.com/avatar"
         hashed_email = hashlib.md5(email.encode("utf-8")).hexdigest()
         return "{url}/{hash}?s={size}&d={default}&r={rating}".format(
-            url=url, hash=hashed_email, size=size, default=default, rating=rating
+            url=url,
+            hash=hashed_email,
+            size=size,
+            default=default,
+            rating=rating
         )
 
     @staticmethod
@@ -58,8 +62,6 @@ class UserUtil:
 
 
 @api.route("/")
-# @api.param('id')
-# @api.response(404, 'User not found')
 class Users(Resource):
     @jwt_required
     @api.doc(parser=auth_parser)

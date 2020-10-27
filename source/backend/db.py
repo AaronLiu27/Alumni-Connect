@@ -13,6 +13,10 @@ import datetime
 # You need your own .env file
 load_dotenv()
 MONGO_URI = os.getenv("MONGO_URI")
+if not MONGO_URI:
+    MONGO_URI = "mongodb+srv://" + \
+        "vivian:123456a@alumniconnect.usbk3.mongodb.net" + \
+        "/db?retryWrites=true&w=majority"
 
 
 class JSONEncoder(json.JSONEncoder):

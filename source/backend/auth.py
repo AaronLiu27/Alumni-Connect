@@ -9,6 +9,7 @@ from flask_jwt_extended import (
     get_jwt_identity,
 )
 from db import mongo
+import datetime
 
 RESTX_VALIDATE = True
 
@@ -30,6 +31,9 @@ auth_parser.add_argument(
     help="Bearer Access Token",
     required=True,
 )
+
+expires_access = datetime.timedelta(days=1)
+expires_refresh = datetime.timedelta(days=2)
 
 
 @api.route("/login")
@@ -58,15 +62,17 @@ class Login(Resource):
             {"username": username, "passwd": password})
         if target_user:
             access_token = create_access_token(
-                identity=str(target_user["_id"]))
+                identity=str(target_user["_id"]),
+                expires_delta=expires_access)
             refresh_token = create_refresh_token(
-                identity=str(target_user["_id"]))
+                identity=str(target_user["_id"]),
+                expires_delta=expires_refresh)
             return {
                 "access_token": access_token,
                 "refresh_token": refresh_token
             }, 200
         else:
-            return abort(404, "Wrong Username Or Password.")
+            return abort(401, "Wrong Username Or Password.")
         """
         if username != 'test' or password != 'test':
             return jsonify({"msg": "Bad username or password","status":401})

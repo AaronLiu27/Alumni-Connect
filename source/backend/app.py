@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template, request
 from flask_restx import Resource, Api
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 
 from db import JSONEncoder, mongo
 
@@ -13,6 +14,7 @@ from profiles import api as ns_profiles
 from auth import api as ns_auth
 
 app = Flask(__name__)
+CORS(app)
 app.config["DEBUG"] = True
 app.config.from_object("db")
 app.config.from_object("settings")

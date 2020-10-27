@@ -13,7 +13,10 @@ logger = logging.getLogger(__name__)
 mongo = db.mongo
 
 
-api = Namespace("profiles", description="Profile related routes", path="/api/profiles")
+api = Namespace(
+    "profiles", description="Profile related routes",
+    path="/api/profiles"
+)
 
 profile = api.model(
     "Profile",
@@ -83,12 +86,11 @@ class Profile(Resource):
 
         profile_new = {}
         profile_new["user"] = ObjectId(userid)
-        profile_new["firstname"] = request.form.get("firstname")
-        profile_new["lastname"] = request.form.get("lastname")
-        profile_new["age"] = request.form.get("age")
-        profile_new["discipline"] = request.form.get("discipline")
+        profile_new["firstname"] = request.json.get("firstname")
+        profile_new["lastname"] = request.json.get("lastname")
+        profile_new["age"] = request.json.get("age")
+        profile_new["discipline"] = request.json.get("discipline")
 
-        profile_col = mongo.db.users
         profile_added = profile_col.insert_one(profile_new)
         profile_new["_id"] = profile_added.inserted_id
 
@@ -96,3 +98,39 @@ class Profile(Resource):
             return profile_new, 200
         else:
             abort(500, "Failed to create profile.")
+
+    @jwt_required
+    @api.doc(parser=auth_parser)
+    @api.marshal_with(profile)
+    def delete(self, userid):
+        """Delete the profile for the user identified by userid
+        """
+        logger.debug(userid)
+        if not userid:
+            abort(400, "Bad request.")
+
+        current_userid = get_jwt_identity()
+        if current_userid != userid:
+            abort(401, "Not authorized.")
+
+        user_col = mongo.db.users
+        profile_col = mongo.db.profiles
+
+        target_user = user_col.find_one({"_id": ObjectId(userid)})
+        if not target_user:
+            abort(404, "User not found.")
+
+        target_profile = profile_col.find_one({"user": ObjectId(userid)})
+        logger.debug(target_profile)
+        if not target_profile:
+            abort(404, "Profile not found.")
+
+        result = profile_col.remove({"user": ObjectId(userid)})
+        logger.debug(result)
+        if result:
+            if result["n"] > 0:
+                return {"success": "Profile deleted."}, 200
+            elif result["n"] == 0:
+                return {"msg": "No content deleted"}, 204
+        else:
+            abort(500, "Failed to delete profile.")
