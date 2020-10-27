@@ -4,7 +4,8 @@ import SubmitButton from '../component/submitButton';
 import UserStore from '../stores/UserStore';
 import axios from 'axios';
 import { useState } from "react";
-
+import './register.css'
+import {Button} from 'react-bootstrap'
 
 function RegisterForm() {
 
@@ -59,46 +60,60 @@ function RegisterForm() {
     }
 
     return (
-        <div className="loginForm">
-            Resigter
-            <div>
+        <div className="registerForm">
+            <div className='title'>
+                Resigter
+            </div>
+            <div className='inputTool'>
                 <label htmlFor="usernameInput">Username</label>
+                <div>
                 <input 
+                    className='input'
                     id="usernameInput" 
                     type='text'
                     plcaeholder='Username'
                     value={username ? username : ''}
                     onChange={(e) => setUsername(e.target.value)}
                 />
+                </div>
             </div>
 
-            <div>
+            <div  className='inputTool'>
                 <label htmlFor="passwordInput">Password</label>
-                <input 
+                <div>
+                <input
+                    className='input' 
                     id="passwordInput" 
                     type='password'
                     plcaeholder='Password'
                     value={password ? password : ''}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                </div>
             </div>
 
-            <div>
+            <div className='inputTool'>
                 <label htmlFor="emailInput">Email</label>
+                <div>
                 <input 
+                    className='input' 
                     id="emailInput" 
                     type='text'
                     plcaeholder='Email'
                     value={email ? email: ''}
                     onChange={(e) => setEmail(e.target.value)}
                 />
+                </div>
             </div>
-
-            <SubmitButton
-                text='Register'
+            <div className='submitBtn'>
+            <Button
+                className='submitButn'
                 disabled={buttonDisabled}
                 onClick={ () => doRegister() }
-            />
+            >
+                Register
+            </Button>
+            </div>
 
         </div>
     );

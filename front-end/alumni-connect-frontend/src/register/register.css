@@ -1,17 +1,20 @@
-.loginForm{
+.registerForm {
     padding-top: 200px;
     padding-left:30%;
     padding-right: 30%;
     text-align: center;
 }
-.title{
+
+.title {
     font-size: x-large;
     font-weight: bolder;
     margin-bottom: 30px;
 }
-.inputTool{
+
+.inputTool {
     margin-bottom: 20px;
 }
+
 .input {
     margin-left:0px;
     outline: 0;
@@ -19,11 +22,11 @@
   
 }
 
-.submitBtn{
+.submitBtn {
     margin-top: 40px;
     text-align: center;
     
 }
-.submitButn{
+.submitButn {
     width: 30%;
 }

@@ -63,7 +63,7 @@ function LoginForm() {
             </div>
             <div className='inputTool'>
                 <label htmlFor="usernameInput">Username</label>
-               
+                <div>
                     <input 
                         className="input"
                         id="usernameInput" 
@@ -72,12 +72,12 @@ function LoginForm() {
                         value={username ? username : ''}
                         onChange={(e) => setUsername(e.target.value)}
                     />
-                
+                </div>
             </div>
 
             <div className='inputTool'>
                 <label htmlFor="passwordInput">Password</label>
-                
+                <div>
                     <input 
                         className="input"
                         id="passwordInput" 
@@ -86,16 +86,15 @@ function LoginForm() {
                         value={password ? password : ''}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                
+                </div>
             </div>
 
             <div className='submitBtn'>
                 <Button
-                className='submitButn'
+                    className='submitButn'
                     text='Login'
                     disabled={buttonDisabled}
                     onClick={ () => doLogin() }
-                    bsstyle = "primary"
                 >
                     Login
                 </Button>
