@@ -13,12 +13,11 @@ github: FORCE
 tests: dev_env lint unit
 
 unit: FORCE
-	coverage run -m pytest $(SRC_DIR)/backend/test/
+	coverage run -m pytest $(SRC_DIR)/backend/
 	coverage report -m
 
 lint: FORCE
 	- $(LINTER) $(SRC_DIR)/backend/*.py
-	- $(LINTER) $(SRC_DIR)/backend/test/*.py
 
 dev_env: FORCE
 	pip install -r $(REQ_DIR)/requirements-dev.txt
