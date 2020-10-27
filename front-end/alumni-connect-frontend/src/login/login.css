@@ -1,0 +1,29 @@
+.loginForm{
+    padding-top: 200px;
+    padding-left:30%;
+    padding-right: 30%;
+    text-align: center;
+}
+.title{
+    font-size: x-large;
+    font-weight: bolder;
+    margin-bottom: 30px;
+}
+.inputTool{
+    margin-bottom: 20px;
+}
+.input {
+    margin-left:20px;
+    outline: 0;
+    border-width: 0 0 2px;
+  
+}
+
+.submitBtn{
+    margin-top: 40px;
+    text-align: center;
+    
+}
+.submitButn{
+    width: 30%;
+}
