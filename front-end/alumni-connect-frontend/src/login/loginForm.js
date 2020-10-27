@@ -7,6 +7,8 @@ import { useState } from "react";
 import {useHistory} from "react-router-dom";
 import { runInAction } from 'mobx';
 
+import {Button} from 'react-bootstrap'
+
 function LoginForm() {
 
     const [username, setUsername] = useState('');
@@ -39,16 +41,17 @@ function LoginForm() {
         });
 
         try {
-            const apiUrl = '/auth';
+            const apiUrl = 'http://localhost:5000/api/auth/login';
             let res = await axios.post(apiUrl, {
                 "username": username,
                 "passwd": password,
             });
-
+            console.log(res)
             runInAction(() => {
                 if (res.status === 200) {
                     UserStore.isLoggedIn = true;
                     UserStore.username = username;
+                    //console.log(res)
                 } else {
                     resetForm();
                     alert(res.statusText);
@@ -88,13 +91,14 @@ function LoginForm() {
             </div>
 
             <div>
-                <button
+                <Button
                     text='Login'
                     disabled={buttonDisabled}
                     onClick={ () => doLogin() }
+                    bsStyle = "primary"
                 >
                     Login
-                </button>
+                </Button>
             </div>
 
         </div>
