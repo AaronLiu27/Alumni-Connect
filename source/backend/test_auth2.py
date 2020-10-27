@@ -1,5 +1,5 @@
 # from flask import jsonify
-import requests
+# import requests
 import json
 import pytest
 
@@ -72,4 +72,4 @@ def test_login(client):
 
 
 if __name__ == "__main__":
-    test_login()
+    test_login(client)
