@@ -4,7 +4,7 @@ from flask_restx import Resource, Api
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 
-from db import JSONEncoder, mongo
+from db import mongo
 
 import logging
 
@@ -19,7 +19,6 @@ app.config["DEBUG"] = True
 app.config.from_object("db")
 app.config.from_object("settings")
 app.config.from_object("auth")
-app.json_encoder = JSONEncoder
 
 mongo.init_app(app)
 
@@ -33,38 +32,9 @@ api.add_namespace(ns_auth)
 
 users = {"admin": "000"}
 
-# # auth
-# from flask_jwt_extended import (
-#     JWTManager,
-#     jwt_required,
-#     create_access_token,
-#     get_jwt_identity,
-# )
 
 app.config["JWT_SECRET_KEY"] = "iwjnDcjwei1374jfnu@#hfhq384"
 jwt = JWTManager(app)
-
-
-@api.route("/global-data")
-class Hello(Resource):
-    def get(self):
-        return {"num_of_users": len(users)}
-
-
-"""
-@api.route("/auth")
-class Auth(Resource):
-    def post(self):
-        user_input = request.form.get("username")
-        pwd_input = request.form.get("password")
-        # return {user_input: pwd_input}
-        if user_input not in users:
-            return {"result": "no such user"}
-        elif users[user_input] != pwd_input:
-            return {"result": "wrong password"}
-        else:
-            return {"result": "login successfully"}
-"""
 
 
 @api.route("/register-to-db")
@@ -78,54 +48,6 @@ class Register(Resource):
         return {"username": user_input, "password": users[user_input]}
 
 
-@api.route("/comment")
-class Comment(Resource):
-    def post(self):
-        return
-
-    def get(self):
-        return
-
-    def put(self):
-        return
-
-
-@api.route("/posts")
-class Posts(Resource):
-    def post(self):
-        return
-
-    def get(self):
-        return
-
-    def put(self):
-        return
-
-
-@api.route("/diary")
-class Diary(Resource):
-    def post(self):
-        return
-
-    def get(self):
-        return
-
-    def put(self):
-        return
-
-
-@api.route("/messages")
-class Messages(Resource):
-    def post(self):
-        return
-
-    def get(self):
-        return
-
-    def put(self):
-        return
-
-
 ###########
 @app.route("/login", methods=["GET"])
 def loginPage():
@@ -136,24 +58,6 @@ def loginPage():
 def registerPage():
     return render_template("register.html")
 
-
-# ==================================#
-# =============Testing==============#
-
-
-# Mongodb test
-@api.route("/dbtest/<userid>", endpoint="dbtest")
-class DBTest(Resource):
-    def get(self, userid):
-        logger.debug(app.config["MONGO_URI"])
-        # user_col = mongo.db.users
-        # firstname = request.args.get("firstname")
-        logger.debug(request.args)
-        return []
-
-
-# =============Testing==============#
-# ==================================#
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
