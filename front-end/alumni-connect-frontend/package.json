@@ -10,6 +10,7 @@
     "axios": "^0.20.0",
     "mobx": "^6.0.1",
     "mobx-react": "^7.0.0",
+    "msw": "^0.21.3",
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^16.13.1",
