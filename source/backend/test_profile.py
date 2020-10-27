@@ -148,6 +148,6 @@ def test_profile_delete(client):
 
 
 if __name__ == "__main__":
-    test_profile_post()
-    test_profile_get()
-    test_profile_delete()
+    test_profile_post(client)
+    test_profile_get(client)
+    test_profile_delete(client)
