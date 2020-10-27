@@ -39,16 +39,17 @@ function LoginForm() {
         });
 
         try {
-            const apiUrl = '/auth';
+            const apiUrl = 'http://localhost:5000/api/auth/login';
             let res = await axios.post(apiUrl, {
                 "username": username,
                 "passwd": password,
             });
-
+            console.log(res)
             runInAction(() => {
                 if (res.status === 200) {
                     UserStore.isLoggedIn = true;
                     UserStore.username = username;
+                    //console.log(res)
                 } else {
                     resetForm();
                     alert(res.statusText);

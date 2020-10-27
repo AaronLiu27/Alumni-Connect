@@ -73,9 +73,9 @@ function App() {
   if (UserStore.loading) {
     return (
       <div className="app">
-        <div className='container'>
+        
           Loading, please wait...
-        </div>
+      
       </div>
     );
   } else {
@@ -83,22 +83,21 @@ function App() {
     if (UserStore.isLoggedIn) {
       return (
         <div className="app">
-          <div className='container'>
-            <MainPage />
+          
             <SubmitButton 
               text={'Log out'}
               disabled={false}
               onClick={() => doLogout()}
             />
-
-          </div>
+            <MainPage />
+         
         </div>
       );
     }
 
     return (
       <div className="app">
-        <div className='container'>
+       
           <Router>
             <Switch>
               <Route exact path = "/login">
@@ -119,7 +118,7 @@ function App() {
           </Router>
 
         
-        </div>
+        
       </div>
     );
   }
