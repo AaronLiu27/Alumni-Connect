@@ -3,8 +3,7 @@ import '@testing-library/jest-dom'
 import React from 'react'
 import {render, fireEvent, cleanup, screen} from '@testing-library/react'
 
-import LoginForm from './loginForm'
-import RegisterForm from './register';
+import RegisterForm from './register/register';
 
 afterEach(cleanup);
 

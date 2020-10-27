@@ -31,26 +31,17 @@ function LoginForm() {
 
         setButtonDisabled(true);
 
-        runInAction(() => {
-            if(username === 'user' && password === 'password') {
-                UserStore.isLoggedIn = true;
-                UserStore.username = username;
-                console.log('log in true')
-                return;
-            }
-        });
-
         try {
-            const apiUrl = 'localhost:5000/api/auth/login';
+            const apiUrl = 'http://localhost:5000/api/auth/login';
             let res = await axios.post(apiUrl, {
                 "username": username,
                 "passwd": password,
             });
-            console.log(res)
             runInAction(() => {
                 if (res.status === 200) {
                     UserStore.isLoggedIn = true;
                     UserStore.username = username;
+                    setUsername('success');
                     //console.log(res)
                 } else {
                     resetForm();
@@ -104,13 +95,15 @@ function LoginForm() {
                     text='Login'
                     disabled={buttonDisabled}
                     onClick={ () => doLogin() }
-                    bsStyle = "primary"
+                    bsstyle = "primary"
                 >
                     Login
                 </Button>
             </div>
 
+            {username === 'success' ? <div role="alert">alert</div> : null}
         </div>
+    
     );
 
 }
