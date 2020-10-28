@@ -1,5 +1,8 @@
+DEBUG = True
 HOST = "0.0.0.0"
 PORT = 5000
+
+JWT_SECRET_KEY = "iwjnDcjwei1374jfnu@#hfhq384"
 
 LOGGING_FORMAT = "%(asctime)s : %(name)s : %(levelname)s - %(message)s"
 

@@ -26,8 +26,6 @@ def client():
 def get_random_string(length=8, type="ascii_letters"):
     letters = getattr(string, type, "")
     result_str = "".join(random.choice(letters) for i in range(length))
-    while " " in result_str:
-        result_str.replace(" ", random.choice(letters))
     logger.debug(f"Random username of length {length}: {result_str}")
     return result_str
 
