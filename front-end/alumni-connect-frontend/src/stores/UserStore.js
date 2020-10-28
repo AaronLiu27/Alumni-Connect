@@ -7,7 +7,8 @@ class UserStore {
 
             loading: true,
             isLoggedIn: false,
-            username: ''
+            username: '',
+            token:''
 
         })
     }

@@ -1,6 +1,4 @@
 import React from 'react';
-import InputField from '../component/inputField';
-import SubmitButton from '../component/submitButton';
 import UserStore from '../stores/UserStore';
 import axios from 'axios';
 import { useState } from "react";
@@ -20,7 +18,7 @@ function LoginForm() {
         setPassword('');
         setButtonDisabled(false);
     }
-    // const history = useHistory();
+    
     const doLogin = async () => {
         if (!username) {
             return;
@@ -37,12 +35,14 @@ function LoginForm() {
                 "username": username,
                 "passwd": password,
             });
+            //console.log(res)
             runInAction(() => {
                 if (res.status === 200) {
                     UserStore.isLoggedIn = true;
                     UserStore.username = username;
+                    UserStore.token = res.data.access_token;
                     setUsername('success');
-                    //console.log(res)
+                    console.log(UserStore.token)
                 } else {
                     resetForm();
                     alert(res.statusText);
