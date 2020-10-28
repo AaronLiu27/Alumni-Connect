@@ -46,11 +46,11 @@ function RegisterForm() {
             }).catch(error=>{
                 alert(error.response.data.message);
             });
-            console.log(res);
 
             if (res.status === 200) {
                 UserStore.isLoggedIn = true;
                 UserStore.username = res.data.username;
+                setUsername('success');
             } else {
                 resetForm();
                 // if(res.status === 400 && res.data.message == "Usernmae already exists.")
@@ -118,7 +118,7 @@ function RegisterForm() {
                 Register
             </Button>
             </div>
-
+            {username === 'success' ? <div role="alert">alert</div> : null}
         </div>
     );
 
