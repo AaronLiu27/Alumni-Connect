@@ -100,7 +100,7 @@ function LoginForm() {
                 </Button>
             </div>
 
-            {username === 'success' ? <div role="alert">alert</div> : null}
+            {username === 'success' ? <div hidden role="alert">alert</div> : null}
         </div>
     
     );

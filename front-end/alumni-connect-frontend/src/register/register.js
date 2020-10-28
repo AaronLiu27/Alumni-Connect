@@ -36,21 +36,25 @@ function RegisterForm() {
 
         try {
             
-            const apiUrl = '/api/users/';
+            const apiUrl = 'http://0.0.0.0:5000/api/users/';
             let res = await axios.post(apiUrl, {
                 username: username,
                 passwd  : password,
-                _id     : 'New ID',
+                // _id     : 'New ID',
                 email   : email,
-                avatar  : ''
+                // avatar  : ''
+            }).catch(error=>{
+                alert(error.response.data.message);
             });
 
-            if (res.success) {
+            if (res.status === 200) {
                 UserStore.isLoggedIn = true;
                 UserStore.username = res.data.username;
+                setUsername('success');
             } else {
                 resetForm();
-                alert('Register Failed');
+                // if(res.status === 400 && res.data.message == "Usernmae already exists.")
+                alert(res.data.message);
             }
         } catch(e) {
             resetForm();
@@ -114,7 +118,7 @@ function RegisterForm() {
                 Register
             </Button>
             </div>
-
+            {username === 'success' ? <div role="alert">alert</div> : null}
         </div>
     );
 
