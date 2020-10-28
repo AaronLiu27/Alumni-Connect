@@ -67,7 +67,7 @@ def test_users_post(client):
     )
 
     # Added successfully
-    assert res0.status_code == 200
+    assert res0.status_code == 307
     print(res0.json)
 
     res1 = client.post(

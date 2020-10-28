@@ -1,3 +1,6 @@
+HOST = "0.0.0.0"
+PORT = 5000
+
 LOGGING_FORMAT = "%(asctime)s : %(name)s : %(levelname)s - %(message)s"
 
 auth_url = "http://localhost:5000/api/auth/login"

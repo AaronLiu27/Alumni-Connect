@@ -1,10 +1,11 @@
-from flask import request, abort
+from flask import request, abort, redirect, url_for
 from flask_restx import Namespace, Resource, fields
 
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from auth import auth_parser, auth_fields
 
+from auth import auth_parser, auth_fields
 import db
+
 from bson.objectid import ObjectId
 
 import logging
@@ -79,7 +80,6 @@ class Users(Resource):
             return abort(404, "No users found.")
 
     @api.doc(body=auth_fields)
-    @api.marshal_with(auth_fields)
     def post(self):
         """Create a new user
         Payload:
@@ -116,8 +116,10 @@ class Users(Resource):
 
         logger.debug(user_new)
         if user_added:
-            return user_new, 200
-
+            return redirect(
+                url_for("auth_login"),
+                code=307
+            )
         return abort(500, "Failed to create user.")
 
 
@@ -149,6 +151,7 @@ class Me(Resource):
 
 
 if __name__ == "__main__":
+    print(api.path)
     print(UserUtil.gravatar("john@gmail.com"))
     print(UserUtil.encrypt_password("abc"))
     print(UserUtil.encrypt_password("abc"))
