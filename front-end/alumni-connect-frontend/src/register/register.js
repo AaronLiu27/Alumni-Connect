@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useState } from "react";
 import './register.css'
 import {Button} from 'react-bootstrap'
+import {useHistory} from "react-router-dom";
 
 function RegisterForm() {
 
@@ -14,7 +15,7 @@ function RegisterForm() {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [buttonDisabled, setButtonDisabled] = useState(false);
-
+    let history = useHistory();
 
     const resetForm = () => {
         setUsername('');
@@ -36,20 +37,19 @@ function RegisterForm() {
 
         try {
             
-            const apiUrl = 'http://0.0.0.0:5000/api/users/';
+            const apiUrl = 'http://localhost:5000/api/users/';
             let res = await axios.post(apiUrl, {
                 username: username,
                 passwd  : password,
-                // _id     : 'New ID',
                 email   : email,
-                // avatar  : ''
             }).catch(error=>{
                 alert(error.response.data.message);
             });
 
             if (res.status === 200) {
-                UserStore.isLoggedIn = true;
-                UserStore.username = res.data.username;
+                UserStore.username = username;
+                alert('register success!')
+                history.push("/mainpage")
                 setUsername('success');
             } else {
                 resetForm();
