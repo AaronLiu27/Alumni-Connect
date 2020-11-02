@@ -36,7 +36,6 @@ function RegisterForm() {
         setButtonDisabled(true);
 
         try {
-            
             const apiUrl = 'http://localhost:5000/api/users/';
             let res = await axios.post(apiUrl, {
                 username: username,
@@ -45,9 +44,9 @@ function RegisterForm() {
             }).catch(error=>{
                 alert(error.response.data.message);
             });
-
             if (res.status === 200) {
-                UserStore.username = username;
+                UserStore.username = res.data.username;
+                UserStore.isLoggedIn = true;
                 alert('register success!')
                 history.push("/mainpage")
                 setUsername('success');
@@ -118,7 +117,7 @@ function RegisterForm() {
                 Register
             </Button>
             </div>
-            {username === 'success' ? <div role="alert">alert</div> : null}
+            <div hidden role="alert">{UserStore.username}</div>
         </div>
     );
 

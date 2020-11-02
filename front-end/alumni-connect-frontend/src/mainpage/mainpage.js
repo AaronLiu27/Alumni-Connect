@@ -1,32 +1,16 @@
 import React from 'react';
 import SubmitButton from '../component/submitButton';
 import UserStore from '../stores/UserStore';
+import {useHistory} from "react-router-dom";
 
 function MainPage() {
+    let history = useHistory();
     const doLogout = async() => {
 
-        try {
-    
-          let res = await fetch('/logout', {
-            method: 'post',
-            headers: {
-              'Accept': 'application/json',
-              'Content-type': 'application/json'
-            }
-          });
-    
-          let result = await res.json();
-    
-          if (result && result.success) {
-            UserStore.username = '';
-            UserStore.isLoggedIn = false;
-          }
-    
-        } catch (e) {
-          UserStore.loading = false;
-          UserStore.isLoggedIn = false;
-          console.log(e);
-        }
+      UserStore.username = '';
+      UserStore.isLoggedIn = false;
+      UserStore.loading = false;
+      history.goBack();
     }
     
     return (

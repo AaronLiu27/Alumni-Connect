@@ -37,8 +37,8 @@ test('test input username and password and email', () => {
     expect(inputEmail.value).toBe(email)
 });
 
-const apiUrl = 'http://0.0.0.0:5000/api/users/'
-const fakeUserResponse = {username : "1", passwd: "2"}
+const apiUrl = 'http://localhost:5000/api/users/'
+const fakeUserResponse = {username : "username", passwd: "passwd"}
 const server = setupServer(
     rest.post(apiUrl, (req, res, ctx) => {
         return res(ctx.status(200), ctx.json(fakeUserResponse))
@@ -64,8 +64,8 @@ test('test register api', async () => {
     })
     fireEvent.click(screen.getByText(/Register/i))
 
-    const t = await screen.findByText('alert')
+    const t = await screen.findByText('username')
 
-    expect(inputUsername.value).toBe('success')
+    expect(inputUsername.value).toBe('')
 })
 
