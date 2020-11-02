@@ -100,6 +100,46 @@ class Profile(Resource):
             abort(500, "Failed to create profile.")
 
     @jwt_required
+    @api.doc(parser=auth_parser, body=profile)
+    @api.marshal_with(profile)
+    def put(self, userid):
+        """Update a profile for the user identified by userid
+        """
+        if not userid:
+            abort(400, "Bad request.")
+
+        current_userid = get_jwt_identity()
+        if current_userid != userid:
+            abort(401, "Not authorized.")
+
+        user_col = mongo.db.users
+        profile_col = mongo.db.profiles
+
+        target_user = user_col.find_one({"_id": ObjectId(userid)})
+        if not target_user:
+            abort(404, "User not found.")
+
+        target_profile = profile_col.find_one({"user": ObjectId(userid)})
+        if not target_profile:
+            abort(400, "Profile not exists.")
+
+        myquery = {"user": ObjectId(userid)}
+        profile_update = {}
+        profile_update["user"] = ObjectId(userid)
+        profile_update["firstname"] = request.json.get("firstname")
+        profile_update["lastname"] = request.json.get("lastname")
+        profile_update["age"] = request.json.get("age")
+        profile_update["discipline"] = request.json.get("discipline")
+
+        result = profile_col.update_one(myquery, {"$set": profile_update})
+        profile_update["_id"] = target_profile["_id"]
+
+        if result:
+            return profile_update, 200
+        else:
+            abort(500, "Failed to create profile.")
+
+    @jwt_required
     @api.doc(parser=auth_parser)
     @api.marshal_with(profile)
     def delete(self, userid):
