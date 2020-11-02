@@ -54,24 +54,17 @@ function App() {
     );
   } else {
 
-    if (UserStore.isLoggedIn) {
-      return (
-        <div className="app">
-            <MainPage />
-        </div>
-      );
-    }
-
     return (
       <div className="app">
        
           <Router>
         
             <div className='account'>
-            <div>
-              <Link to="/login">Login</Link>
-              <Link to="/register">Register</Link>
-            </div>
+            {!!!UserStore.isLoggedIn ? 
+              <div>
+                <Link to="/login">Login</Link>
+                <Link to="/register">Register</Link>
+              </div> : null}
             <Switch>
               <Route exact path = "/login">
                 <LoginForm />

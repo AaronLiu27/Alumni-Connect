@@ -9,6 +9,7 @@ import {Button} from 'react-bootstrap'
 
 function LoginForm() {
 
+    let history = useHistory();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -42,7 +43,8 @@ function LoginForm() {
                     UserStore.username = username;
                     UserStore.token = res.data.access_token;
                     setUsername('success');
-                    console.log(UserStore.token)
+                    // console.log(username);
+                    history.push("/mainpage");
                 } else {
                     resetForm();
                     alert(res.statusText);
@@ -100,7 +102,9 @@ function LoginForm() {
                 </Button>
             </div>
 
-            {username === 'success' ? <div hidden role="alert">alert</div> : null}
+            <div hidden role="alert">{UserStore.username}</div>
+
+            {/* {username === 'success' ? <div hidden role="alert">alert</div> : null} */}
         </div>
     
     );

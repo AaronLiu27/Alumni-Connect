@@ -7,6 +7,8 @@ import LoginForm from './login/loginForm'
 import UserStore from './stores/UserStore';
 import {rest} from 'msw'
 import {setupServer} from 'msw/node'
+import App from './App';
+import { BrowserRouter } from 'react-router-dom'
 
 beforeAll(() => server.listen())
 afterEach(() => {
@@ -52,7 +54,7 @@ test('allows the user to login successfully', async() => {
     })
     fireEvent.click(screen.getByText(/Login/i))
 
-    const t = await screen.findByText('alert')
+    const t = await screen.findByText('username')
 
-    expect(inputUsername.value).toBe('success')
+    expect(inputUsername.value).toBe('')
 })
