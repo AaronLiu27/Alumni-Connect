@@ -3,7 +3,8 @@ import SubmitButton from '../component/submitButton';
 import UserStore from '../stores/UserStore';
 import {useHistory} from "react-router-dom";
 import {Route, Switch, Link, BrowserRouter as Router} from "react-router-dom";
-import Profile from '../profile/profile'
+import Profile from '../profile/profile';
+import PostList from '../post/post';
 
 function MainPage() {
     let history = useHistory();
@@ -30,15 +31,14 @@ function MainPage() {
             {!!!UserStore.isLoggedIn ? 
               <div>
                 <Link to="/profile">Your Profile</Link>
-                <Link to="/register">Mainpage</Link>
+                <Link to="/mainpage">Mainpage</Link>
               </div> : null}
             <Switch>
               <Route exact path = "/profile">
                 <Profile />
               </Route>
-              
               <Route exact path = "/mainpage">
-                <MainPage />
+                <PostList />
               </Route>
             </Switch>
             </div>
