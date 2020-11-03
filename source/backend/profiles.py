@@ -30,15 +30,7 @@ profile = api.model(
     },
 )
 
-PROFILES = [
-    {
-        "user": ObjectId("5f7968905510ad91c3510870"),
-        "firstname": "John",
-        "lastname": "Lee",
-        "age": "22",
-        "discipline": "Computer Science",
-    }
-]
+PROFILES = []
 
 
 @api.route("/profile/user/<userid>", endpoint="profile")
@@ -132,7 +124,6 @@ class Profile(Resource):
         profile_update["discipline"] = request.json.get("discipline")
 
         result = profile_col.update_one(myquery, {"$set": profile_update})
-        profile_update["_id"] = target_profile["_id"]
 
         if result:
             return profile_update, 200
@@ -160,12 +151,14 @@ class Profile(Resource):
         if not target_user:
             abort(404, "User not found.")
 
-        target_profile = profile_col.find_one({"user": ObjectId(userid)})
+        profilequery = {"user": ObjectId(userid)}
+
+        target_profile = profile_col.find_one(profilequery)
         logger.debug(target_profile)
         if not target_profile:
             abort(404, "Profile not found.")
 
-        result = profile_col.delete_one({"user": ObjectId(userid)})
+        result = profile_col.delete_one(profilequery)
         logger.debug(result)
         if result:
             return {"success": "Profile deleted."}, 200

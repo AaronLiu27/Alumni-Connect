@@ -65,7 +65,7 @@ def test_profile_post(client):
         data=json.dumps(payload, indent=4)
     )
 
-    # Added successfully
+    # Not authorized
     assert res.status_code == 401
     print(res.json)
 

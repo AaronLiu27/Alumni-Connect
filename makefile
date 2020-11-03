@@ -17,6 +17,7 @@ unit: FORCE
 	coverage report -m
 
 lint: FORCE
+	- $(LINTER) *.py
 	- $(LINTER) $(SRC_DIR)/backend/*.py
 	- $(LINTER) $(SRC_DIR)/backend/*/*.py
 
@@ -25,3 +26,6 @@ dev_env: FORCE
 
 run_backend:
 	python wsgi.py
+
+clean:
+	find . -name '*.pyc' -exec rm {} +

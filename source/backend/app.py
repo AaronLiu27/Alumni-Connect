@@ -12,6 +12,7 @@ import logging
 # namespaces
 from source.backend.users import api as ns_users
 from source.backend.profiles import api as ns_profiles
+from source.backend.posts import api as ns_posts
 from source.backend.auth import api as ns_auth
 
 app = Flask(__name__)
@@ -28,6 +29,7 @@ logger = logging.getLogger(__name__)
 api = Api(app)
 api.add_namespace(ns_users)
 api.add_namespace(ns_profiles)
+api.add_namespace(ns_posts)
 api.add_namespace(ns_auth)
 
 users = {"admin": "000"}
