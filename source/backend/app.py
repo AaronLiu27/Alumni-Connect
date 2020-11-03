@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_restx import Api
 from flask_jwt_extended import JWTManager
@@ -36,5 +38,5 @@ jwt = JWTManager(app)
 if __name__ == "__main__":
     app.run(
         host=app.config["HOST"] or "0.0.0.0",
-        port=app.config["PORT"] or 5000
+        port=app.config["PORT"] or int(os.environ.get('PORT', 5000))
     )

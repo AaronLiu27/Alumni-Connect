@@ -2,11 +2,7 @@ install:
   - make dev_env
 language: python
 python:
-  - '3.6'
-  - '3.7'
   - '3.8'
-  - 3.8-dev
-  - nightly
 script:
   - make lint
   - make unit
