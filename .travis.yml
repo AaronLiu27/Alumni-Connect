@@ -1,15 +1,15 @@
 install:
-- make dev_env
+  - make dev_env
 language: python
 python:
-- '3.6'
-- '3.7'
-- '3.8'
-- 3.8-dev
-- nightly
+  - '3.6'
+  - '3.7'
+  - '3.8'
+  - 3.8-dev
+  - nightly
 script:
-- make lint
-- pytest source/backend
+  - make lint
+  - make unit
 deploy:
   provider: heroku
   api_key:
@@ -17,3 +17,5 @@ deploy:
   app: nyu-devops-alumniconnect
   on:
     repo: Vivian004/Alumni-Connect
+  run:
+    - make run_backend
