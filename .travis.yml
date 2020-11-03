@@ -13,5 +13,3 @@ deploy:
   app: nyu-devops-alumniconnect
   on:
     repo: Vivian004/Alumni-Connect
-  run:
-    - make run_backend
