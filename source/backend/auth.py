@@ -23,6 +23,15 @@ auth_fields = api.model(
     },
 )
 
+register_fields = api.model(
+    "UserRegister",
+    {
+        "username": fields.String(required=True, description="User Name"),
+        "passwd": fields.String(required=True, description="Password"),
+        "email": fields.String(description="Email")
+    }
+)
+
 auth_parser = api.parser()
 auth_parser.add_argument(
     "Authorization",
@@ -81,7 +90,7 @@ class Login(Resource):
 
 @api.route("/register")
 class Register(Resource):
-    @api.expect(auth_fields)
+    @api.expect(register_fields)
     def post(self):
         return redirect(
             url_for("users_users"),

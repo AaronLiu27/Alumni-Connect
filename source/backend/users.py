@@ -3,7 +3,7 @@ from flask_restx import Namespace, Resource, fields
 
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from source.backend.auth import auth_parser, auth_fields
+from source.backend.auth import auth_parser, auth_fields, register_fields
 import source.backend.db as db
 
 from bson.objectid import ObjectId
@@ -79,7 +79,7 @@ class Users(Resource):
         else:
             return abort(404, "No users found.")
 
-    @api.doc(body=auth_fields)
+    @api.expect(body=register_fields)
     def post(self):
         """Create a new user
         Payload:
@@ -88,7 +88,7 @@ class Users(Resource):
         `email`: optional
 
         Returns:
-            The added user(if success)
+            Access token(if success)
         """
         payload = request.get_json(force=True)
         logger.debug(payload)
@@ -102,7 +102,7 @@ class Users(Resource):
         user_col = mongo.db.users
         if user_col.find_one({"username": username}):
             return abort(400, "Usernmae already exists.")
-        if user_col.find_one({"email": email}):
+        if email and user_col.find_one({"email": email}):
             return abort(400, "Email already exists.")
 
         user_new = {}
