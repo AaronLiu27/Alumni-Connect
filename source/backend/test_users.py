@@ -1,11 +1,12 @@
 import json
-import string
 import random
 
 import pytest
 
 import logging
 from source.backend.app import app
+
+from source.backend.utils.random_string import get_random_string
 
 from source.backend.settings import auth_url, username, password
 
@@ -21,13 +22,6 @@ def client():
     app.config['TESTING'] = True
     with app.test_client() as client:
         yield client
-
-
-def get_random_string(length=8, type="ascii_letters"):
-    letters = getattr(string, type, "")
-    result_str = "".join(random.choice(letters) for i in range(length))
-    logger.debug("Random username of length {}: {}".format(length, result_str))
-    return result_str
 
 
 def test_get_random_string(client):

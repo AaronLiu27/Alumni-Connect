@@ -165,12 +165,9 @@ class Profile(Resource):
         if not target_profile:
             abort(404, "Profile not found.")
 
-        result = profile_col.remove({"user": ObjectId(userid)})
+        result = profile_col.delete_one({"user": ObjectId(userid)})
         logger.debug(result)
         if result:
-            if result["n"] > 0:
-                return {"success": "Profile deleted."}, 200
-            elif result["n"] == 0:
-                return {"msg": "No content deleted"}, 204
+            return {"success": "Profile deleted."}, 200
         else:
             abort(500, "Failed to delete profile.")

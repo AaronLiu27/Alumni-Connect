@@ -23,5 +23,4 @@ dev_env: FORCE
 	pip install -r $(REQ_DIR)/requirements-dev.txt
 
 run_backend:
-	export FLASK_APP=source.backend.app
-	flask run
+	python wsgi.py

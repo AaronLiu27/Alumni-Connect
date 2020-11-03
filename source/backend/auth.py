@@ -1,4 +1,4 @@
-from flask import request, abort, jsonify
+from flask import request, abort, jsonify, redirect, url_for
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import (
     jwt_required,
@@ -77,6 +77,16 @@ class Login(Resource):
         if username != 'test' or password != 'test':
             return jsonify({"msg": "Bad username or password","status":401})
         """
+
+
+@api.route("/register")
+class Register(Resource):
+    @api.expect(auth_fields)
+    def post(self):
+        return redirect(
+            url_for("users_users"),
+            code=307
+        )
 
 
 @api.route("/refresh")

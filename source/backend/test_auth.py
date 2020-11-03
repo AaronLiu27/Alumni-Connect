@@ -4,7 +4,11 @@ import json
 import pytest
 
 import logging
+
+import random
+
 from source.backend.app import app
+from source.backend.utils.random_string import get_random_string
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -69,6 +73,37 @@ def test_login(client):
         headers=headers,
         data=json.dumps(payload_valid, indent=4))
     assert res2.status_code == 200
+
+
+def test_register(client):
+    url = "http://localhost:5000/api/auth/register"
+    username_len = random.randint(6, 24)
+    passwd_len = random.randint(6, 24)
+    domain_len = random.randint(3, 4)
+
+    # Additional headers
+    headers = {"Content-Type": "application/json"}
+
+    # Body
+    payload = {
+        "username": get_random_string(username_len),
+        "passwd": get_random_string(passwd_len),
+        "email": "{}@{}.com".format(
+            get_random_string(2, "ascii_lowercase") +
+            get_random_string(4, "digits"),
+            get_random_string(domain_len),
+        ),
+    }
+
+    res0 = client.post(
+        url,
+        headers=headers,
+        data=json.dumps(payload, indent=4)
+    )
+
+    # Added successfully
+    assert res0.status_code == 307
+    print(res0.json)
 
 
 if __name__ == "__main__":
