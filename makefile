@@ -22,5 +22,6 @@ lint: FORCE
 dev_env: FORCE
 	pip install -r $(REQ_DIR)/requirements-dev.txt
 
-run_backend: dev_env
-	python3 $(SRC_DIR)/backend/app.py
+run_backend:
+	export FLASK_APP=source.backend.app
+	flask run
