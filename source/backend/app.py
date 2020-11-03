@@ -5,20 +5,20 @@ from flask_restx import Api
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 
-from db import mongo
+from source.backend.db import mongo
 
 import logging
 
 # namespaces
-from users import api as ns_users
-from profiles import api as ns_profiles
-from auth import api as ns_auth
+from source.backend.users import api as ns_users
+from source.backend.profiles import api as ns_profiles
+from source.backend.auth import api as ns_auth
 
 app = Flask(__name__)
 CORS(app)
-app.config.from_object("settings")
-app.config.from_object("db")
-app.config.from_object("auth")
+app.config.from_object("source.backend.settings")
+app.config.from_object("source.backend.db")
+app.config.from_object("source.backend.auth")
 
 mongo.init_app(app)
 

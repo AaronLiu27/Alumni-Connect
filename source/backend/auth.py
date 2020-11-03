@@ -8,7 +8,7 @@ from flask_jwt_extended import (
     create_refresh_token,
     get_jwt_identity,
 )
-from db import mongo
+from source.backend.db import mongo
 import datetime
 
 RESTX_VALIDATE = True

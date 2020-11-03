@@ -3,9 +3,9 @@ import json
 import pytest
 
 import logging
-from app import app
+from source.backend.app import app
 
-from settings import auth_url, username, password
+from source.backend.settings import auth_url, username, password
 
 logging.basicConfig(
     level=logging.INFO

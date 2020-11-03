@@ -2,9 +2,9 @@ from flask import request, abort
 from flask_restx import Namespace, Resource, fields
 
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from auth import auth_parser
+from source.backend.auth import auth_parser
 
-import db
+import source.backend.db as db
 from bson.objectid import ObjectId
 
 import logging

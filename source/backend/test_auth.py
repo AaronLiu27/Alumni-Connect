@@ -4,7 +4,7 @@ import json
 import pytest
 
 import logging
-from app import app
+from source.backend.app import app
 
 logging.basicConfig(
     level=logging.DEBUG,
