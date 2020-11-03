@@ -33,7 +33,7 @@ test('test input username and password', () => {
     expect(inputPassword.value).toBe(password)
 });
 
-const apiUrl = 'http://localhost:5000/api/auth/login'
+const apiUrl = 'http://nyu-devops-alumniconnect.herokuapp.com/api/auth/login'
 const fakeUserResponse = {access_token : "1", refresh_token: "2"}
 const server = setupServer(
     rest.post(apiUrl, (req, res, ctx) => {

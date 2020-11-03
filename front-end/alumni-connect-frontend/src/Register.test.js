@@ -37,7 +37,7 @@ test('test input username and password and email', () => {
     expect(inputEmail.value).toBe(email)
 });
 
-const apiUrl = 'http://localhost:5000/api/users/'
+const apiUrl = 'http://nyu-devops-alumniconnect.herokuapp.com/api/users/'
 const fakeUserResponse = {username : "username", passwd: "passwd"}
 const server = setupServer(
     rest.post(apiUrl, (req, res, ctx) => {

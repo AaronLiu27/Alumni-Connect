@@ -6,6 +6,7 @@ import {useHistory} from "react-router-dom";
 import { runInAction } from 'mobx';
 import './login.css'
 import {Button} from 'react-bootstrap'
+import CryptoJs from 'crypto-js';
 
 function LoginForm() {
 
@@ -31,10 +32,11 @@ function LoginForm() {
         setButtonDisabled(true);
 
         try {
-            const apiUrl = 'http://localhost:5000/api/auth/login';
+            const apiUrl = 'http://nyu-devops-alumniconnect.herokuapp.com/api/auth/login';
+            const pwd = CryptoJs.MD5(password).toString();
             let res = await axios.post(apiUrl, {
                 "username": username,
-                "passwd": password,
+                "passwd": pwd,
             });
             //console.log(res)
             runInAction(() => {
