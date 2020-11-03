@@ -7,6 +7,7 @@ import { useState } from "react";
 import './register.css'
 import {Button} from 'react-bootstrap'
 import {useHistory} from "react-router-dom";
+import CryptoJs from 'crypto-js';
 
 function RegisterForm() {
 
@@ -36,10 +37,11 @@ function RegisterForm() {
         setButtonDisabled(true);
 
         try {
-            const apiUrl = 'http://localhost:5000/api/users/';
+            const apiUrl = 'http://nyu-devops-alumniconnect.herokuapp.com/api/users/';
+            const pwd = CryptoJs.MD5(password).toString();
             let res = await axios.post(apiUrl, {
                 username: username,
-                passwd  : password,
+                passwd  : pwd,
                 email   : email,
             }).catch(error=>{
                 alert(error.response.data.message);
