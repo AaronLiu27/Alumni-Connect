@@ -25,10 +25,7 @@ function Profile() {
 
     return (
         <div>
-           <div className=''>
-                Your profile
-            </div>
-            <div className=''>
+            <div className='profileInput'>
                 <label htmlFor="usernameInput">Username</label>
                 <div>
                     <input 
@@ -41,7 +38,7 @@ function Profile() {
                 </div>
             </div>
 
-            <div className=''>
+            <div className='profileInput'>
                 <label htmlFor="passwordInput">Email</label>
                 <div>
                     <input 

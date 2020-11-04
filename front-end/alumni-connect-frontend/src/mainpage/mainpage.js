@@ -34,8 +34,8 @@ function MainPage() {
             <div className='titleName'>hi {UserStore.username}</div>
             <Router>
         
-            <div className='tagBtn'>
-              <div>
+            <div className='tag'>
+              <div className='tagBtn'>
                 <Link to="/profile" className='linkBtn'>Your Profile</Link>
                 <Link to="/mainpage" className='linkBtn'>Mainpage</Link>
               </div>
