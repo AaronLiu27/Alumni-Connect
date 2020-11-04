@@ -25,10 +25,10 @@ function Profile() {
 
     return (
         <div>
-           <div className='title'>
+           <div className=''>
                 Your profile
             </div>
-            <div className='inputTool'>
+            <div className=''>
                 <label htmlFor="usernameInput">Username</label>
                 <div>
                     <input 
@@ -41,7 +41,7 @@ function Profile() {
                 </div>
             </div>
 
-            <div className='inputTool'>
+            <div className=''>
                 <label htmlFor="passwordInput">Email</label>
                 <div>
                     <input 
@@ -54,7 +54,7 @@ function Profile() {
                 </div>
             </div>
 
-            <div className='submitBtn'>
+            <div className=''>
                 <Button
                     className='submitButn'
                     text='Login'

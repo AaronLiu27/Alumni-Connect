@@ -24,19 +24,20 @@ function MainPage() {
               <div className ='brand'>Alumni Connect</div>
               <div className="logout">
                 <Button 
+                  className='logoutBtn'
                   disabled={false}
                   onClick={() => doLogout()}
                 >Logout</Button>
               </div>
             </div>
             <div className='content'>
-            <div >hi {UserStore.username}</div>
+            <div className='titleName'>hi {UserStore.username}</div>
             <Router>
         
-            <div className='account'>
+            <div className='tagBtn'>
               <div>
-                <Link to="/profile">Your Profile</Link>
-                <Link to="/mainpage">Mainpage</Link>
+                <Link to="/profile" className='linkBtn'>Your Profile</Link>
+                <Link to="/mainpage" className='linkBtn'>Mainpage</Link>
               </div>
             <Switch>
               <Route exact path = "/profile">
