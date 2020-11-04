@@ -1,0 +1,18 @@
+.nav{
+    background-color: #330662;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.brand{
+    margin-left: 20px;
+    color: white;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.logout{
+    position: absolute;
+    right: 20px;
+    top:15px;
+}

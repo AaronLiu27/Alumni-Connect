@@ -5,6 +5,8 @@ import {useHistory} from "react-router-dom";
 import {Route, Switch, Link, BrowserRouter as Router} from "react-router-dom";
 import Profile from '../profile/profile';
 import PostList from '../post/post';
+import {Button} from 'react-bootstrap'
+import './mainpage.css'
 
 function MainPage() {
     let history = useHistory();
@@ -18,13 +20,17 @@ function MainPage() {
     
     return (
         <div>
-            <SubmitButton 
-              text={'Log out'}
-              disabled={false}
-              onClick={() => doLogout()}
-            />
-            Log In success
-            <div>hi {UserStore.username}</div>
+            <div className='nav'> 
+              <div className ='brand'>Alumni Connect</div>
+              <div className="logout">
+                <Button 
+                  disabled={false}
+                  onClick={() => doLogout()}
+                >Logout</Button>
+              </div>
+            </div>
+            <div className='content'>
+            <div >hi {UserStore.username}</div>
             <Router>
         
             <div className='account'>
@@ -42,6 +48,7 @@ function MainPage() {
             </Switch>
             </div>
           </Router>
+          </div>
         </div>
     );
 
