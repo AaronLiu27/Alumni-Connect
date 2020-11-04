@@ -47,8 +47,10 @@ function RegisterForm() {
                 alert(error.response.data.message);
             });
             if (res.status === 200) {
-                UserStore.username = res.data.username;
+                UserStore.username = username;
                 UserStore.isLoggedIn = true;
+                UserStore.token = res.data.access_token;
+                console.log(UserStore)
                 alert('register success!')
                 history.push("/mainpage")
                 setUsername('success');

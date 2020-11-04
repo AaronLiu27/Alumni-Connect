@@ -28,11 +28,10 @@ function MainPage() {
             <Router>
         
             <div className='account'>
-            {!!!UserStore.isLoggedIn ? 
               <div>
                 <Link to="/profile">Your Profile</Link>
                 <Link to="/mainpage">Mainpage</Link>
-              </div> : null}
+              </div>
             <Switch>
               <Route exact path = "/profile">
                 <Profile />

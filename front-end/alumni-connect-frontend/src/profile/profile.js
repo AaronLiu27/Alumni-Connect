@@ -26,7 +26,7 @@ function Profile() {
     return (
         <div>
            <div className='title'>
-                Log In
+                Your profile
             </div>
             <div className='inputTool'>
                 <label htmlFor="usernameInput">Username</label>
@@ -35,7 +35,7 @@ function Profile() {
                         className="input"
                         id="usernameInput" 
                         type='text'
-                        value=""
+                        value={UserStore.username}
                         disabled
                     />
                 </div>
