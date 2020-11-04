@@ -55,16 +55,16 @@ function App() {
   } else {
 
     return (
-      <div className="app">
+       <div className="app">
        
           <Router>
         
             <div className='account'>
-            {!!!UserStore.isLoggedIn ? 
+            {UserStore.isLoggedIn==false && 
               <div>
                 <Link to="/login">Login</Link>
                 <Link to="/register">Register</Link>
-              </div> : null}
+              </div>}
             <Switch>
               <Route exact path = "/login">
                 <LoginForm />
