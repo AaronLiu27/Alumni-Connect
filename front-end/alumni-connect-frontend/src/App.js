@@ -42,7 +42,7 @@ function App() {
   }
 
 
-  useEffect(() => {checkLogin()}, []);
+  // useEffect(() => {checkLogin()}, []);
 
   if (UserStore.loading) {
     return (
