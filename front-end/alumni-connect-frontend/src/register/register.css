@@ -1,7 +1,9 @@
 .registerForm {
-    padding-top: 200px;
-    padding-left:30%;
-    padding-right: 30%;
+    background-color: white;
+    margin-top: 100px;
+    margin-left:30%;
+    margin-right: 30%;
+    padding-top: 40px;
     text-align: center;
 }
 
@@ -22,11 +24,3 @@
   
 }
 
-.submitBtn {
-    margin-top: 40px;
-    text-align: center;
-    
-}
-.submitButn {
-    width: 30%;
-}

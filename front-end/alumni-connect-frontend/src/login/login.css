@@ -1,12 +1,15 @@
 .loginForm{
-    padding-top: 200px;
-    padding-left:30%;
-    padding-right: 30%;
+    background-color: white;
+    margin-top: 100px;
+    margin-left:30%;
+    margin-right: 30%;
+    padding-top: 40px;
     text-align: center;
 }
 .title{
     font-size: x-large;
     font-weight: bolder;
+    
     margin-bottom: 30px;
 }
 .inputTool{
@@ -25,5 +28,9 @@
     
 }
 .submitButn{
+    background-color: #330662;
     width: 30%;
+    margin-bottom: 50px;
+    font-size: larger;
+    font-weight: bolder;
 }

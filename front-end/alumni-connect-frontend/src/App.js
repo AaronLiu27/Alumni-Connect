@@ -61,9 +61,9 @@ function App() {
         
             <div className='account'>
             {UserStore.isLoggedIn==false && 
-              <div>
-                <Link to="/login">Login</Link>
-                <Link to="/register">Register</Link>
+              <div className='navLink'>
+                <Link className='navLinkBtn' to="/login">Login</Link>
+                <Link className='navLinkBtn' to="/register">Register</Link>
               </div>}
             <Switch>
               <Route exact path = "/login">
