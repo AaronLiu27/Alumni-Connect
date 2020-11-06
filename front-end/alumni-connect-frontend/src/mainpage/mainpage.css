@@ -31,10 +31,16 @@
 }
 
 .content{
+    height: 1000px;
+    width: 100%;
+    background-color: white;
+    
     text-align: left;
+    
 }
 .titleName{
-    margin-top: 50px;;
+   
+    padding-top: 50px;
     margin-left: 200px;
     font-size: 20px;
     font-weight: bolder;
