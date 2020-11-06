@@ -1,12 +1,27 @@
 .navLink{
   background-color: #330662;
+  margin-top: 150px;
+  margin-left: 30%;
+  
 }
 
 .navLinkBtn{
   font-size: x-large;
   font-weight: bolder;
-  color: white;
+  margin-right: 2px;
+  margin-bottom: 15px;
+  padding:10px 10px;
+  background-color: white;
+  color: #330662;
 }
+
+.navLinkBtn:hover{
+  color:white;
+  background-color: #330662;
+}
+
+
+
 body{
   height: 100%;
   width: 100%;
