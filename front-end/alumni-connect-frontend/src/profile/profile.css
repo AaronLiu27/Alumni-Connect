@@ -1,3 +1,15 @@
 .profileInput{
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.profileTitle{
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.saveBtn{
+    font-size: larger;
+    font-weight: bolder;
+    background-color: #330662;
+    width:30%;
 }

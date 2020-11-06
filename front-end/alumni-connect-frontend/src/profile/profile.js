@@ -26,7 +26,7 @@ function Profile() {
     return (
         <div>
             <div className='profileInput'>
-                <label htmlFor="usernameInput">Username</label>
+                <label className='profileTitle' htmlFor="usernameInput">Username</label>
                 <div>
                     <input 
                         className="input"
@@ -39,7 +39,7 @@ function Profile() {
             </div>
 
             <div className='profileInput'>
-                <label htmlFor="passwordInput">Email</label>
+                <label className='profileTitle' htmlFor="passwordInput">Email</label>
                 <div>
                     <input 
                         className="input"
@@ -53,7 +53,7 @@ function Profile() {
 
             <div className=''>
                 <Button
-                    className='submitButn'
+                    className='saveBtn'
                     text='Login'
                     disabled={buttonDisabled}
                 >

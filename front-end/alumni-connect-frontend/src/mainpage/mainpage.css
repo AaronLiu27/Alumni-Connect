@@ -1,5 +1,5 @@
 .nav{
-    background-color: #460046;
+    background-color: #330662;
     padding-top: 20px;
     padding-bottom: 20px;
 }
@@ -20,13 +20,13 @@
 
 .logoutBtn:hover{
     background-color: white;
-    color:  #460046;
+    color:  #330662;
     ;
 }
 
 .logoutBtn{
     border: none;
-    background-color: #460046;
+    background-color: #330662;
     font-weight: bolder;
 }
 
@@ -53,5 +53,5 @@
     font-size: 16px;
     font-weight: bold;
     color: white;
-    background-color: #460046;
+    background-color: #330662;
 }
