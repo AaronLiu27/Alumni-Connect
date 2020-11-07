@@ -4,7 +4,7 @@ import UserStore from '../stores/UserStore';
 import {useHistory} from "react-router-dom";
 import axios from 'axios';
 import {Route, Switch, Link, BrowserRouter as Router} from "react-router-dom";
-import {Button} from 'react-bootstrap';
+import {Button, Row, Col} from 'react-bootstrap';
 import { useState } from "react";
 import "./profile.css";
 
@@ -25,24 +25,77 @@ function Profile() {
 
     return (
         <div>
+             <Row>
+                <Col xs={6}>
+                    <div className='profileInput'>
+                        <label className='profileTitle' htmlFor="usernameInput">Username</label>
+                        <div>
+                            <input 
+                                className="input"
+                                id="usernameInput" 
+                                type='text'
+                                value={UserStore.username}
+                                disabled
+                            />
+                        </div>
+                    </div>
+                    <div className='profileInput'>
+                        <label className='profileTitle' htmlFor="passwordInput">FirstName</label>
+                        <div>
+                            <input 
+                                className="input"
+                                id="passwordInput" 
+                                type='password'
+                                plcaeholder='Password'
+                                value=""
+                            />
+                        </div>
+                    </div>
+                    <div className='profileInput'>
+                        <label className='profileTitle' htmlFor="passwordInput">Age</label>
+                        <div>
+                            <input 
+                                className="input"
+                                id="passwordInput" 
+                                type='password'
+                                plcaeholder='Password'
+                                value=""
+                            />
+                        </div>
+                    </div>
+                </Col>
+                <Col xs={6}>
+                    <div className='profileInput'>
+                        <label className='profileTitle' htmlFor="passwordInput">Email</label>
+                        <div>
+                            <input 
+                                className="input"
+                                id="passwordInput" 
+                                type='password'
+                                plcaeholder='Password'
+                                value=""
+                            />
+                        </div>
+                    </div>
+                    <div className='profileInput'>
+                        <label className='profileTitle' htmlFor="passwordInput">LastName</label>
+                        <div>
+                            <input 
+                                className="input"
+                                id="passwordInput" 
+                                type='password'
+                                plcaeholder='Password'
+                                value=""
+                            />
+                        </div>
+                    </div>
+                </Col>
+            </Row>
             <div className='profileInput'>
-                <label className='profileTitle' htmlFor="usernameInput">Username</label>
+                <label className='profileTitle' htmlFor="passwordInput">Discipline</label>
                 <div>
-                    <input 
-                        className="input"
-                        id="usernameInput" 
-                        type='text'
-                        value={UserStore.username}
-                        disabled
-                    />
-                </div>
-            </div>
-
-            <div className='profileInput'>
-                <label className='profileTitle' htmlFor="passwordInput">Email</label>
-                <div>
-                    <input 
-                        className="input"
+                    <textarea 
+                        className="textArea"
                         id="passwordInput" 
                         type='password'
                         plcaeholder='Password'

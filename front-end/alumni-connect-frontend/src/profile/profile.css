@@ -7,6 +7,11 @@
     font-weight: bolder;
 }
 
+.textArea{
+    width:400px;
+    height:200px;
+}
+
 .saveBtn{
     font-size: larger;
     font-weight: bolder;
