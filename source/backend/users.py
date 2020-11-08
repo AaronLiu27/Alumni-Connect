@@ -3,7 +3,7 @@ from flask_restx import Namespace, Resource, fields
 
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from source.backend.auth import auth_parser, auth_fields, register_fields
+from source.backend.auth import auth_parser, register_fields
 import source.backend.db as db
 
 from bson.objectid import ObjectId
