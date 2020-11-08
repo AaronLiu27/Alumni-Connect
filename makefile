@@ -13,7 +13,7 @@ github: FORCE
 tests: dev_env lint unit
 
 unit: FORCE
-	coverage run -m pytest $(SRC_DIR)/backend/
+	coverage run --source=$(SRC_DIR)/backend/ -m pytest $(SRC_DIR)/backend/
 	coverage report -m
 
 lint: FORCE
