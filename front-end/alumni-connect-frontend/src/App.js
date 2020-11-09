@@ -67,7 +67,6 @@ function App() {
                 <Link className='navLinkBtn' to="/login">Login</Link>
                 <Link className='navLinkBtn' to="/register">Register</Link>
               </div>}
-              <div>{UserStore.isLoggedIn ? "true" : "false"}</div>
             <Switch>
               <Route exact path = "/login">
                 <LoginForm />

@@ -26,7 +26,7 @@ const post = [
             {
                 post.map(p=>
                     <div >
-                        <Card >
+                        <Card className='postCard' id={p.id}>
                             <Card.Body>
                                 <Card.Title>{p.title}</Card.Title>
                                 <Card.Text>
