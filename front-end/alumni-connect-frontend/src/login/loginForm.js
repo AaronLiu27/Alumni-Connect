@@ -44,6 +44,7 @@ function LoginForm() {
                     UserStore.isLoggedIn = true;
                     UserStore.username = username;
                     UserStore.token = res.data.access_token;
+                    UserStore.id = res.data.user_id;
                     setUsername('success');
                     // console.log(username);
                     history.push("/mainpage");
