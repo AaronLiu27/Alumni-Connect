@@ -41,8 +41,12 @@ function App() {
     }
   }
 
+  const checkSecssion = () => {
+    UserStore.getDataFromSessionStorage();
+  }
 
-  // useEffect(() => {checkLogin()}, []);
+
+  useEffect(() => {checkSecssion()}, []);
 
   if (UserStore.loading) {
     return (
@@ -56,15 +60,14 @@ function App() {
 
     return (
        <div className="app">
-       
           <Router>
-        
             <div className='account'>
             {UserStore.isLoggedIn==false && 
               <div className='navLink'>
                 <Link className='navLinkBtn' to="/login">Login</Link>
                 <Link className='navLinkBtn' to="/register">Register</Link>
               </div>}
+              <div>{UserStore.isLoggedIn ? "true" : "false"}</div>
             <Switch>
               <Route exact path = "/login">
                 <LoginForm />

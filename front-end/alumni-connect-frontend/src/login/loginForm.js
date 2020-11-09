@@ -45,6 +45,7 @@ function LoginForm() {
                     UserStore.username = username;
                     UserStore.token = res.data.access_token;
                     UserStore.id = res.data.user_id;
+                    UserStore.setDataFromSessionStorage();
                     setUsername('success');
                     // console.log(username);
                     history.push("/mainpage");
