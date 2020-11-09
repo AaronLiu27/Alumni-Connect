@@ -77,6 +77,7 @@ class Login(Resource):
                 identity=str(target_user["_id"]),
                 expires_delta=expires_refresh)
             return {
+                "user_id": str(target_user["_id"]),
                 "access_token": access_token,
                 "refresh_token": refresh_token
             }, 200
@@ -88,9 +89,9 @@ class Login(Resource):
         """
 
 
-@api.route("/register")
+@ api.route("/register")
 class Register(Resource):
-    @api.expect(register_fields)
+    @ api.expect(register_fields)
     def post(self):
         return redirect(
             url_for("users_users"),
@@ -98,9 +99,9 @@ class Register(Resource):
         )
 
 
-@api.route("/refresh")
+@ api.route("/refresh")
 class TokenRefresh(Resource):
-    @jwt_refresh_token_required
+    @ jwt_refresh_token_required
     def post(self):
         # retrive the user's identity from the refresh token
         # using a Flask-JWT-Extended built-in method
@@ -110,10 +111,10 @@ class TokenRefresh(Resource):
         return {"access_token": new_token}, 200
 
 
-@api.route("/protected")
+@ api.route("/protected")
 class Protected(Resource):
-    @jwt_required
-    @api.doc(parser=auth_parser)
+    @ jwt_required
+    @ api.doc(parser=auth_parser)
     def get(self):
         current_user = get_jwt_identity()
         return {"userId": current_user}
