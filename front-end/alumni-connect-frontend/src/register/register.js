@@ -49,11 +49,25 @@ function RegisterForm() {
             if (res.status === 200) {
                 UserStore.username = username;
                 UserStore.isLoggedIn = true;
-                UserStore.token = res.data.access_token;
+                UserStore.token = 'Bearer '+res.data.access_token;
+                UserStore.id = res.data.user_id;
                 console.log(UserStore)
-                alert('register success!')
-                history.push("/mainpage")
-                setUsername('success');
+                axios.post('http://nyu-devops-alumniconnect.herokuapp.com//api/profiles/profile/user/'+UserStore.id, 
+                    {user : username,
+                    age : 20},
+                    {headers: { Authorization: UserStore.token }}
+                    
+                  )
+                  .then(function (response) {
+                    console.log(response);
+                    alert('register success!')
+                    history.push("/mainpage")
+                    setUsername('success');
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  })
+                
             } else {
                 resetForm();
                 // if(res.status === 400 && res.data.message == "Usernmae already exists.")

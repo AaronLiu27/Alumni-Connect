@@ -8,8 +8,8 @@ class UserStore {
             loading: false,
             isLoggedIn: false,
             username: '',
-            token:''
-
+            token:'',
+            id:''
         })
     }
 }

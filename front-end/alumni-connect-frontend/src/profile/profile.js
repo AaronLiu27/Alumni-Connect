@@ -11,18 +11,6 @@ import "./profile.css";
 function Profile() {
     const [buttonDisabled, setButtonDisabled] = useState(false);
 
-    axios.get('/user', {
-        params: {
-          ID: UserStore.username
-        }
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-
     return (
         <div>
              <Row>
