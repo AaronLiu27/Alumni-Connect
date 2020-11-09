@@ -10,6 +10,17 @@ import "./profile.css";
 
 function Profile() {
     const [buttonDisabled, setButtonDisabled] = useState(false);
+    const[age, setAge] = useState(0);
+    axios.get('http://nyu-devops-alumniconnect.herokuapp.com//api/profiles/profile/user/'+UserStore.id,
+        {headers: { Authorization: UserStore.token }}
+      )
+      .then(function (response) {
+        console.log(response);
+        setAge(response.data.age);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
 
     return (
         <div>
@@ -45,9 +56,9 @@ function Profile() {
                             <input 
                                 className="input"
                                 id="passwordInput" 
-                                type='password'
-                                plcaeholder='Password'
-                                value=""
+                                type='text'
+                                
+                                value={age}
                             />
                         </div>
                     </div>
