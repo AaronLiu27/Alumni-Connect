@@ -11,32 +11,36 @@ import "./profile.css";
 function Profile() {
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [age, setAge] = useState(0);
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState(UserStore.username);
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [discipline, setDiscipline] = useState('');
-
+    const [email, setEmail] = useState('');
     const updateProfile = () => {
+        console.log('wwwwww')
+        console.log(user);
+        console.log(firstname);
+        console.log(lastname);
         console.log(age);
+        console.log(discipline);
+        console.log('wwwwww') 
         axios.put('http://nyu-devops-alumniconnect.herokuapp.com/api/profiles/profile/user/'+UserStore.id,
             {
-                "user": user,
+                "user": UserStore.username,
                 "firstname": firstname,
                 "lastname": lastname,
                 "age": age,
                 "discipline": discipline
             },
             {headers: { Authorization: UserStore.token }}
-        ).then(function(response) {
-            console.log(response);
+        ).then(function(response2) {
+            console.log('1111111')
+            console.log(response2);
             alert('update profile success!');
-            setAge(response.data.age);
-            setUser(response.data.user);
-            setFirstname(response.data.firstname);
-            setLastname(response.data.lastname);
-            setDiscipline(response.data.discipline);
-            console.log(response)
+            
+            alert('successful change!')
         }).catch(function (error) {
+            console.log('22222222')
             console.log(error);
         })
     }
@@ -50,6 +54,7 @@ function Profile() {
         .then(function (response) {
             console.log(response);
             setAge(response.data.age);
+            setEmail(response.data.email)
             setUser(response.data.user);
             setFirstname(response.data.firstname);
             setLastname(response.data.lastname);
@@ -114,7 +119,8 @@ function Profile() {
                                 className="input"
                                 id="emailInput" 
                                 type='text'
-                                value=""
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
                     </div>
