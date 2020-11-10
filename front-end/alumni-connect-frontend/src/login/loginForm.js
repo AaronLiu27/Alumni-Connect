@@ -43,7 +43,7 @@ function LoginForm() {
                 if (res.status === 200) {
                     UserStore.isLoggedIn = true;
                     UserStore.username = username;
-                    UserStore.token = res.data.access_token;
+                    UserStore.token = 'Bearer '+res.data.access_token;
                     UserStore.id = res.data.user_id;
                     UserStore.setDataFromSessionStorage();
                     setUsername('success');
