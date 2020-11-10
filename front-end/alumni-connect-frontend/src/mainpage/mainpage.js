@@ -16,7 +16,8 @@ function MainPage() {
       UserStore.isLoggedIn = false;
       UserStore.loading = false;
       UserStore.setDataFromSessionStorage();
-      history.goBack();
+      history.replace("/");
+      // history.goBack();
     }
     
     return (
