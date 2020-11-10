@@ -35,6 +35,7 @@ function Profile() {
             setFirstname(response.data.firstname);
             setLastname(response.data.lastname);
             setDiscipline(response.data.discipline);
+            console.log(response)
         }).catch(function (error) {
             console.log(error);
         })

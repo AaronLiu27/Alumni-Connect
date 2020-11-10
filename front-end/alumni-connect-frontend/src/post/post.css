@@ -1,3 +1,31 @@
 .postCard{
     margin-bottom: 50px;
+    width: 85%;
+}
+
+.newPost{
+    position: relative;
+    left:75%;
+    margin-bottom: 20px;
+    font-weight: bolder;
+
+}
+
+.postTextArea{
+    margin-top: 40px;
+    margin-left: 16px;
+}
+
+.postTag{
+    width:150px;
+    margin-top:10px;
+    border: 6px solid transparent;
+    border-color: #fff transparent transparent transparent;
+    
+}
+
+.postTag:focus{
+    outline: none !important;
+    border: 6px solid transparent!important;
+  border-color: #fff transparent transparent transparent!important;
 }
