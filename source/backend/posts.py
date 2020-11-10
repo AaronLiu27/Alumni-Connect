@@ -40,7 +40,7 @@ class Posts(Resource):
     def get(self):
         """Get all posts"""
         post_col = mongo.db.posts
-        target_posts = post_col.find()
+        target_posts = list(post_col.find())
         logger.debug(target_posts)
         if not target_posts:
             abort(404, "No post founded.")
