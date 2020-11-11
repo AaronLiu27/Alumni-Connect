@@ -27,10 +27,10 @@ function Profile() {
         axios.put('http://nyu-devops-alumniconnect.herokuapp.com/api/profiles/profile/user/'+UserStore.id,
             {
                 "user": UserStore.username,
-                "firstname": firstname,
-                "lastname": lastname,
-                "age": age,
-                "discipline": discipline
+                "firstname": firstname? firstname: '',
+                "lastname": lastname? lastname: '',
+                "age": age? age:0,
+                "discipline": discipline?discipline: ''
             },
             {headers: { Authorization: UserStore.token }}
         ).then(function(response2) {
