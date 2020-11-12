@@ -38,11 +38,11 @@ function MainPage() {
         
             <div className='tag'>
               <div className='tagBtn'>
-                <Link to="/profile" className='linkBtn'>Your Profile</Link>
+                <Link to="/mainpage/profile" className='linkBtn'>Your Profile</Link>
                 <Link to="/mainpage" className='linkBtn'>Mainpage</Link>
               </div>
             <Switch>
-              <Route exact path = "/profile">
+              <Route path = "/mainpage/profile">
                 <Profile />
               </Route>
               <Route exact path = "/mainpage">

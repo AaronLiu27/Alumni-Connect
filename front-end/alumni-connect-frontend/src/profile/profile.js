@@ -21,6 +21,7 @@ function Profile() {
             setButtonDisabled(false);
             return;
         }
+        console.log("UserStore.id : " + UserStore.id);
         axios.put('http://nyu-devops-alumniconnect.herokuapp.com/api/profiles/profile/user/'+UserStore.id,
             {
                 "user": UserStore.username,
@@ -41,6 +42,7 @@ function Profile() {
     }
     
     const getProfile = () => {
+        UserStore.getDataFromSessionStorage();
         console.log("Id : " + UserStore.id);
         console.log("Token : " + UserStore.token);
         axios.get('http://nyu-devops-alumniconnect.herokuapp.com/api/profiles/profile/user/'+UserStore.id,
@@ -102,7 +104,7 @@ function Profile() {
                                     const newAge = e.target.value.replace(/[^\d]+/, '');
                                     setAge(Number(newAge));
                                 }}
-                                keyboardType='numeric'
+                                keyboardtype='numeric'
                                 disabled={buttonDisabled}
                             />
                         </div>

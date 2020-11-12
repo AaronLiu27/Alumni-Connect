@@ -43,6 +43,7 @@ function App() {
 
   const checkSecssion = () => {
     UserStore.getDataFromSessionStorage();
+    console.log("render App");
   }
 
 
@@ -62,7 +63,7 @@ function App() {
        <div className="app">
           <Router>
             <div className='account'>
-            {UserStore.isLoggedIn==false && 
+            {UserStore.isLoggedIn===false && 
               <div className='navLink'>
                 <Link className='navLinkBtn' to="/login">Login</Link>
                 <Link className='navLinkBtn' to="/register">Register</Link>
@@ -74,7 +75,7 @@ function App() {
               <Route exact path = "/register">
                 <RegisterForm />
               </Route>
-              <Route exact path = "/mainpage">
+              <Route path = "/mainpage">
                 <MainPage />
               </Route>
             </Switch>
