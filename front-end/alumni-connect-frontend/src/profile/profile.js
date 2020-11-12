@@ -9,7 +9,7 @@ import { useState } from "react";
 import "./profile.css";
 
 function Profile() {
-    const [buttonDisabled, setButtonDisabled] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(true);
     const [age, setAge] = useState(0);
     const [user, setUser] = useState(UserStore.username);
     const [firstname, setFirstname] = useState('');
@@ -17,6 +17,10 @@ function Profile() {
     const [discipline, setDiscipline] = useState('');
     const [email, setEmail] = useState('');
     const updateProfile = () => {
+        if(buttonDisabled) {
+            setButtonDisabled(false);
+            return;
+        }
         axios.put('http://nyu-devops-alumniconnect.herokuapp.com/api/profiles/profile/user/'+UserStore.id,
             {
                 "user": UserStore.username,
@@ -33,6 +37,7 @@ function Profile() {
         }).catch(function (error) {
             console.log(error);
         })
+        setButtonDisabled(true);
     }
     
     const getProfile = () => {
@@ -80,6 +85,7 @@ function Profile() {
                                 id="FirstNameInput" 
                                 type='text'
                                 value={firstname}
+                                disabled={buttonDisabled}
                                 onChange={(e) => setFirstname(e.target.value)}
                             />
                         </div>
@@ -97,6 +103,7 @@ function Profile() {
                                     setAge(Number(newAge));
                                 }}
                                 keyboardType='numeric'
+                                disabled={buttonDisabled}
                             />
                         </div>
                     </div>
@@ -111,6 +118,7 @@ function Profile() {
                                 type='text'
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                disabled={buttonDisabled}
                             />
                         </div>
                     </div>
@@ -123,6 +131,7 @@ function Profile() {
                                 type='text'
                                 value={lastname}
                                 onChange={(e) => setLastname(e.target.value)}
+                                disabled={buttonDisabled}
                             />
                         </div>
                     </div>
@@ -137,6 +146,7 @@ function Profile() {
                         type='text'
                         value={discipline}
                         onChange={(e) => setDiscipline(e.target.value)}
+                        disabled={buttonDisabled}
                     />
                 </div>
             </div>
@@ -145,10 +155,9 @@ function Profile() {
                 <Button
                     className='saveBtn'
                     text='update'
-                    disabled={buttonDisabled}
                     onClick={() => updateProfile()}
                 >
-                    Save
+                    {buttonDisabled ? "Update" : "Confirm"}
                 </Button>
             </div>
         </div>
