@@ -54,8 +54,11 @@ function RegisterForm() {
                 UserStore.setDataFromSessionStorage();
                 console.log(UserStore)
                 axios.post('http://nyu-devops-alumniconnect.herokuapp.com/api/profiles/profile/user/'+UserStore.id, 
-                    {user : username,
-                    age : 20},
+                {
+                    user : username,
+                    age : 20,
+                    email : email
+                },
                     {headers: { Authorization: UserStore.token }}
                   )
                   .then(function (response) {

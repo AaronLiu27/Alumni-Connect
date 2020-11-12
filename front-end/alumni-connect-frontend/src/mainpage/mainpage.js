@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import SubmitButton from '../component/submitButton';
 import UserStore from '../stores/UserStore';
 import {useHistory} from "react-router-dom";

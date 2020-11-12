@@ -17,30 +17,20 @@ function Profile() {
     const [discipline, setDiscipline] = useState('');
     const [email, setEmail] = useState('');
     const updateProfile = () => {
-        console.log('wwwwww')
-        console.log(user);
-        console.log(firstname);
-        console.log(lastname);
-        console.log(age);
-        console.log(discipline);
-        console.log('wwwwww') 
         axios.put('http://nyu-devops-alumniconnect.herokuapp.com/api/profiles/profile/user/'+UserStore.id,
             {
                 "user": UserStore.username,
                 "firstname": firstname? firstname: '',
                 "lastname": lastname? lastname: '',
                 "age": age? age:0,
+                "email" : email,
                 "discipline": discipline?discipline: ''
             },
             {headers: { Authorization: UserStore.token }}
         ).then(function(response2) {
-            console.log('1111111')
             console.log(response2);
             alert('update profile success!');
-            
-            alert('successful change!')
         }).catch(function (error) {
-            console.log('22222222')
             console.log(error);
         })
     }
@@ -143,7 +133,7 @@ function Profile() {
                 <div>
                     <textarea 
                         className="textArea"
-                        id="passwordInput" 
+                        id="textareaInput" 
                         type='text'
                         value={discipline}
                         onChange={(e) => setDiscipline(e.target.value)}
@@ -154,7 +144,7 @@ function Profile() {
             <div className=''>
                 <Button
                     className='saveBtn'
-                    text='Login'
+                    text='update'
                     disabled={buttonDisabled}
                     onClick={() => updateProfile()}
                 >
