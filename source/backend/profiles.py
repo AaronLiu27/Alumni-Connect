@@ -26,6 +26,7 @@ profile = api.model(
         "firstname": fields.String(),
         "lastname": fields.String(),
         "age": fields.Integer(),
+        "email": fields.String(),
         "discipline": fields.String(),
     },
 )
@@ -81,6 +82,7 @@ class Profile(Resource):
         profile_new["firstname"] = request.json.get("firstname")
         profile_new["lastname"] = request.json.get("lastname")
         profile_new["age"] = request.json.get("age")
+        profile_new["email"] = request.json.get("email")
         profile_new["discipline"] = request.json.get("discipline")
 
         profile_added = profile_col.insert_one(profile_new)
@@ -117,10 +119,12 @@ class Profile(Resource):
 
         myquery = {"user": ObjectId(userid)}
         profile_update = {}
+        profile_update["_id"] = target_profile["_id"]
         profile_update["user"] = ObjectId(userid)
         profile_update["firstname"] = request.json.get("firstname")
         profile_update["lastname"] = request.json.get("lastname")
         profile_update["age"] = request.json.get("age")
+        profile_update["email"] = request.json.get("email")
         profile_update["discipline"] = request.json.get("discipline")
 
         result = profile_col.update_one(myquery, {"$set": profile_update})
