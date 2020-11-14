@@ -5,7 +5,7 @@ import {useHistory} from "react-router-dom";
 import axios from 'axios';
 import {Route, Switch, Link, BrowserRouter as Router} from "react-router-dom";
 import {Button, Card, ListGroup, ListGroupItem, Modal, Row, Col} from 'react-bootstrap';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./post.css";
 
 function PostList() {
@@ -17,11 +17,28 @@ function PostList() {
         {id:5, title:'www4'}
 
     ]
+    const [post2, setPost2] = useState([]);
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    const getPost = () => {
+        UserStore.getDataFromSessionStorage();
+        
+        axios.get('http://nyu-devops-alumniconnect.herokuapp.com/api/posts',
+            
+        )
+        .then(function (response) {
+            //console.log(response);
+            setPost2(response.data)
+            console.log(post2)
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+    
+    useEffect(() => {getPost()}, [post2]);
 
 
     return (
@@ -81,11 +98,11 @@ function PostList() {
                 </Modal.Footer>
             </Modal>
             {
-                post.map(p=>
+                post2.map(p=>
                     <div >
-                        <Card className='postCard' id={p.id}>
+                        <Card className='postCard' id={p._id}>
                             <Card.Body>
-                                <Card.Title>{p.title}</Card.Title>
+                                <Card.Title>{p.content}</Card.Title>
                                 <Card.Text>
                                 Some quick example text to build on the card title and make up the bulk of
                                 the card's content.
