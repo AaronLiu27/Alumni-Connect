@@ -13,7 +13,7 @@ import datetime
 
 RESTX_VALIDATE = True
 
-api = Namespace("auth", description="Profile related routes", path="/api/auth")
+api = Namespace("auth", description="auth related routes", path="/api/auth")
 
 auth_fields = api.model(
     "UserAuth",

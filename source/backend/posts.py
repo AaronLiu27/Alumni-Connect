@@ -25,6 +25,7 @@ post = api.model(
         "_id": fields.String(description="Post ID"),
         "user": fields.String(description="Belong to user"),
         "username": fields.String(),
+        "title": fields.String(),
         "content": fields.String(),
         "createtime": fields.DateTime(),
         "updatetime": fields.DateTime(),
@@ -91,6 +92,7 @@ class PostsByUser(Resource):
         post_new = {}
         post_new["user"] = ObjectId(userid)
         post_new["username"] = target_user["username"]
+        post_new["title"] = request.json.get("title")
         post_new["content"] = request.json.get("content")
         post_new["createtime"] = currenttime
         post_new["updatetime"] = currenttime
@@ -136,6 +138,7 @@ class Post(Resource):
         post_update = {}
         post_update["user"] = target_post["user"]
         post_update["username"] = target_post["username"]
+        post_update["title"] = request.json.get("title")
         post_update["content"] = request.json.get("content")
         post_update["createtime"] = target_post["createtime"]
         post_update["updatetime"] = datetime.datetime.now()
