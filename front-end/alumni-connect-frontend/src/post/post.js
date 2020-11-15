@@ -9,15 +9,9 @@ import { useState, useEffect } from "react";
 import "./post.css";
 
 function PostList() {
-    const post = [
-        {id:1, title:'www'},
-        {id:2, title:'www1'},
-        {id:3, title:'www2'},
-        {id:4, title:'www3'},
-        {id:5, title:'www4'}
-
-    ]
-    const [post2, setPost2] = useState([]);
+    
+    const [post, setPost] = useState('');
+    const [posts, setPosts] = useState([]);
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -30,22 +24,24 @@ function PostList() {
         )
         .then(function (response) {
             //console.log(response);
-            setPost2(response.data)
-            console.log(post2)
+            setPosts(response.data)
+            //console.log(posts)
         })
         .catch(function (error) {
             console.log(error);
         })
     }
     
-    useEffect(() => {getPost()}, [post2]);
+    useEffect(() => {getPost()}, [posts]);
 
+    const handlePost=(e)=>{
+        setPost(e.target.id)
+        console.log(post)
+    }
 
     return (
         <div>
-            <Button className='newPost' variant='success' onClick={handleShow}>
-                New Post
-            </Button>
+            
 
             <Modal show={show} onHide={handleClose}  className='postModal' size="lg" aria-labelledby="example-modal-sizes-title-lg">
                 <Modal.Header closeButton>
@@ -97,12 +93,31 @@ function PostList() {
                 </Button>
                 </Modal.Footer>
             </Modal>
+            <Row>
+                <Col xs={6}> 
+                <Button className='newPost' variant='success' onClick={handleShow}>
+                    New Post
+                </Button>      
             {
-                post2.map(p=>
+                posts.map(p=>
                     <div >
-                        <Card className='postCard' id={p._id}>
+                        <Card className='postCard' >
                             <Card.Body>
-                                <Card.Title>{p.content}</Card.Title>
+                                <Card.Title>
+                                    <Button id={p._id}  onClick={handlePost}>
+                                        {p.title}
+                                    </Button>
+                                </Card.Title>
+                            </Card.Body>
+                        </Card>
+                    </div>
+                )
+            }
+                </Col>
+                    <Col xs={6}>
+                    <Card className='postCard' >
+                            <Card.Body>
+                            <Card.Title>{post}</Card.Title>
                                 <Card.Text>
                                 Some quick example text to build on the card title and make up the bulk of
                                 the card's content.
@@ -114,9 +129,8 @@ function PostList() {
                                 <ListGroupItem>Vestibulum at eros</ListGroupItem>
                             </ListGroup>
                         </Card>
-                    </div>
-                )
-            }
+                    </Col>
+            </Row>
             
         </div>
     );
