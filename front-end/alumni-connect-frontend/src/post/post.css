@@ -1,11 +1,14 @@
+.postList{
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    padding: 1.25rem;
+}
 .postCard{
-    margin-bottom: 50px;
     width: 85%;
 }
 
 .newPost{
-    position: relative;
-    left:75%;
+    
     margin-bottom: 20px;
     font-weight: bolder;
 
@@ -28,4 +31,8 @@
     outline: none !important;
     border: 6px solid transparent!important;
   border-color: #fff transparent transparent transparent!important;
+}
+
+.post-author{
+    
 }

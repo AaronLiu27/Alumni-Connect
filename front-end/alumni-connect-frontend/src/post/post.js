@@ -7,6 +7,7 @@ import {Route, Switch, Link, BrowserRouter as Router} from "react-router-dom";
 import {Button, Card, ListGroup, ListGroupItem, Modal, Row, Col} from 'react-bootstrap';
 import { useState, useEffect } from "react";
 import "./post.css";
+import { lib } from 'crypto-js';
 
 function PostList() {
     
@@ -33,7 +34,10 @@ function PostList() {
     }
     
     useEffect(() => {getPost()}, [posts]);
-
+    const [postTile, setPostTitle] = useState('');
+    const [postAuthor, setPostTitleAuthor] = useState('');
+    const [postContent, setPostContent] = useState('');
+    const [postTime, setPostTime] = useState('');
     const handlePost=(e)=>{
         setPost(e.target.id)
         console.log(post)
@@ -41,8 +45,6 @@ function PostList() {
 
     return (
         <div>
-            
-
             <Modal show={show} onHide={handleClose}  className='postModal' size="lg" aria-labelledby="example-modal-sizes-title-lg">
                 <Modal.Header closeButton>
                 <Modal.Title>Post Your Topic</Modal.Title>
@@ -94,27 +96,22 @@ function PostList() {
                 </Modal.Footer>
             </Modal>
             <Row>
-                <Col xs={6}> 
-                <Button className='newPost' variant='success' onClick={handleShow}>
-                    New Post
-                </Button>      
+                <Col xs={4}> 
+                    <Button className='newPost' variant='success' onClick={handleShow}>
+                        New Post
+                    </Button>   
             {
                 posts.map(p=>
-                    <div >
-                        <Card className='postCard' >
-                            <Card.Body>
-                                <Card.Title>
-                                    <Button id={p._id}  onClick={handlePost}>
-                                        {p.title}
-                                    </Button>
-                                </Card.Title>
-                            </Card.Body>
-                        </Card>
+                    <div  className='postList' id={p._id}  onClick={handlePost}>
+                            {p.title}
+                                <div className='post-author' id={p._id}  onClick={handlePost}>
+                                    {p.username} 
+                                </div> 
                     </div>
                 )
             }
                 </Col>
-                    <Col xs={6}>
+                    <Col xs={8}>
                     <Card className='postCard' >
                             <Card.Body>
                             <Card.Title>{post}</Card.Title>
