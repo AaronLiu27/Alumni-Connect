@@ -34,7 +34,7 @@ function PostList() {
     }
     
     useEffect(() => {getPost()}, [posts]);
-    const [postTile, setPostTitle] = useState('');
+    const [postTitle, setPostTitle] = useState('');
     const [postAuthor, setPostTitleAuthor] = useState('');
     const [postContent, setPostContent] = useState('');
     const [postTime, setPostTime] = useState('');
@@ -42,7 +42,17 @@ function PostList() {
     const handlePost=(e)=>{
         setPost(e.target.id)
         setPostActive(e.target.id)
-        console.log(post)
+        axios.get('http://nyu-devops-alumniconnect.herokuapp.com/api/posts/post/'+post,
+        
+        )
+        .then(function (response) {
+            console.log(response);
+            
+            //console.log(posts)
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
     }
 
     return (
@@ -105,10 +115,10 @@ function PostList() {
             {
                 posts.map(p=>
                     <div className={p._id == postActive? 'post-active' : 'postList'} id={p._id}  onClick={handlePost} >
-                            <div className='post-list-title' id={p._id}  onClick={handlePost}>
+                            <div className='post-list-title' id={p._id} onClick={handlePost} >
                                 {p.title}
                             </div>
-                            <div className='post-list-author' id={p._id}  onClick={handlePost}>
+                            <div className='post-list-author' id={p._id} onClick={handlePost} >
                                 create by {p.username} on {p.createtime.slice(0,10)}
                             </div> 
                     </div>
@@ -118,7 +128,7 @@ function PostList() {
                     <Col xs={8}>
                     <Card className='postCard' >
                             <Card.Body>
-                            <Card.Title>{post}</Card.Title>
+                            <Card.Title>{postTitle}</Card.Title>
                                 <Card.Text>
                                 Some quick example text to build on the card title and make up the bulk of
                                 the card's content.
