@@ -38,8 +38,10 @@ function PostList() {
     const [postAuthor, setPostTitleAuthor] = useState('');
     const [postContent, setPostContent] = useState('');
     const [postTime, setPostTime] = useState('');
+    const[postActive, setPostActive] = useState('');
     const handlePost=(e)=>{
         setPost(e.target.id)
+        setPostActive(e.target.id)
         console.log(post)
     }
 
@@ -102,11 +104,13 @@ function PostList() {
                     </Button>   
             {
                 posts.map(p=>
-                    <div  className='postList' id={p._id}  onClick={handlePost}>
-                            {p.title}
-                                <div className='post-author' id={p._id}  onClick={handlePost}>
-                                    {p.username} 
-                                </div> 
+                    <div className={p._id == postActive? 'post-active' : 'postList'} id={p._id}  onClick={handlePost} >
+                            <div className='post-list-title' id={p._id}  onClick={handlePost}>
+                                {p.title}
+                            </div>
+                            <div className='post-list-author' id={p._id}  onClick={handlePost}>
+                                create by {p.username} on {p.createtime.slice(0,10)}
+                            </div> 
                     </div>
                 )
             }
