@@ -33,14 +33,8 @@ function PostList() {
         })
     }
     
-<<<<<<< HEAD
     useEffect(() => {getPost()}, [posts]);
     const [postTitle, setPostTitle] = useState('');
-=======
-    // useEffect(() => {getPost()}, [posts]);
-    useEffect(() => {getPost()}, []);
-    const [postTile, setPostTitle] = useState('');
->>>>>>> 0b9cefa6cbb296b69057face5bd182c99219afda
     const [postAuthor, setPostTitleAuthor] = useState('');
     const [postContent, setPostContent] = useState('');
     const [postTime, setPostTime] = useState('');
