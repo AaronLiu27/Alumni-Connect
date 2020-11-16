@@ -33,22 +33,25 @@ function PostList() {
         })
     }
     
-    useEffect(() => {getPost()}, [posts]);
+    useEffect(() => {getPost()}, []);
     const [postTitle, setPostTitle] = useState('');
-    const [postAuthor, setPostTitleAuthor] = useState('');
+    const [postAuthor, setPostAuthor] = useState('');
     const [postContent, setPostContent] = useState('');
     const [postTime, setPostTime] = useState('');
     const[postActive, setPostActive] = useState('');
+
     const handlePost=(e)=>{
         setPost(e.target.id)
         setPostActive(e.target.id)
-        axios.get('http://nyu-devops-alumniconnect.herokuapp.com/api/posts/post/'+post,
+        axios.get('http://nyu-devops-alumniconnect.herokuapp.com/api/posts/post/'+e.target.id,
         
         )
         .then(function (response) {
             console.log(response);
-            
-            //console.log(posts)
+            setPostTitle(response.data.title)
+            setPostAuthor(response.data.username)
+            setPostContent(response.data.content)
+            setPostTime(response.data.createtime)
         })
         .catch(function (error) {
             console.log(error);
@@ -80,16 +83,16 @@ function PostList() {
                             <label className='profileTitle' >Tag</label>
                                 <div>
                                     <select name="tag" id="tag" className='postTag'>
-                                        <option value="volvo">Volvo</option>
-                                        <option value="saab">Saab</option>
-                                        <option value="mercedes">Mercedes</option>
-                                        <option value="audi">Audi</option>
+                                        <option value="volvo">NYU student</option>
+                                        <option value="saab">Finance</option>
+                                        <option value="mercedes">Policy issue</option>
+                                        <option value="audi">Other</option>
                                     </select>
                                 </div>
                             </div>
                         </Col>
                         <div className='postTextArea'>
-                            <label className='profileTitle' >Discipline</label>
+                            <label className='profileTitle' >Content</label>
                             <div>
                                 <textarea 
                                     className="textArea"
@@ -114,7 +117,7 @@ function PostList() {
                     </Button>   
             {
                 posts.map(p=>
-                    <div className={p._id == postActive? 'post-active' : 'postList'} id={p._id}  onClick={handlePost} >
+                    <div className={p._id == postActive? 'post-active' : 'postList'} >
                             <div className='post-list-title' id={p._id} onClick={handlePost} >
                                 {p.title}
                             </div>
@@ -128,17 +131,12 @@ function PostList() {
                     <Col xs={8}>
                     <Card className='postCard' >
                             <Card.Body>
-                            <Card.Title>{postTitle}</Card.Title>
+                            <Card.Title>{postTitle}{postAuthor}</Card.Title>
                                 <Card.Text>
-                                Some quick example text to build on the card title and make up the bulk of
-                                the card's content.
+                                {postContent}
                                 </Card.Text>
                             </Card.Body>
-                            <ListGroup className="list-group-flush">
-                                <ListGroupItem>Cras justo odio</ListGroupItem>
-                                <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                                <ListGroupItem>Vestibulum at eros</ListGroupItem>
-                            </ListGroup>
+                            
                         </Card>
                     </Col>
             </Row>
