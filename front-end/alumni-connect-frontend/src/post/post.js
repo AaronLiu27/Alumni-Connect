@@ -119,7 +119,7 @@ function PostList() {
                                 {p.title}
                             </div>
                             <div className='post-list-author' id={p._id} onClick={handlePost} >
-                                create by {p.username} on {p.createtime.slice(0,10)}
+                                create by <a href={"/mainpage/personal/"+p.user}>{p.username}</a> on {p.createtime.slice(0,10)}
                             </div> 
                     </div>
                 )
