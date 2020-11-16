@@ -14,6 +14,7 @@ from source.backend.users import api as ns_users
 from source.backend.profiles import api as ns_profiles
 from source.backend.posts import api as ns_posts
 from source.backend.auth import api as ns_auth
+from source.backend.comments import api as ns_comments
 
 app = Flask(__name__)
 CORS(app)
@@ -31,6 +32,7 @@ api.add_namespace(ns_users)
 api.add_namespace(ns_profiles)
 api.add_namespace(ns_posts)
 api.add_namespace(ns_auth)
+api.add_namespace(ns_comments)
 
 users = {"admin": "000"}
 
