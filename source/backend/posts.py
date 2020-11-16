@@ -112,6 +112,18 @@ class PostsByUser(Resource):
 
 @api.route("/post/<postid>")
 class Post(Resource):
+    @api.marshal_with(post)
+    def get(self, postid):
+        """Get post by id"""
+        post_col = mongo.db.posts
+        postquery = {"_id": ObjectId(postid)}
+        target_post = post_col.find_one(postquery)
+        logger.debug(target_post)
+        if not target_post:
+            abort(404, "No post founded.")
+        else:
+            return target_post, 200
+
     @jwt_required
     @api.doc(parser=auth_parser, body=post)
     @api.marshal_with(post)
