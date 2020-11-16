@@ -6,10 +6,10 @@ import axios from 'axios';
 import {Route, Switch, Link, BrowserRouter as Router} from "react-router-dom";
 import {Button, Card, ListGroup, ListGroupItem, Modal, Row, Col} from 'react-bootstrap';
 import { useState, useEffect } from "react";
-import "./post.css";
+import "./personal.css";
 import { lib } from 'crypto-js';
 
-function PostList() {
+function Personal(props) {
     
     const [post, setPost] = useState('');
     const [posts, setPosts] = useState([]);
@@ -19,12 +19,12 @@ function PostList() {
     const handleShow = () => setShow(true);
     const getPost = () => {
         UserStore.getDataFromSessionStorage();
-        
-        axios.get('http://nyu-devops-alumniconnect.herokuapp.com/api/posts',
-            
+        const requesturl = 'http://nyu-devops-alumniconnect.herokuapp.com/api/posts/user/' + props.match.params.name;
+        axios.get(requesturl,
+            {},{headers: { Authorization: UserStore.token }}
         )
         .then(function (response) {
-            //console.log(response);
+            // console.log(response);
             setPosts(response.data)
             //console.log(posts)
         })
@@ -33,7 +33,6 @@ function PostList() {
         })
     }
     
-    // useEffect(() => {getPost()}, [posts]);
     useEffect(() => {getPost()}, []);
     const [postTile, setPostTitle] = useState('');
     const [postAuthor, setPostTitleAuthor] = useState('');
@@ -45,64 +44,10 @@ function PostList() {
         setPostActive(e.target.id)
         console.log(post)
     }
-
     return (
         <div>
-            <Modal show={show} onHide={handleClose}  className='postModal' size="lg" aria-labelledby="example-modal-sizes-title-lg">
-                <Modal.Header closeButton>
-                <Modal.Title>Post Your Topic</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Row>
-                        <Col xs={6}>
-                        <div className=''>
-                            <label className='profileTitle' htmlFor="usernameInput">Topic</label>
-                            <div>
-                                <input 
-                                    className="input"
-                                    id="usernameInput" 
-                                    type='text'
-                                    value=''
-                                />
-                            </div>
-                        </div>
-                        </Col>
-                        <Col xs={6}><div className=''>
-                            <label className='profileTitle' >Tag</label>
-                                <div>
-                                    <select name="tag" id="tag" className='postTag'>
-                                        <option value="volvo">Volvo</option>
-                                        <option value="saab">Saab</option>
-                                        <option value="mercedes">Mercedes</option>
-                                        <option value="audi">Audi</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </Col>
-                        <div className='postTextArea'>
-                            <label className='profileTitle' >Discipline</label>
-                            <div>
-                                <textarea 
-                                    className="textArea"
-                                    id="passwordInput" 
-                                    type='text'
-                                    value=''
-                                />
-                            </div>
-                        </div>
-                    </Row>
-                </Modal.Body>
-                <Modal.Footer>
-                <Button variant="primary" onClick={handleClose}>
-                    Post
-                </Button>
-                </Modal.Footer>
-            </Modal>
             <Row>
                 <Col xs={4}> 
-                    <Button className='newPost' variant='success' onClick={handleShow}>
-                        New Post
-                    </Button>   
             {
                 posts.map(p=>
                     <div className={p._id == postActive? 'post-active' : 'postList'} id={p._id}  onClick={handlePost} >
@@ -139,4 +84,4 @@ function PostList() {
 
 }
 
-export default PostList;
+export default Personal;

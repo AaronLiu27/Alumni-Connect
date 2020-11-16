@@ -1,0 +1,56 @@
+.postList{
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    padding: 1.25rem;
+}
+.postList:hover{
+    background-color: #E6CAFF;
+    color: white;
+}
+
+.post-active{
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    padding: 1.25rem;
+    background-color: purple;
+    color: white;
+}
+
+
+.postCard{
+    width: 85%;
+}
+
+.post-list-title{
+    font-size: x-large;
+    font-weight: bolder;
+}
+.newPost{
+    
+    margin-bottom: 20px;
+    font-weight: bolder;
+
+}
+
+.postTextArea{
+    margin-top: 40px;
+    margin-left: 16px;
+}
+
+.postTag{
+    width:150px;
+    margin-top:10px;
+    border: 6px solid transparent;
+    border-color: #fff transparent transparent transparent;
+    
+}
+
+.postTag:focus{
+    outline: none !important;
+    border: 6px solid transparent!important;
+  border-color: #fff transparent transparent transparent!important;
+}
+
+.post-list-author{
+    color: 	#AAAAAA;
+}
