@@ -1,4 +1,5 @@
 import {extendObservable, action} from 'mobx';
+import { runInAction } from 'mobx';
 
 
 class UserStore {
@@ -38,10 +39,12 @@ class UserStore {
         } else {
             pre_id = JSON.parse(id);
         }
-        this.isLoggedIn = logIn;
-        this.username = usrname;
-        this.token = tk;
-        this.id = pre_id;
+        runInAction(() => {
+            this.isLoggedIn = logIn;
+            this.username = usrname;
+            this.token = tk;
+            this.id = pre_id;
+        });
     }
 
     setDataFromSessionStorage = () => {

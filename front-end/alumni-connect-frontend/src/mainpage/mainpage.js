@@ -7,6 +7,7 @@ import Profile from '../profile/profile';
 import PostList from '../post/post';
 import {Button} from 'react-bootstrap'
 import './mainpage.css'
+import Personal from '../personal/personal';
 
 function MainPage() {
     let history = useHistory();
@@ -47,6 +48,8 @@ function MainPage() {
               </Route>
               <Route exact path = "/mainpage">
                 <PostList />
+              </Route>
+              <Route path = "/mainpage/personal/:name" component={Personal}>
               </Route>
             </Switch>
             </div>

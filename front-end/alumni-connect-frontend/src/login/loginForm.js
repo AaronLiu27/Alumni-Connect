@@ -51,12 +51,13 @@ function LoginForm() {
                     history.push("/mainpage");
                 } else {
                     resetForm();
-                    alert(res.statusText);
+                    alert("Wrong Username Or Password.");
                 }
             })
 
         } catch(e) {
             resetForm();
+            alert("Wrong Username Or Password.");
             console.log(e);
         }
 
