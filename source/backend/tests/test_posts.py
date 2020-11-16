@@ -178,6 +178,14 @@ def test_post_put(client):
     assert res.json["updatetime"] != res.json["createtime"]
 
 
+def test_posts_post_get(client):
+    url = "http://localhost:5000/api/posts/post/{}"
+
+    res = client.get(url.format(postid))
+    logger.debug(res.json)
+    assert res.status_code == 200
+
+
 def test_post_delete(client):
     url = "http://localhost:5000/api/posts/post/{}"
 
@@ -207,4 +215,5 @@ if __name__ == "__main__":
     test_posts_get(client)
     test_posts_user_post(client)
     test_posts_user_get(client)
+    test_posts_post_get(client)
     # test_post_delete(client)
