@@ -12,10 +12,18 @@ import { lib } from 'crypto-js';
 function PostList() {
     
     const [post, setPost] = useState('');
+    const [inputTopic, setInputTopic] = useState('');
+    const [inputContent, setInputContent] = useState('');
+    const [inputTag, setInputTag] = useState('');
     const [posts, setPosts] = useState([]);
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        console.log(inputTag)
+        console.log(inputTopic)
+        
+        setShow(false)
+    };
     const handleShow = () => setShow(true);
     const getPost = () => {
         UserStore.getDataFromSessionStorage();
@@ -35,6 +43,7 @@ function PostList() {
     
     useEffect(() => {getPost()}, []);
     const [postTitle, setPostTitle] = useState('');
+    const [postUid, setPostUid] = useState('');
     const [postAuthor, setPostAuthor] = useState('');
     const [postContent, setPostContent] = useState('');
     const [postTime, setPostTime] = useState('');
@@ -50,6 +59,7 @@ function PostList() {
             console.log(response);
             setPostTitle(response.data.title)
             setPostAuthor(response.data.username)
+            setPostUid(response.data.user)
             setPostContent(response.data.content)
             setPostTime(response.data.createtime)
         })
@@ -72,9 +82,10 @@ function PostList() {
                             <div>
                                 <input 
                                     className="input"
-                                    id="usernameInput" 
+                                     
                                     type='text'
-                                    value=''
+                                    
+                                    onChange={(e) => setInputTopic(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -82,11 +93,11 @@ function PostList() {
                         <Col xs={6}><div className=''>
                             <label className='profileTitle' >Tag</label>
                                 <div>
-                                    <select name="tag" id="tag" className='postTag'>
-                                        <option value="volvo">NYU student</option>
-                                        <option value="saab">Finance</option>
-                                        <option value="mercedes">Policy issue</option>
-                                        <option value="audi">Other</option>
+                                    <select name="tag" id="tag" className='postTag'  onChange={(e) => setInputTag(e.target.value)}>
+                                        <option value="NYU student" >NYU student</option>
+                                        <option value="Finance">Finance</option>
+                                        <option value="Policy issue">Policy issue</option>
+                                        <option value="Other">Other</option>
                                     </select>
                                 </div>
                             </div>
@@ -96,9 +107,10 @@ function PostList() {
                             <div>
                                 <textarea 
                                     className="textArea"
-                                    id="passwordInput" 
+                                     
                                     type='text'
-                                    value=''
+                                    
+                                    onChange={(e) => setInputContent(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -117,7 +129,7 @@ function PostList() {
                     </Button>   
             {
                 posts.map(p=>
-                    <div className={p._id == postActive? 'post-active' : 'postList'} >
+                    <div className={p._id == postActive? 'post-active' : 'postList'}  id={p._id} onClick={handlePost} >
                             <div className='post-list-title' id={p._id} onClick={handlePost} >
                                 {p.title}
                             </div>
@@ -129,15 +141,16 @@ function PostList() {
             }
                 </Col>
                     <Col xs={8}>
-                    <Card className='postCard' >
-                            <Card.Body>
-                            <Card.Title>{postTitle}{postAuthor}</Card.Title>
-                                <Card.Text>
-                                {postContent}
-                                </Card.Text>
-                            </Card.Body>
-                            
-                        </Card>
+                        {
+                            postActive &&
+                            <div className='postCard'>
+                                <div className='post-list-title'>{postTitle}</div>
+                                <div className='post-list-author'>
+                                create by <a href={"/mainpage/personal/"+postUid}>{postAuthor}</a> on {postTime.slice(0,10)}
+                                </div>
+                                <div>{postContent}</div>     
+                            </div>  
+                        }
                     </Col>
             </Row>
             
