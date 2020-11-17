@@ -1,7 +1,6 @@
 .postList{
     border: 1px solid rgba(0,0,0,.125);
     border-radius: .25rem;
-    padding: 1.25rem;
 }
 .postList:hover{
     background-color: #E6CAFF;
@@ -11,7 +10,6 @@
 .post-active{
     border: 1px solid rgba(0,0,0,.125);
     border-radius: .25rem;
-    padding: 1.25rem;
     background-color: purple;
     color: white;
 }
@@ -40,7 +38,7 @@
 }
 
 .postTag{
-    width:150px;
+    width:200px;
     margin-top:10px;
     border: 6px solid transparent;
     border-color: #fff transparent transparent transparent;

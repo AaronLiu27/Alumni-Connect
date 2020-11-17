@@ -21,7 +21,31 @@ function PostList() {
     const handleClose = () => {
         console.log(inputTag)
         console.log(inputTopic)
-        
+        axios.post('http://nyu-devops-alumniconnect.herokuapp.com//api/posts/user/'+UserStore.id, {
+            user: UserStore.id,
+            username: UserStore.username,
+            title: inputTopic,
+            content: inputContent,
+            tags: [inputTag]
+          },
+          {headers: { Authorization: UserStore.token}}
+          )
+          .then(function (response) {
+            console.log(response);
+            axios.get('http://nyu-devops-alumniconnect.herokuapp.com/api/posts',
+                )
+                .then(function (response) {
+                    //console.log(response);
+                    setPosts(response.data)
+                    //console.log(posts)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         setShow(false)
     };
     const handleShow = () => setShow(true);
@@ -33,6 +57,7 @@ function PostList() {
         )
         .then(function (response) {
             //console.log(response);
+            response.data = response.data.sort((a,b)=>{return a.createtime - b.createtime}).reverse();
             setPosts(response.data)
             //console.log(posts)
         })
@@ -70,7 +95,7 @@ function PostList() {
 
     return (
         <div>
-            <Modal show={show} onHide={handleClose}  className='postModal' size="lg" aria-labelledby="example-modal-sizes-title-lg">
+            <Modal show={show}  className='postModal' size="lg" aria-labelledby="example-modal-sizes-title-lg">
                 <Modal.Header closeButton>
                 <Modal.Title>Post Your Topic</Modal.Title>
                 </Modal.Header>
@@ -94,6 +119,7 @@ function PostList() {
                             <label className='profileTitle' >Tag</label>
                                 <div>
                                     <select name="tag" id="tag" className='postTag'  onChange={(e) => setInputTag(e.target.value)}>
+                                        <option value="Please select a tag" >Please select a tag</option>
                                         <option value="NYU student" >NYU student</option>
                                         <option value="Finance">Finance</option>
                                         <option value="Policy issue">Policy issue</option>
