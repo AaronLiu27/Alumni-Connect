@@ -38,10 +38,11 @@
 }
 
 .postTag{
-    width:250px;
+    
     margin-top:10px;
     border: 6px solid transparent;
     border-color: #fff transparent transparent transparent;
+    width:200px;
     
 }
 
