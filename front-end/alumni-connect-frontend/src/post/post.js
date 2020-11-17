@@ -171,15 +171,19 @@ function PostList() {
                     <Col xs={8}>
                         {
                             postActive &&
+                            <div>
                             <div className='postCard'>
                                 <div className='post-list-title'>{postTitle}</div>
                                 <div className='post-list-author'>
                                 create by <a href={"/mainpage/personal/"+postUid}>{postAuthor}</a> on {postTime.slice(0,10)}
                                 </div>
                                 <div>{postContent}</div>  
-                                <CommentList postid={post}/>   
+                                  
+                            </div>
+                            <CommentList postid={post}/>
                             </div>
                         }
+                         
                     </Col>
             </Row>
             

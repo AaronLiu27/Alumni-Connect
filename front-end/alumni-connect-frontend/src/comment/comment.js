@@ -1,7 +1,7 @@
 import React from 'react';
 import UserStore from '../stores/UserStore';
 import axios from 'axios';
-import {Button, Card, ListGroup, ListGroupItem, Modal, Row, Col} from 'react-bootstrap';
+import {Button, Card, ListGroup, ListGroupItem, Modal, Row, Col, InputGroup, FormControl} from 'react-bootstrap';
 import { useState, useEffect } from "react";
 import "./comment.css";
 
@@ -14,7 +14,7 @@ function CommentList(props) {
         axios.get('http://nyu-devops-alumniconnect.herokuapp.com/api/comments/post/'+props.postid, )
         .then(function (response) {
             console.log(response);
-            response.data = response.data.sort((a,b)=>{return a.createtime - b.createtime}).reverse();
+            response.data = response.data;
             setComments(response.data)
         })
         .catch(function (error) {
@@ -51,17 +51,7 @@ function CommentList(props) {
     // getComment();
     return(
         <div>
-            <div className='addComment'>
-                <input 
-                    className="input"
-                    id="commentInput" 
-                    type='text'
-                    plcaeholder='add a comment...'
-                    value={newcomment ? newcomment : ''}
-                    onChange={(e) => setNewcomment(e.target.value)}
-                />
-                <Button onClick={() => addComment()}>Add Comment</Button>
-            </div>
+            
             {
                 comments.map(comment => 
                     <div className='commentItem'>
@@ -69,11 +59,22 @@ function CommentList(props) {
                                 {comment.content}
                         </div>
                         <div className='comment-author' id={comment._id}>
-                            create by {comment.username} on {comment.createtime.slice(0,10)}
+                            by {comment.username} on {comment.createtime.slice(0,10)}
                         </div> 
                     </div>
                 )
             }
+
+            <InputGroup className="addComment">
+                <FormControl
+                    placeholder="leave your comment"
+                    value={newcomment ? newcomment : ''}
+                    onChange={(e) => setNewcomment(e.target.value)}
+                />
+                <InputGroup.Append>
+                <Button variant="outline-secondary" onClick={() => addComment()}>Add Comment</Button>
+                </InputGroup.Append>
+            </InputGroup>
         </div>
     );
 }
