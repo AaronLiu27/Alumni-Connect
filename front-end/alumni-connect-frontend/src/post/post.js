@@ -36,6 +36,7 @@ function PostList() {
                 )
                 .then(function (response) {
                     //console.log(response);
+                    response.data = response.data.sort((a,b)=>{return a.createtime - b.createtime}).reverse();
                     setPosts(response.data)
                     //console.log(posts)
                 })
@@ -95,7 +96,7 @@ function PostList() {
 
     return (
         <div>
-            <Modal show={show}  className='postModal' size="lg" aria-labelledby="example-modal-sizes-title-lg">
+            <Modal show={show} onHide={handleClose} className='postModal' size="lg" aria-labelledby="example-modal-sizes-title-lg">
                 <Modal.Header closeButton>
                 <Modal.Title>Post Your Topic</Modal.Title>
                 </Modal.Header>
