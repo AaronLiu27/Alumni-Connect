@@ -6,6 +6,7 @@ import axios from 'axios';
 import {Route, Switch, Link, BrowserRouter as Router} from "react-router-dom";
 import {Button, Card, ListGroup, ListGroupItem, Modal, Row, Col} from 'react-bootstrap';
 import { useState, useEffect } from "react";
+import CommentList from '../comment/comment';
 import "./post.css";
 import { lib } from 'crypto-js';
 
@@ -21,7 +22,7 @@ function PostList() {
     const handleClose = () => {
         console.log(inputTag)
         console.log(inputTopic)
-        axios.post('http://nyu-devops-alumniconnect.herokuapp.com//api/posts/user/'+UserStore.id, {
+        axios.post('http://nyu-devops-alumniconnect.herokuapp.com/api/posts/user/'+UserStore.id, {
             user: UserStore.id,
             username: UserStore.username,
             title: inputTopic,
@@ -175,8 +176,9 @@ function PostList() {
                                 <div className='post-list-author'>
                                 create by <a href={"/mainpage/personal/"+postUid}>{postAuthor}</a> on {postTime.slice(0,10)}
                                 </div>
-                                <div>{postContent}</div>     
-                            </div>  
+                                <div>{postContent}</div>  
+                                <CommentList postid={post}/>   
+                            </div>
                         }
                     </Col>
             </Row>
