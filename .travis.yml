@@ -19,6 +19,7 @@ services:
 before_install:
   - docker build -t nyudevops/alumniconnect .
   - docker run -d nyudevops/alumniconnect
+  - docker push nyudevops/alumniconnect
 
 after_success:
   - docker tag nyudevops/alumniconnect registry.heroku.com/$HEROKU_APP_NAME/web
