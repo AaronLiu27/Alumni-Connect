@@ -6,6 +6,10 @@ python:
 script:
   - make lint
   - make unit
+  - eval $(aws ecr get-login --region us-east-2)
+  - docker-compose build
+  - docker tag org/web:latest 943278698679.dkr.ecr.us-east-2.amazonaws.com/org/web:latest
+  - docker push 943278698679.dkr.ecr.us-east-2.amazonaws.com/org/web:latest
 # deploy:
 #   provider: heroku
 #   api_key:
@@ -25,3 +29,8 @@ after_success:
   - heroku container:login
   - heroku container:push web -a nyu-devops-alumniconnect
   - heroku container:release web -a nyu-devops-alumniconnect
+  
+env:
+  global:
+  - secure: Gw27OFfiVQbUDwMw2bK5GtdXQCszFsUnfWznqSkd9Qj8pGiBwkaMM+onTZgbclLm/VIfRMH6jpjzv1ZdO/2a8T10ZPnFq6eocUpjpBbBMb6MvZiVExXtm1XgMZiWNBSbPlhIxzQxOkQ/YovS+4kpAQgXDpASG6tRZ8VCA9gDff4p/c6xxN4pRtafCxzaBHRnOReqazaNyN64e8QIBQxMt7/xiBdZn92nONB+KosoimNa1k7XiR6VY1jZSkFBHUnMMw050WN11TVSMAzLzcjDog5SloczUYDmbqQvwwDrFD/MCB+XZ1RxqkgJ4Rsyyyq2GGKuBUqxfFrLJNH/tAMGlN+NS2U2Td0ylgD0D+Yeiuw0Z77la+3eqQjJlFHgBVBOSBpIDOVKwDutx87ERB8cIbWa0XzE2y/UHxEipXTQmmVxrFJEbWgjPIHXOZ6J9EAebxEBVp2WOJrtBJHbup/uBM3VL40V1JQKVmfYA6FQEVjSipiIlri8sm3wmLTIDLJObGHtaaBNXhtrE6qUYs6SrxucYkoIPB+FWXqK3nQIYWTk4p6miOwN7ynhQ7r/+26GK+0JQiH1RQQfVjqxzCtR67PFp5TkQMPfVSGU+efNXVenEkU1tH8am0Lp4mXmU+mv75tJq9erUg6GnNXswfBkydaqyuIVkJTR20UH+odENuE=
+  - secure: YxvhRQf7If65ZUyp2Ed4Vm9eOVgssS2wGiNa82xgLOWEz1iN5xKYwgYO+EDDD2E6AkNo5gNF3+jNUpmTsRGNotLlJYTTvxTbUremfYmiTePLmM9u9dNFKXzlKeQAT30dFvr78u7vf0VvyCd8VOflbO5PvBpxenx05scJobwQFc5TVaXXkyv+UCZ8GIIXj/MjAwAU8nYwzhyZ8AMlyI/rZbiYTIuFib3WrChkApUiP84wY/2Mwk9n/4xlWXio+RDN/HDW8v75dOX1qprSl10wl3uJzbOT23/ylONbPl3ZfQVTj2uS0EmG/TKtStZL3AwDYN3bB2nX53LIkc5tnDsAtX+ej7MRMxrkkLxg6xdxMcjaEbK9DNPc5n8ZHNZO/r16SAw/OJJrrt8RxkX6VYJpJQ3e/X+GU0ifeXgtEFjnlSVk4ljR3LRSxaaM3M6DEFaIuyRFZi/m1F2cZ2tqIIMSRRs9InNmRzyI2fSVnUkkNiPJ8NAMYHQixLB30F7veVYAGQHHWo5XJcrQu/QsjkNSUjKbFyRoQeYdeMZ0SXxEcS+Zo6OiJy8zmzKBJAeZ0z+drzTAQR3t9YWZtlhQdPkZGhQVY+8vIizVLFxkUalGZBhBQBFA6LY93fUiZkTXfr0iCZE/zzRcnKjkTAbzt4zONpSo01LrxLr8p3kRiV276Pw=
