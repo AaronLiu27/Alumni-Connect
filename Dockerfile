@@ -1,2 +1,6 @@
 FROM python:3-onbuild
-CMD ["python", "source/backend/app.py"]
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+COPY . /app
+RUN pip install -r requirements.txt
+CMD ["python", "wsgi.py"]
