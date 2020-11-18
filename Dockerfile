@@ -3,4 +3,4 @@ WORKDIR /app
 COPY . /app
 RUN pip install -r requirements-dev.txt
 
-CMD gunicorn wsgi:app
+CMD ["gunicorn", "wsgi:app -b 0.0.0.0:", "echo ${PORT}"]
