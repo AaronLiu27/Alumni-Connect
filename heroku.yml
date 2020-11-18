@@ -4,5 +4,5 @@ build:
 run:
   web: 
     command:
-      - gunicorn wsgi:app -b 0.0.0.0:$PORT
+      - python wsgi.py
     image: web

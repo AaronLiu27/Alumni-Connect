@@ -6,10 +6,16 @@ python:
 script:
   - make lint
   - make unit
-deploy:
-  provider: heroku
-  api_key:
-    secure: UxAu6zpQv69mprhx4wqRomO8wQrWNz7NsNRfITIqYQ0zgYhMZLJoOH7Q5RZGtKPAWr9SPlzgOdO8mQyDPagDajNrohpq8GTXLmP4x9bSi4K7mnMskmz5N3LUuDFw/ZUhpKgkLvqPyIEF+4eZs8lqom3Pd/6CaI/y14rDIPDeT3/fcu1JKHL2dJ5O+/LfmZXiro55+xdp+BEVo/G9idKTIJbRQ7Rgs7Wqp6Ea2JsosP9GugJx/lnPnNOuGFmIxbN8mkx8lyc0Rrsp5oXksjlef7k+WeIzvmGklPhcjqWxhAs47FwnFGFC9aX8dGlKU/BzaZZ8DdxIu9Ii3UbmumUfkZTtq3xSjh0VWrkrSf6j8mLeX+0Vj3RpnIdM1h+tXJGBS/njx2gWJ5iQ1fMC2PB9kwC8H0zVBkW4UMGWwgNkDi80VnZLxkwS/wp6qQvGFDcju10Aao6OsdmfTdacsXzb1E1+ZGqzchNDQCgrUDOt5ZY3CpK5i+a2hFh9yxzDam1AKe5eaYKnr+e/z8iJFGoASJz+AJ85AEG0j00UpkpdEcZbwHaPGQCW+d1mqJsQDPnA7a1TC+OE9+y96S0BWW9deLjM7s9Uu+ZrpmzDUTp8nKlvHyYqRATs0+DZL3BszLVoixDmK4P0kl28rS+AkqC00iOGzAMz6F/a0u221L/qCdY=
-  app: nyu-devops-alumniconnect
-  on:
-    repo: Vivian004/Alumni-Connect
+# deploy:
+#   provider: heroku
+#   api_key:
+#     secure: UxAu6zpQv69mprhx4wqRomO8wQrWNz7NsNRfITIqYQ0zgYhMZLJoOH7Q5RZGtKPAWr9SPlzgOdO8mQyDPagDajNrohpq8GTXLmP4x9bSi4K7mnMskmz5N3LUuDFw/ZUhpKgkLvqPyIEF+4eZs8lqom3Pd/6CaI/y14rDIPDeT3/fcu1JKHL2dJ5O+/LfmZXiro55+xdp+BEVo/G9idKTIJbRQ7Rgs7Wqp6Ea2JsosP9GugJx/lnPnNOuGFmIxbN8mkx8lyc0Rrsp5oXksjlef7k+WeIzvmGklPhcjqWxhAs47FwnFGFC9aX8dGlKU/BzaZZ8DdxIu9Ii3UbmumUfkZTtq3xSjh0VWrkrSf6j8mLeX+0Vj3RpnIdM1h+tXJGBS/njx2gWJ5iQ1fMC2PB9kwC8H0zVBkW4UMGWwgNkDi80VnZLxkwS/wp6qQvGFDcju10Aao6OsdmfTdacsXzb1E1+ZGqzchNDQCgrUDOt5ZY3CpK5i+a2hFh9yxzDam1AKe5eaYKnr+e/z8iJFGoASJz+AJ85AEG0j00UpkpdEcZbwHaPGQCW+d1mqJsQDPnA7a1TC+OE9+y96S0BWW9deLjM7s9Uu+ZrpmzDUTp8nKlvHyYqRATs0+DZL3BszLVoixDmK4P0kl28rS+AkqC00iOGzAMz6F/a0u221L/qCdY=
+#   app: nyu-devops-alumniconnect
+#   on:
+#     repo: Vivian004/Alumni-Connect
+services:
+  - docker
+
+before_install:
+  docker build .
+  docker run -d -p 5000:5001 --name heroku-container heroku-app
