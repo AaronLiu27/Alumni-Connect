@@ -23,6 +23,6 @@ before_install:
 after_success:
   - docker tag nyudevops/alumniconnect registry.heroku.com/$HEROKU_APP_NAME/web
   - docker push registry.heroku.com/$HEROKU_APP_NAME/web
-  - (echo "$HEROKU_CREDENTIALS_EMAIL" echo "$HEROKU_CREDENTIALS_PASSWORD") | heroku login
+  - (echo "$HEROKU_CREDENTIALS_EMAIL" echo "$HEROKU_CREDENTIALS_PASSWORD" echo "$HEROKU_APP_NAME") | heroku login
   - heroku container:login
   - heroku container:release web --app $HEROKU_APP_NAME
