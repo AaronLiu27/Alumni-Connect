@@ -21,7 +21,6 @@ before_install:
   - docker login -u "aaronliu027@gmail.com" --password=$(heroku auth:token) registry.heroku.com  
   - docker build -t nyudevops/alumniconnect .
   - docker run -d nyudevops/alumniconnect
-  - docker push nyudevops/alumniconnect
 
 deploy:
   provider: script
