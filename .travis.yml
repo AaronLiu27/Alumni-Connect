@@ -16,7 +16,12 @@ script:
 services:
   - docker
 
+# after_success:
+#   - heroku login
+#   - heroku git:remote -a nyu-devops-alumniconnect
+#   - git push heroku master
+
 after_success:
-  - heroku login
-  - heroku git:remote -a nyu-devops-alumniconnect
-  - git push heroku master
+  - heroku container:login
+  - heroku container:push web
+  - heroku container:release web
