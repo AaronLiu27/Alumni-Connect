@@ -8,6 +8,7 @@ script:
   - make unit
   - eval $(aws ecr get-login --region us-east-2)
   - docker-compose build
+  - docker images
   - docker tag org/web:latest 943278698679.dkr.ecr.us-east-2.amazonaws.com/org/web:latest
   - docker push 943278698679.dkr.ecr.us-east-2.amazonaws.com/org/web:latest
 # deploy:
@@ -24,6 +25,9 @@ services:
 #   - heroku login
 #   - heroku git:remote -a nyu-devops-alumniconnect
 #   - git push heroku master
+
+before_install:
+  - pip install awscli
 
 after_success:
   - heroku container:login
