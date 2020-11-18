@@ -18,7 +18,7 @@ services:
 
 before_install:
   - docker build -t nyudevops/alumniconnect .
-  - docker run nyudevops/alumniconnect -d
+  - docker run nyudevops/alumniconnect
   - docker push nyudevops/alumniconnect
 
 after_success:
