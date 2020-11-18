@@ -17,5 +17,10 @@ services:
   - docker
 
 before_install:
-  docker build .
-  docker run -d -p 5000:5001 --name heroku-container heroku-app
+  - docker build -t nyudevops/alumniconnect .
+  - docker run nyudevops/alumniconnect -d -p 5001:5000
+  - docker push nyudevops/alumniconnect
+
+after_success:
+  - heroku container:login
+  - heroku container:release web --app $HEROKU_APP_NAME
