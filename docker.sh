@@ -1,5 +1,9 @@
 #!/bin/bash
 
-docker build -t alumni-connect .
-docker rm alumni-connect-run
-docker run -p 5000:5000 --name alumni-connect-run alumni-connect gunicorn wsgi:app -b 0.0.0.0:5000
+docker build -t nyudevops/alumniconnect:latest .
+
+export PORT=5000
+export LOCAL_PORT=5000
+
+docker rm -f alumni-connect-run
+docker run --env PORT=$PORT -p $LOCAL_PORT:$PORT --name alumni-connect-run nyudevops/alumniconnect:latest
