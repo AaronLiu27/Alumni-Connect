@@ -6,6 +6,7 @@ import axios from 'axios';
 import {Route, Switch, Link, BrowserRouter as Router} from "react-router-dom";
 import {Button, Card, ListGroup, ListGroupItem, Modal, Row, Col} from 'react-bootstrap';
 import { useState, useEffect } from "react";
+import CommentList from '../comment/comment';
 import "./personal.css";
 import { lib } from 'crypto-js';
 
@@ -34,18 +35,33 @@ function Personal(props) {
     }
     
     useEffect(() => {getPost()}, []);
-    const [postTile, setPostTitle] = useState('');
-    const [postAuthor, setPostTitleAuthor] = useState('');
+    const [postTitle, setPostTitle] = useState('');
+    const [postUid, setPostUid] = useState('');
+    const [postAuthor, setPostAuthor] = useState('');
     const [postContent, setPostContent] = useState('');
     const [postTime, setPostTime] = useState('');
     const[postActive, setPostActive] = useState('');
     const handlePost=(e)=>{
         setPost(e.target.id)
         setPostActive(e.target.id)
-        console.log(post)
+        axios.get('http://nyu-devops-alumniconnect.herokuapp.com/api/posts/post/'+e.target.id,
+        
+        )
+        .then(function (response) {
+            console.log(response);
+            setPostTitle(response.data.title)
+            setPostAuthor(response.data.username)
+            setPostUid(response.data.user)
+            setPostContent(response.data.content)
+            setPostTime(response.data.createtime)
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
     }
     return (
         <div>
+
             <Row>
                 <Col xs={4}> 
             {
@@ -62,20 +78,21 @@ function Personal(props) {
             }
                 </Col>
                     <Col xs={8}>
-                    <Card className='postCard' >
-                            <Card.Body>
-                            <Card.Title>{post}</Card.Title>
-                                <Card.Text>
-                                Some quick example text to build on the card title and make up the bulk of
-                                the card's content.
-                                </Card.Text>
-                            </Card.Body>
-                            <ListGroup className="list-group-flush">
-                                <ListGroupItem>Cras justo odio</ListGroupItem>
-                                <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                                <ListGroupItem>Vestibulum at eros</ListGroupItem>
-                            </ListGroup>
-                        </Card>
+                        {
+                            postActive &&
+                            <div>
+                            <div className='postCard'>
+                                <div className='post-list-title'>{postTitle}</div>
+                                <div className='post-list-author'>
+                                create by <a href={"/mainpage/personal/"+postUid}>{postAuthor}</a> on {postTime.slice(0,10)}
+                                </div>
+                                <div>{postContent}</div>  
+                                  
+                            </div>
+                            <CommentList postid={post} postUid={postUid}/>
+                            </div>
+                        }
+                         
                     </Col>
             </Row>
             

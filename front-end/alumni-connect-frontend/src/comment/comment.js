@@ -59,7 +59,7 @@ function CommentList(props) {
                                 {comment.content}
                         </div>
                         <div className='comment-author' id={comment._id}>
-                            by {comment.username} on {comment.createtime.slice(0,10)}
+                            by <a href={"/mainpage/personal/"+comment.user}>{comment.username}</a> on {comment.createtime.slice(0,10)}
                         </div> 
                     </div>
                 )

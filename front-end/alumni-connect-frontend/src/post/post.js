@@ -180,7 +180,7 @@ function PostList() {
                                 <div>{postContent}</div>  
                                   
                             </div>
-                            <CommentList postid={post}/>
+                            <CommentList postid={post} postUid={postUid}/>
                             </div>
                         }
                          
