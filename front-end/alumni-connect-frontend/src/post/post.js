@@ -16,6 +16,7 @@ function PostList() {
     const [inputTopic, setInputTopic] = useState('');
     const [inputContent, setInputContent] = useState('');
     const [inputTag, setInputTag] = useState('');
+    const [tagArray,setTagArray] = useState([]);
     const [posts, setPosts] = useState([]);
     const [show, setShow] = useState(false);
 
@@ -27,7 +28,7 @@ function PostList() {
             username: UserStore.username,
             title: inputTopic,
             content: inputContent,
-            tags: [inputTag]
+            tags: tagArray
           },
           {headers: { Authorization: UserStore.token}}
           )
@@ -74,7 +75,13 @@ function PostList() {
     const [postAuthor, setPostAuthor] = useState('');
     const [postContent, setPostContent] = useState('');
     const [postTime, setPostTime] = useState('');
+    const [postTags, setPostTags] = useState('');
     const[postActive, setPostActive] = useState('');
+
+    const handleTag=(e)=>{
+        let res = e.target.value.split(" #")
+        setTagArray(res)
+    }
 
     const handlePost=(e)=>{
         setPost(e.target.id)
@@ -89,6 +96,8 @@ function PostList() {
             setPostUid(response.data.user)
             setPostContent(response.data.content)
             setPostTime(response.data.createtime)
+            setPostTags(response.data.tags)
+            console.log(postTags)
         })
         .catch(function (error) {
             console.log(error);
@@ -103,7 +112,7 @@ function PostList() {
                 </Modal.Header>
                 <Modal.Body>
                     <Row>
-                        <Col xs={6}>
+                        <Col xs={4}>
                         <div className=''>
                             <label className='profileTitle' htmlFor="usernameInput">Topic</label>
                             <div>
@@ -117,19 +126,8 @@ function PostList() {
                             </div>
                         </div>
                         </Col>
-                        <Col xs={6}><div className=''>
-                            <label className='profileTitle' >Tag</label>
-                                <div>
-                                    <select name="tag" id="tag" className='postTag'  onChange={(e) => setInputTag(e.target.value)}>
-                                        <option value="Please select a tag" >Please select a tag</option>
-                                        <option value="NYU student" >NYU student</option>
-                                        <option value="Finance">Finance</option>
-                                        <option value="Policy issue">Policy issue</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </Col>
+                        <Col xs={6}>
+                        
                         <div className='postTextArea'>
                             <label className='profileTitle' >Content</label>
                             <div>
@@ -142,6 +140,19 @@ function PostList() {
                                 />
                             </div>
                         </div>
+                        <div className='postTextArea'>
+                            <label className='profileTitle' >Tag</label>
+                                <div>
+                                <textarea 
+                                    className="textAreaTag"
+                                    placeholder='e.g. #NYU_Student #NYU_Policy'
+                                    type='text'
+                                    
+                                    onChange={handleTag}
+                                />
+                                </div>
+                            </div>
+                            </Col>
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
@@ -177,7 +188,14 @@ function PostList() {
                                 <div className='post-list-author'>
                                 create by <a href={"/mainpage/personal/"+postUid}>{postAuthor}</a> on {postTime.slice(0,10)}
                                 </div>
-                                <div>{postContent}</div>  
+                                <div>
+                                    {postContent}
+                                    
+                                    {postTags&& postTags.map(t=>
+                                        <div className="tags">{t.length>0? "#"+t:null}</div>
+                                    )}
+                                    
+                                    </div>  
                                   
                             </div>
                             <CommentList postid={post} postUid={postUid}/>

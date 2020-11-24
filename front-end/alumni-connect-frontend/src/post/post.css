@@ -55,3 +55,9 @@
 .post-list-author{
     color: 	#AAAAAA;
 }
+
+.tags{
+    margin-left: 3px;
+    display: inline;
+    color: lightblue
+}
