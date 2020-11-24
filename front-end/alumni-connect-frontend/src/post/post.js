@@ -19,8 +19,10 @@ function PostList() {
     const [tagArray,setTagArray] = useState([]);
     const [posts, setPosts] = useState([]);
     const [show, setShow] = useState(false);
-
-    const handleClose = () => {
+    const handleClose = ()=>{
+        setShow(false);
+    }
+    const handleNewPost = () => {
         console.log(inputTag)
         console.log(inputTopic)
         axios.post('http://nyu-devops-alumniconnect.herokuapp.com/api/posts/user/'+UserStore.id, {
@@ -211,7 +213,7 @@ function PostList() {
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                <Button variant="primary" onClick={handleClose}>
+                <Button variant="primary" onClick={handleNewPost}>
                     Post
                 </Button>
                 </Modal.Footer>
