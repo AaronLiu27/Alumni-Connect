@@ -196,3 +196,21 @@ class CommentById(Resource):
             return {"success": "Comment deleted."}, 200
         else:
             abort(500, "Failed to delete comment.")
+
+
+@api.route("/user/<userid>")
+class CommentsByUser(Resource):
+    @api.marshal_list_with(comment)
+    def get(self, userid):
+        """Get comments by userid
+        """
+        if not userid:
+            abort(400, "Bad request.")
+
+        comment_col = mongo.db.comments
+        target_comments = list(comment_col.find({"user": ObjectId(userid)}))
+        logger.debug(target_comments)
+        if not target_comments:
+            abort(404, "No comments founded.")
+        else:
+            return target_comments, 200
