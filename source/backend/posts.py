@@ -33,6 +33,13 @@ post = api.model(
     },
 )
 
+tag = api.model(
+    "Tag",
+    {
+        "tag": fields.String(required=True, description="searching tag")
+    },
+)
+
 POSTS = []
 
 
@@ -193,3 +200,24 @@ class Post(Resource):
             return {"success": "Post deleted."}, 200
         else:
             abort(500, "Failed to delete post.")
+
+
+@api.route("/tag")
+class PostsByTag(Resource):
+    @api.doc(body=tag)
+    @api.marshal_list_with(post)
+    def get(self):
+        """Get post by tag
+        """
+        if not request.is_json:
+            abort(400, "Json not found")
+
+        search_tag = request.json.get("tag")
+
+        post_col = mongo.db.posts
+        target_posts = list(post_col.find({"tags": search_tag}))
+        logger.debug(target_posts)
+        if not target_posts:
+            abort(404, "No post founded.")
+        else:
+            return target_posts, 200
