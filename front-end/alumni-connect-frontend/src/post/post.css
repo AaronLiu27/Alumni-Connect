@@ -67,3 +67,6 @@
     display: inline;
     color: lightblue
 }
+.deleteBtn{
+    text-align: right;
+}

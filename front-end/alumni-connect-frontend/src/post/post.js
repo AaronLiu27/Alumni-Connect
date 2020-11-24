@@ -93,6 +93,32 @@ function PostList() {
         setPostSearch(e.target.value)
     }
 
+    const deletePost=()=>{
+        axios.delete('http://nyu-devops-alumniconnect.herokuapp.com/api/posts/post/'+ postActive,
+            {headers: { Authorization: UserStore.token}}
+        )
+        .then(function (response) {
+            //console.log(response);
+            alert('post deleted')
+            setPostActive('')
+            axios.get('http://nyu-devops-alumniconnect.herokuapp.com/api/posts',
+                )
+                .then(function (response) {
+                    //console.log(response);
+                    response.data = response.data.sort((a,b)=>{return a.createtime - b.createtime}).reverse();
+                    setPosts(response.data)
+                    //console.log(posts)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            //console.log(posts)
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
     const handlePost=(e)=>{
         setPost(e.target.id)
         setPostActive(e.target.id)
@@ -205,9 +231,11 @@ function PostList() {
                             <div>
                             <div className='postCard'>
                                 <div className='post-list-title'>{postTitle}</div>
+                                
                                 <div className='post-list-author'>
                                 create by <a href={"/mainpage/personal/"+postUid}>{postAuthor}</a> on {postTime.slice(0,10)}
                                 </div>
+                                
                                 <div>
                                     {postContent}
                                     
@@ -216,8 +244,16 @@ function PostList() {
                                     )}
                                     
                                     </div>  
-                                  
+                                {
+                                    postUid == UserStore.id &&
+                                    <div className='deleteBtn'> 
+                                    <Button  variant='outline-danger' onClick={deletePost} >
+                                        delete
+                                    </Button> 
+                                    </div>
+                                }
                             </div>
+                            
                             <CommentList postid={post} postUid={postUid}/>
                             </div>
                         }
