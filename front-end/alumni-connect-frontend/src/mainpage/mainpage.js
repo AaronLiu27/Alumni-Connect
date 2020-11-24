@@ -36,13 +36,13 @@ function MainPage() {
               </div>
             </div>
             <div className='content'>
-            <div className='titleName'>hi {UserStore.username}</div>
+            <div className='titleName'>Welcome {UserStore.username}</div>
             <Router>
         
             <div className='tag'>
               <div className='tagBtn'>
-                <Link to="/mainpage/profile" className='linkBtn'>Your Profile</Link>
-                <Link to="/mainpage" className='linkBtn'>Mainpage</Link>
+                <Link to="/mainpage/profile" className='linkBtn'>My Profile</Link>
+                <Link to="/mainpage" className='linkBtn'>MainPage</Link>
               </div>
             <Switch>
               <Route path = "/mainpage/profile">

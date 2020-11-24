@@ -119,6 +119,25 @@ function PostList() {
         })
     }
 
+    const handleAllPost=()=>{
+        axios.get('http://nyu-devops-alumniconnect.herokuapp.com/api/posts',
+        )
+        .then(function (response) {
+            //console.log(response);
+            response.data = response.data.sort((a,b)=>{return a.createtime - b.createtime}).reverse();
+            setPosts(response.data)
+            //console.log(posts)
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    const handleMyPost=()=>{
+        let mypost = posts.filter(p=>p.user == UserStore.id)
+        setPosts(mypost)
+    }
+
     const handlePost=(e)=>{
         setPost(e.target.id)
         setPostActive(e.target.id)
@@ -198,8 +217,14 @@ function PostList() {
                 </Modal.Footer>
             </Modal>
             <Row>
-                <Col xs={4}> 
-                    <Button className='newPost' variant='success' onClick={handleShow}>
+                <Col xs={4}>
+                    <Button className='newPost' variant='outline-info' onClick={handleAllPost}>
+                        All Post
+                    </Button> 
+                    <Button className='newPost' variant='outline-info' onClick={handleMyPost}>
+                        My Post
+                    </Button> 
+                    <Button className='newPost' variant='outline-success' onClick={handleShow}>
                         New Post
                     </Button>   
             {
