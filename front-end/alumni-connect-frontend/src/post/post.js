@@ -54,7 +54,7 @@ function PostList() {
     const handleShow = () => setShow(true);
 
     const Search = () => {
-        
+
     }
 
     const getPost = () => {
@@ -212,7 +212,7 @@ function PostList() {
                                     {postContent}
                                     
                                     {postTags&& postTags.map(t=>
-                                        <div className="tags">{t.length>0? "#"+t:null}</div>
+                                        <div className="tags">{t.length > 0 ? "#"+t:null}</div>
                                     )}
                                     
                                     </div>  

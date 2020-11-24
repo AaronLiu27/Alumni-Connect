@@ -8,6 +8,7 @@ import PostList from '../post/post';
 import {Button} from 'react-bootstrap'
 import './mainpage.css'
 import Personal from '../personal/personal';
+import NYU from '../../src/nyu.png'
 
 function MainPage() {
     let history = useHistory();
@@ -24,6 +25,7 @@ function MainPage() {
     return (
         <div>
             <div className='nav'> 
+            <img src={NYU} className='nyu_icon' />
               <div className ='brand'>Alumni Connect</div>
               <div className="logout">
                 <Button 
