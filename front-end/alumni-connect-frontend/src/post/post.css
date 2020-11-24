@@ -21,9 +21,15 @@
     padding: 1.25rem;
 }
 
+.search_bar{
+    width: 60%;
+    margin-bottom: 20px;
+}
+
 .post-list-title{
     font-size: x-large;
     font-weight: bolder;
+    
 }
 .newPost{
     

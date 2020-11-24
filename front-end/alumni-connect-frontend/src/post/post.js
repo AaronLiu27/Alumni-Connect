@@ -4,7 +4,7 @@ import UserStore from '../stores/UserStore';
 import {useHistory} from "react-router-dom";
 import axios from 'axios';
 import {Route, Switch, Link, BrowserRouter as Router} from "react-router-dom";
-import {Button, Card, ListGroup, ListGroupItem, Modal, Row, Col} from 'react-bootstrap';
+import {Button, Card, ListGroup, ListGroupItem, Modal, Row, Col, InputGroup,FormControl} from 'react-bootstrap';
 import { useState, useEffect } from "react";
 import CommentList from '../comment/comment';
 import "./post.css";
@@ -52,6 +52,11 @@ function PostList() {
         setShow(false)
     };
     const handleShow = () => setShow(true);
+
+    const Search = () => {
+        
+    }
+
     const getPost = () => {
         UserStore.getDataFromSessionStorage();
         
@@ -77,10 +82,15 @@ function PostList() {
     const [postTime, setPostTime] = useState('');
     const [postTags, setPostTags] = useState('');
     const[postActive, setPostActive] = useState('');
+    const [postSearch, setPostSearch] = useState('');
 
     const handleTag=(e)=>{
         let res = e.target.value.split(" #")
         setTagArray(res)
+    }
+
+    const handleSearch=(e)=>{
+        setPostSearch(e.target.value)
     }
 
     const handlePost=(e)=>{
@@ -180,6 +190,16 @@ function PostList() {
             }
                 </Col>
                     <Col xs={8}>
+                    <InputGroup className='search_bar'>
+                        <FormControl
+                        placeholder="Input tag"
+                        onchange = {handleSearch}
+                        />
+                        <InputGroup.Append>
+                        <Button variant="outline-secondary" onClick={Search}>Search by Tag</Button>
+                        
+                        </InputGroup.Append>
+                    </InputGroup>
                         {
                             postActive &&
                             <div>
