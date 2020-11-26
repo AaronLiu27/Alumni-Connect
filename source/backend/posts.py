@@ -34,7 +34,7 @@ post = api.model(
 )
 
 tag = api.model(
-    "Tag",
+    "SearchingTag",
     {
         "tag": fields.String(required=True, description="searching tag")
     },
@@ -206,7 +206,7 @@ class Post(Resource):
 class PostsByTag(Resource):
     @api.doc(body=tag)
     @api.marshal_list_with(post)
-    def get(self):
+    def post(self):
         """Get post by tag
         """
         if not request.is_json:
