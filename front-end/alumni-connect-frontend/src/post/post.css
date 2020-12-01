@@ -26,6 +26,10 @@
     margin-bottom: 20px;
 }
 
+.editBtn{
+    margin-right: 20px;
+}
+
 .post-list-title{
     font-size: x-large;
     font-weight: bolder;
@@ -68,5 +72,16 @@
     color: 		#BE77FF!important
 }
 .deleteBtn{
+    margin-top: 20px;
     text-align: right;
+}
+
+.updateInput{
+    width:350px;
+    height:100px;
+
+}
+
+.cancelUpdate{
+    margin-right: 20px;
 }

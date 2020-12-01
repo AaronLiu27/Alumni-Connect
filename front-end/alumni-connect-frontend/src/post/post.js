@@ -114,7 +114,8 @@ function PostList() {
     const [postTags, setPostTags] = useState('');
     const[postActive, setPostActive] = useState('');
     const [postSearch, setPostSearch] = useState('');
-
+    const [showEdit, setShowEdit] = useState(false);
+    const [editContent, setEditContent] = useState('');
     const handleTag=(e)=>{
         let res = e.target.value.split(" #")
         setTagArray(res)
@@ -122,6 +123,48 @@ function PostList() {
 
     const handleSearch=(e)=>{
         setPostSearch(e.target.value)
+    }
+
+    const editPost=()=>{
+        setShowEdit(true)
+    }
+    const cancelUpdatePost =()=>{
+        setShowEdit(false)
+    }
+
+    const updatePost=()=>{
+        console.log(postTitle)
+        console.log(editContent)
+        console.log(postTags)
+        axios.put('http://nyu-devops-alumniconnect.herokuapp.com/api/posts/post/'+postActive, {
+            user: UserStore.id,
+            username: UserStore.username,
+            title: postTitle,
+            content: editContent,
+            tags: postTags
+          },{headers: { Authorization: UserStore.token}})
+          .then(function (response) {
+            console.log(response);
+            setShowEdit(false)
+            axios.get('http://nyu-devops-alumniconnect.herokuapp.com/api/posts',
+            )
+            .then(function (response) {
+                //console.log(response);
+                response.data = response.data.sort((a,b)=>{return a.createtime - b.createtime}).reverse();
+                setPosts(response.data)
+                setPostsDup(response.data)
+                setPostContent(editContent)
+                //console.log(posts)
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        
+
     }
 
     const deletePost=()=>{
@@ -184,6 +227,7 @@ function PostList() {
             setPostAuthor(response.data.username)
             setPostUid(response.data.user)
             setPostContent(response.data.content)
+            setEditContent(response.data.content)
             setPostTime(response.data.createtime)
             setPostTags(response.data.tags)
             console.log(postTags)
@@ -294,7 +338,20 @@ function PostList() {
                         </InputGroup.Append>
                     </InputGroup>
                         {
-                            postActive &&
+                            showEdit&&
+                            <div>
+                                <div><textarea className='updateInput' value={editContent} onChange={(e) => setEditContent(e.target.value)}>
+                                </textarea></div>
+                                <Button  variant='outline-danger' onClick={cancelUpdatePost} className='cancelUpdate' >
+                                        cancel
+                                </Button>
+                                <Button  variant='outline-success' onClick={updatePost} >
+                                        update
+                                </Button>
+                            </div>
+                        }
+                        {
+                            postActive && !showEdit &&
                             <div>
                             <div className='postCard'>
                                 <div className='post-list-title'>{postTitle}</div>
@@ -316,9 +373,13 @@ function PostList() {
                                 {
                                     postUid == UserStore.id &&
                                     <div className='deleteBtn'> 
+                                    <Button  variant='outline-success' onClick={editPost} className='editBtn'>
+                                        edit
+                                    </Button>
                                     <Button  variant='outline-danger' onClick={deletePost} >
                                         delete
                                     </Button> 
+                                     
                                     </div>
                                 }
                             </div>
