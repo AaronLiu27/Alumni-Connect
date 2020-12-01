@@ -19,6 +19,7 @@ function PostList() {
     const [tagArray,setTagArray] = useState([]);
     const [posts, setPosts] = useState([]);
     const [show, setShow] = useState(false);
+    const [postsDup, setPostsDup] = useState([]);
     const handleClose = ()=>{
         setShow(false);
     }
@@ -42,6 +43,7 @@ function PostList() {
                     //console.log(response);
                     response.data = response.data.sort((a,b)=>{return a.createtime - b.createtime}).reverse();
                     setPosts(response.data)
+                    setPostsDup(response.data)
                     //console.log(posts)
                 })
                 .catch(function (error) {
@@ -55,8 +57,34 @@ function PostList() {
     };
     const handleShow = () => setShow(true);
 
-    const Search = () => {
+    const SearchByTag = () => {
+        if(postSearch === '') {
+            alert("please input tag")
+            return;
+        }
+        let TagPosts = postsDup.filter(p=>p.tags.indexOf(postSearch) != -1)
+        setPosts(TagPosts)
+        setPostSearch('')
+    }
 
+    const SearchByTitle = () => {
+        if(postSearch === '') {
+            alert("please input title")
+            return;
+        }
+        let TitlePosts = postsDup.filter(p=>p.title == postSearch)
+        setPosts(TitlePosts)
+        setPostSearch('')
+    }
+
+    const SearchByUser = () => {
+        if(postSearch === '') {
+            alert("please input username")
+            return;
+        }
+        let UserPosts = postsDup.filter(p=>p.username == postSearch)
+        setPosts(UserPosts)
+        setPostSearch('')
     }
 
     const getPost = () => {
@@ -69,6 +97,7 @@ function PostList() {
             //console.log(response);
             response.data = response.data.sort((a,b)=>{return a.createtime - b.createtime}).reverse();
             setPosts(response.data)
+            setPostsDup(response.data)
             //console.log(posts)
         })
         .catch(function (error) {
@@ -109,6 +138,7 @@ function PostList() {
                     //console.log(response);
                     response.data = response.data.sort((a,b)=>{return a.createtime - b.createtime}).reverse();
                     setPosts(response.data)
+                    setPostsDup(response.data)
                     //console.log(posts)
                 })
                 .catch(function (error) {
@@ -128,6 +158,7 @@ function PostList() {
             //console.log(response);
             response.data = response.data.sort((a,b)=>{return a.createtime - b.createtime}).reverse();
             setPosts(response.data)
+            setPostsDup(response.data)
             console.log(posts)
         })
         .catch(function (error) {
@@ -138,6 +169,7 @@ function PostList() {
     const handleMyPost=()=>{
         let mypost = posts.filter(p=>p.user == UserStore.id)
         setPosts(mypost)
+        setPostsDup(mypost)
     }
 
     const handlePost=(e)=>{
@@ -162,7 +194,7 @@ function PostList() {
     }
 
     const filtTag = (t) => {
-        let TagPosts = posts.filter(p=>p.tags.indexOf(t) != -1)
+        let TagPosts = postsDup.filter(p=>p.tags.indexOf(t) != -1)
         setPosts(TagPosts)
     }
 
@@ -250,11 +282,14 @@ function PostList() {
                     <Col xs={8}>
                     <InputGroup className='search_bar'>
                         <FormControl
-                        placeholder="Input tag"
-                        onchange = {handleSearch}
+                            placeholder="Input Tag/Title/User..."
+                            value={postSearch ? postSearch : ''}
+                            onChange={(e) => setPostSearch(e.target.value)}
                         />
                         <InputGroup.Append>
-                        <Button variant="outline-secondary" onClick={Search}>Search by Tag</Button>
+                        <Button variant="outline-secondary" onClick={SearchByTag}>Search by Tag</Button>
+                        <Button variant="outline-secondary" onClick={SearchByTitle}>Search by Title</Button>
+                        <Button variant="outline-secondary" onClick={SearchByUser}>Search by User</Button>
                         
                         </InputGroup.Append>
                     </InputGroup>

@@ -14,6 +14,7 @@ function Personal(props) {
     
     const [post, setPost] = useState('');
     const [posts, setPosts] = useState([]);
+    const [postsDup, setPostsDup] = useState([]);
     const [show, setShow] = useState(false);
     const [postTags, setPostTags] = useState('');
 
@@ -28,6 +29,7 @@ function Personal(props) {
         .then(function (response) {
             // console.log(response);
             setPosts(response.data)
+            setPostsDup(response.data)
             //console.log(posts)
         })
         .catch(function (error) {
@@ -35,6 +37,23 @@ function Personal(props) {
         })
     }
     
+    const getTracePost = () => {
+        UserStore.getDataFromSessionStorage();
+        const requesturl = 'http://nyu-devops-alumniconnect.herokuapp.com/api/posts/user/' + props.match.params.name;
+        axios.get(requesturl,
+            {},{headers: { Authorization: UserStore.token }}
+        )
+        .then(function (response) {
+            // console.log(response);
+            setPosts(response.data)
+            setPostsDup(response.data)
+            //console.log(posts)
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
     useEffect(() => {getPost()}, []);
     const [postTitle, setPostTitle] = useState('');
     const [postUid, setPostUid] = useState('');
@@ -63,7 +82,7 @@ function Personal(props) {
     }
     
     const filtTag = (t) => {
-        let TagPosts = posts.filter(p=>p.tags.indexOf(t) != -1)
+        let TagPosts = postsDup.filter(p=>p.tags.indexOf(t) != -1)
         setPosts(TagPosts)
     }
 
@@ -72,6 +91,9 @@ function Personal(props) {
 
             <Row>
                 <Col xs={4}> 
+                <Button className='Original' variant='outline-info' onClick={getPost}>
+                    Original
+                </Button> 
             {
                 posts.map(p=>
                     <div className={p._id == postActive? 'post-active' : 'postList'} id={p._id}  onClick={handlePost} >
