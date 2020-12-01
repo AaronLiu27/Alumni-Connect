@@ -17,9 +17,9 @@ unit: FORCE
 	coverage report -m
 
 lint: FORCE
-	- $(LINTER) *.py
-	- $(LINTER) $(SRC_DIR)/backend/*.py
-	- $(LINTER) $(SRC_DIR)/backend/*/*.py
+	$(LINTER) *.py
+	$(LINTER) $(SRC_DIR)/backend/*.py
+	$(LINTER) $(SRC_DIR)/backend/*/*.py
 
 dev_env: FORCE
 	pip install -r $(REQ_DIR)/requirements-dev.txt
