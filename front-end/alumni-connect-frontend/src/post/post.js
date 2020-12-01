@@ -128,7 +128,7 @@ function PostList() {
             //console.log(response);
             response.data = response.data.sort((a,b)=>{return a.createtime - b.createtime}).reverse();
             setPosts(response.data)
-            //console.log(posts)
+            console.log(posts)
         })
         .catch(function (error) {
             console.log(error);
@@ -159,6 +159,11 @@ function PostList() {
         .catch(function (error) {
             console.log(error);
         })
+    }
+
+    const filtTag = (t) => {
+        let TagPosts = posts.filter(p=>p.tags.indexOf(t) != -1)
+        setPosts(TagPosts)
     }
 
     return (
@@ -267,7 +272,9 @@ function PostList() {
                                     {postContent}
                                     
                                     {postTags&& postTags.map(t=>
-                                        <div className="tags">{t.length > 0 ? "#"+t:null}</div>
+                                        <a className="tags" onClick={ () => filtTag(t)}>
+                                            {t.length > 0 ? "#"+t:null}
+                                        </a>
                                     )}
                                     
                                     </div>  

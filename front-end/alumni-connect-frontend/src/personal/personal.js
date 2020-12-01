@@ -15,6 +15,7 @@ function Personal(props) {
     const [post, setPost] = useState('');
     const [posts, setPosts] = useState([]);
     const [show, setShow] = useState(false);
+    const [postTags, setPostTags] = useState('');
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -54,11 +55,18 @@ function Personal(props) {
             setPostUid(response.data.user)
             setPostContent(response.data.content)
             setPostTime(response.data.createtime)
+            setPostTags(response.data.tags)
         })
         .catch(function (error) {
             console.log(error);
         })
     }
+    
+    const filtTag = (t) => {
+        let TagPosts = posts.filter(p=>p.tags.indexOf(t) != -1)
+        setPosts(TagPosts)
+    }
+
     return (
         <div>
 
@@ -86,7 +94,16 @@ function Personal(props) {
                                 <div className='post-list-author'>
                                 create by <a href={"/mainpage/personal/"+postUid}>{postAuthor}</a> on {postTime.slice(0,10)}
                                 </div>
-                                <div>{postContent}</div>  
+                                <div>
+                                    {postContent}
+
+                                    {postTags&& postTags.map(t=>
+                                        <a className="tags" onClick={ () => filtTag(t)}>
+                                            {t.length > 0 ? "#"+t:null}
+                                        </a>
+                                    )}
+                                
+                                </div>  
                                   
                             </div>
                             <CommentList postid={post} postUid={postUid}/>
