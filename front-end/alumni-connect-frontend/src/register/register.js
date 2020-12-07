@@ -52,7 +52,6 @@ function RegisterForm() {
                 UserStore.token = 'Bearer '+res.data.access_token;
                 UserStore.id = res.data.user_id;
                 UserStore.setDataFromSessionStorage();
-                console.log(UserStore)
                 axios.post('http://nyu-devops-alumniconnect.herokuapp.com/api/profiles/profile/user/'+UserStore.id, 
                 {
                     user : username,
@@ -62,7 +61,7 @@ function RegisterForm() {
                     {headers: { Authorization: UserStore.token }}
                   )
                   .then(function (response) {
-                    console.log(response);
+                    setUsername("success");
                     alert('register success!')
                     history.push("/mainpage")
                     setUsername('success');
@@ -138,7 +137,7 @@ function RegisterForm() {
                 Register
             </Button>
             </div>
-            <div hidden role="alert">{UserStore.username}</div>
+            {UserStore.username != '' && <div hidden role="alert">{UserStore.username}</div>}
         </div>
     );
 

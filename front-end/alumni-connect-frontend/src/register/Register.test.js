@@ -3,16 +3,24 @@ import '@testing-library/jest-dom'
 import React from 'react'
 import {render, fireEvent, cleanup, screen} from '@testing-library/react'
 
-import RegisterForm from './register/register';
+import RegisterForm from './register';
 import {rest} from 'msw'
 import {setupServer} from 'msw/node'
 
-beforeAll(() => server.listen())
+beforeAll(
+    () => server.listen()
+)
+
+beforeAll(() => {
+    // JSDom does not implement this and an error was being
+    // thrown from jest-axe because of it.
+    window.getComputedStyle = () => {};
+  });
 afterEach(() => {
   server.resetHandlers()
 })
 afterAll(() => server.close())
-
+window.alert = () => {};
 test('test input username and password and email', () => {
     render(<RegisterForm />)
     const username = 'username'
@@ -38,7 +46,7 @@ test('test input username and password and email', () => {
 });
 
 const apiUrl = 'http://nyu-devops-alumniconnect.herokuapp.com/api/users/'
-const fakeUserResponse = {username : "username", passwd: "passwd"}
+const fakeUserResponse = {username : "username11", passwd: "passwd"}
 const server = setupServer(
     rest.post(apiUrl, (req, res, ctx) => {
         return res(ctx.status(200), ctx.json(fakeUserResponse))
@@ -47,7 +55,7 @@ const server = setupServer(
 
 test('test register api', async () => {
     render(<RegisterForm />)
-    const username = 'username'
+    const username = 'username11'
     const password = 'password'
     const email = 'email'
     const inputUsername = screen.getByLabelText(/username/i)
@@ -64,8 +72,8 @@ test('test register api', async () => {
     })
     fireEvent.click(screen.getByText(/Register/i))
 
-    const t = await screen.findByText('username')
+    // const t = await screen.findByText('username11')
+    const t = screen.findByRole(alert)
 
-    expect(inputUsername.value).toBe('')
+    expect(inputUsername.value).toBe('username11')
 })
-
