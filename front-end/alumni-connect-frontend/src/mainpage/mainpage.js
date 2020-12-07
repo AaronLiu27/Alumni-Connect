@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import SubmitButton from '../component/submitButton';
 import UserStore from '../stores/UserStore';
 import {useHistory} from "react-router-dom";
@@ -12,13 +12,15 @@ import NYU from '../../src/nyu.png'
 
 function MainPage() {
     let history = useHistory();
+    const [loginState, setLoginState] = useState('login');
     const doLogout = async() => {
-
       UserStore.username = '';
       UserStore.isLoggedIn = false;
       UserStore.loading = false;
       UserStore.setDataFromSessionStorage();
-      history.replace("/");
+      setLoginState('logout');
+      if(history)
+        history.replace('/');
       // history.goBack();
     }
     
@@ -57,6 +59,7 @@ function MainPage() {
             </div>
           </Router>
           </div>
+          <div hidden className='test'>{loginState}</div>
         </div>
     );
 
