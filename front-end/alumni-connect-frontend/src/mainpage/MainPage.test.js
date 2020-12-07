@@ -13,3 +13,18 @@ test('test log out', () => {
     expect(loginState.className).toBe('test')
 });
 
+test('test open profile', () => {
+    render(<MainPage />)
+    fireEvent.click(screen.getByText('My Profile'))
+    const updateBtn = screen.getByText('Update')
+
+    expect(updateBtn.value).toBe('Update')
+});
+
+test('test open post list', () => {
+    render(<MainPage />)
+    fireEvent.click(screen.getByText('MainPage'))
+    const newPostBtn = screen.getByText('New Post')
+
+    expect(newPostBtn.className).toBe('newPost btn btn-outline-success')
+});
