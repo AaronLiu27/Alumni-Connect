@@ -158,6 +158,7 @@ function Profile() {
                     className='saveBtn'
                     text='update'
                     onClick={() => updateProfile()}
+                    value={buttonDisabled ? "Update" : "Confirm"}
                 >
                     {buttonDisabled ? "Update" : "Confirm"}
                 </Button>
