@@ -14,9 +14,12 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+
+# user used to create/modify/delete comments; originally no comment
 userid = "5f7a3d5e41462499b1283a52"
+# user which originally has comments
 userid2 = "5f7968905510ad91c3510870"
-random_userid = "5f7a3d5e41462499b1283a53"
+
 
 postid = "5faac6137a2a44ea7bcf1169"
 commentid = ""
