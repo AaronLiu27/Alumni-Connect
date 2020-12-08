@@ -42,9 +42,6 @@ class Profile(Resource):
     def get(self, userid):
         """Get profile by userid
         """
-        if not userid:
-            abort(400, "Bad request.")
-
         profile_col = mongo.db.profiles
         target_profile = profile_col.find_one({"user": ObjectId(userid)})
         logger.debug(target_profile)
@@ -59,19 +56,11 @@ class Profile(Resource):
     def post(self, userid):
         """Create a new profile for the user identified by userid
         """
-        if not userid:
-            abort(400, "Bad request.")
-
         current_userid = get_jwt_identity()
         if current_userid != userid:
             abort(401, "Not authorized.")
 
-        user_col = mongo.db.users
         profile_col = mongo.db.profiles
-
-        target_user = user_col.find_one({"_id": ObjectId(userid)})
-        if not target_user:
-            abort(404, "User not found.")
 
         target_profile = profile_col.find_one({"user": ObjectId(userid)})
         if target_profile:
@@ -99,23 +88,15 @@ class Profile(Resource):
     def put(self, userid):
         """Update a profile for the user identified by userid
         """
-        if not userid:
-            abort(400, "Bad request.")
-
         current_userid = get_jwt_identity()
         if current_userid != userid:
             abort(401, "Not authorized.")
 
-        user_col = mongo.db.users
         profile_col = mongo.db.profiles
-
-        target_user = user_col.find_one({"_id": ObjectId(userid)})
-        if not target_user:
-            abort(404, "User not found.")
 
         target_profile = profile_col.find_one({"user": ObjectId(userid)})
         if not target_profile:
-            abort(400, "Profile not exists.")
+            abort(404, "Profile not found.")
 
         myquery = {"user": ObjectId(userid)}
         profile_update = {}
@@ -132,7 +113,7 @@ class Profile(Resource):
         if result:
             return profile_update, 200
         else:
-            abort(500, "Failed to create profile.")
+            abort(500, "Failed to update profile.")
 
     @jwt_required
     @api.doc(parser=auth_parser)
@@ -140,20 +121,11 @@ class Profile(Resource):
     def delete(self, userid):
         """Delete the profile for the user identified by userid
         """
-        logger.debug(userid)
-        if not userid:
-            abort(400, "Bad request.")
-
         current_userid = get_jwt_identity()
         if current_userid != userid:
             abort(401, "Not authorized.")
 
-        user_col = mongo.db.users
         profile_col = mongo.db.profiles
-
-        target_user = user_col.find_one({"_id": ObjectId(userid)})
-        if not target_user:
-            abort(404, "User not found.")
 
         profilequery = {"user": ObjectId(userid)}
 

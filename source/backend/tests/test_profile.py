@@ -122,6 +122,68 @@ def test_profile_get(client):
     assert res.status_code == 404
 
 
+def test_profile_put(client):
+    firstname = "Tom"
+    lastname = "Holland"
+    age = 25
+    discipline = "Biology"
+
+    url = "http://localhost:5000/api/profiles/profile/user/{}"
+
+    # Additional headers
+    headers = {"Content-Type": "application/json"}
+    # Body
+    payload = {
+        "user": userid,
+        "firstname": firstname,
+        "lastname": lastname,
+        "age": age,
+        "discipline": discipline,
+    }
+
+    auth_payload = {
+        "username": username,
+        "passwd": password
+    }
+
+    auth_res = client.post(
+        auth_url,
+        headers=headers,
+        data=json.dumps(auth_payload, indent=4)
+    )
+
+    assert auth_res.status_code == 200
+    auth_json = auth_res.json
+    print(auth_json)
+
+    res = client.post(
+        url.format(userid),
+        headers=headers,
+        data=json.dumps(payload, indent=4)
+    )
+
+    # Not authorized
+    assert res.status_code == 401
+    print(res.json)
+
+    headers["Authorization"] = "Bearer "+auth_json['access_token']
+
+    res = client.put(
+        url.format(userid),
+        headers=headers,
+        data=json.dumps(payload, indent=4)
+    )
+    assert res.status_code == 200
+    print(res.json)
+
+    res = client.put(
+        url.format(random_userid),
+        headers=headers,
+        data=json.dumps(payload, indent=4)
+    )
+    assert res.status_code == 401
+
+
 def test_profile_delete(client):
     url = "http://localhost:5000/api/profiles/profile/user/{}"
 
@@ -140,6 +202,9 @@ def test_profile_delete(client):
     auth_json = auth_res.json
     print(auth_json)
 
+    res = client.delete(url.format(userid), headers=headers)
+    assert res.status_code == 401
+
     headers["Authorization"] = "Bearer "+auth_json['access_token']
 
     res = client.delete(url.format(userid), headers=headers)
@@ -147,7 +212,8 @@ def test_profile_delete(client):
     print(res.json)
 
 
-if __name__ == "__main__":
-    test_profile_post(client)
-    test_profile_get(client)
-    test_profile_delete(client)
+# if __name__ == "__main__":
+    # test_profile_post(client)
+    # test_profile_get(client)
+    # test_profile_delete(client)
+    # test_profile_put(client)
