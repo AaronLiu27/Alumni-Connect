@@ -10,9 +10,7 @@ script:
 services:
   - docker
 
-app_name: nyu-devops-alumniconnect
-
 after_success:
   - heroku container:login
-  - heroku container:push web -a {{ app_name }}
-  - heroku container:release web -a {{ app_name }}
+  - heroku container:push web -a nyu-devops-alumniconnect
+  - heroku container:release web -a nyu-devops-alumniconnect
