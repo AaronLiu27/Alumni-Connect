@@ -1,7 +1,12 @@
 # Alumni-Connect
+> A "Piazza"-like social media portal.
+>
+
 ## Introduction
-Most of students decide to attend the class remotely due to COVID-19, which also makes it diffcult for classmates to communicate with each other. 
-In this case, our team decide to deveolpe a web application which is a social media platform where all NYU alumni can share their daily life and other information.
+
+Before COVID-19 we had tons of resources for face-to-face connection between alumni and students. But now "quarantine" is our best friend.\
+We want to narrow the distance between people, especially for the NYU alumni and students. For that purpose, our team has decided to build a web application which is a social media platform where all NYU alumni can share their daily life, release ads, reach out for help, or whatever else they'd like to.
+
 ## Objectives
 Provide an easy to use application that users can share their information with others.\
 Enable users to browse other users' post and make comment below it.\
@@ -13,32 +18,53 @@ You can make a post here by typing short statements about what you’re doing/wh
 Like twitter, the basic way to get in touch with others is that you “follow people” and have people “follow you”. 
 When you make a post, your followers see it, and you can also browse the posts of people who you’re following.
 If you want to communicate with people without it being public, you can send short private messages.
-## Tools.
-Pyhthon\
-Flask\
-React
+
+## Lint
+flake8
+
+## Build & Test
+makefile
+pytest
+
+## CI/CD
+Travis-CI
+Heroku
+Docker
 
 ## Modules
 
-1. ### Authentication and Authorization
-- Register
-- Login
+#### Auth
 
-2. ### Profile system
-- Fetch
-- Create & Edit
+1. [x] Register
+2. [x] Login
+#### User
 
-3. ### Post system
-- Post & Edit
-- Comment
+1. [x] Get all users
+2. [x] Create user
 
-## Deploy Instruction
-1. Clone the repository
-2. Copy .env.example to .env and insert a VALID `MONGO_URI`
-3. Make sure `docker` is installed on your machine
-3. Run `docker-compose up` in the project root directory
+#### Profile system
+
+- [x] Create
+- [x] Update
+- [x] Delete
+
+#### Post system
+
+- [x] Post something
+- [x] Delete
+- [x] Comment
+
+#### Search
+
+- [x] Search by username
+- [x] Search by tag
+
+
+
+
 
 ## Contributors
+
 Chen Chen(cc6475)
 
 Jingxian Du(jd4472)
