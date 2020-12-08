@@ -1,8 +1,0 @@
-build:
-  docker:
-    web: Dockerfile
-run:
-  web: 
-    command:
-      - gunicorn wsgi:app -b 0.0.0.0:$PORT
-    image: web
