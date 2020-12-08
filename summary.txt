@@ -1,0 +1,13 @@
+Preparation
+At the beginning of the semester, we formed a team of four. After setting our goal on the social media platform, we designed the APIs we were going to create, which would make our App a "minimum viable product".
+We first worked on the user system, which will hold the usernames and passwords, which is really basic to every social media. Then we move on to making auth endpoints to identify different users and to authorize requests.
+Then we continue to build the profile system, post system and the comment system. We didn't realize earlier that we should make sure that we have enough tests to cover every single function we were writing. So, it took us so much time to make up what was missing.
+We went astray again when making "standalone" tests. We sent requests to an actual running instance of our server to test if our APIs were functioning. What we needed was a pytest fixture, with which we can sent requests to a mock client.
+
+And we move on to connecting our repository to travis-ci. We added .travis.yml and Profile to enable the CI/CD pipeline. First, we set deploy configuration to heroku to use the prebuilt deploy pipeline, which requires heroku secure key, app name, and the repository name on github.
+
+Then we switched to deploy using heroku git, which requires heroku.yml and Dockerfile. We need to configure the heroku cli in our own terminal and push it to heroku git.
+
+Now we are using container registry for deploy. We need a Dockerfile and .travis.yml. The things Dockerfile does is to build an image based on python:3-onbuild, doing pip install. While .travis.yml declares "after_success" scripts, which will be executed by travis-ci after the tests have exited without errors.
+The most tricky part was Dockerfile syntax for the environment variable inside a container is different from what we used to use when using a Procfile.
+Also, since we use gunicorn as our WSGI HTTP Server, we need to configure it to forward https requests to http.
